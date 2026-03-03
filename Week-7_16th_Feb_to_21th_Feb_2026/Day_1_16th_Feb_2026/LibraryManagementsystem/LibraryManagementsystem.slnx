@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../LMSTest/LMSTest.csproj" />
+  <Project Path="LibraryManagementsystem.csproj" />
+</Solution>

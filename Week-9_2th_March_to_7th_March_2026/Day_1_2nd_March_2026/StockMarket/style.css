@@ -1,0 +1,32 @@
+body{margin:0;font-family:Arial;background:#f4f6f9}
+header{background:#1e2228;color:white;padding:15px}
+header h1{margin:0}
+nav{margin-top:10px}
+nav a{color:white;margin-right:15px;text-decoration:none}
+nav a:hover{text-decoration:underline}
+
+.dashboard{padding:20px}
+.stock-card{background:white;padding:15px;margin:15px 0;
+border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+.stock-card h3{margin:0}
+
+.it{border-left:6px solid #4caf50}
+.banking{border-left:6px solid #2196f3}
+.pharma{border-left:6px solid #9c27b0}
+
+button{padding:8px 15px;margin-right:10px;border:none;
+border-radius:4px;cursor:pointer}
+.buy{background:#4caf50;color:white}
+.sell{background:#f44336;color:white}
+
+.portfolio{background:white;padding:20px;margin:20px;
+border-radius:8px}
+.profit{color:#2e7d32;font-weight:bold}
+.loss{color:#c62828;font-weight:bold}
+.warning{color:#f9a825;font-weight:bold}
+
+footer{text-align:center;padding:10px;background:#1e2228;color:white}
+
+@media(max-width:768px){
+nav a{display:block;margin:5px 0}
+}
