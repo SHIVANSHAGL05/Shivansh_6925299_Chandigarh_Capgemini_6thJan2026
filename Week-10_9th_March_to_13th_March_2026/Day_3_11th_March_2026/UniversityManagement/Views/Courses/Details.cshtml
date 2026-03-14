@@ -1,0 +1,61 @@
+﻿@model UniversityManagement.Models.Course
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<h2>Course Details</h2>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Title</dt>
+    <dd class="col-sm-9">@Model.Title</dd>
+
+    <dt class="col-sm-3">Credits</dt>
+    <dd class="col-sm-9">@Model.Credits</dd>
+
+    <dt class="col-sm-3">Instructor</dt>
+    <dd class="col-sm-9">@(Model.Instructor?.Name ?? "Not Assigned")</dd>
+
+    <dt class="col-sm-3">Department</dt>
+    <dd class="col-sm-9">@(Model.Instructor?.Department?.Name ?? "-")</dd>
+
+    <dt class="col-sm-3">Enrolled Students</dt>
+    <dd class="col-sm-9">
+        @if (!Model.Enrollments.Any())
+        {
+            <span class="text-muted">No students enrolled.</span>
+        }
+        else
+        {
+            <table class="table table-sm table-bordered w-auto">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Student</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var enrollment in Model.Enrollments)
+                    {
+                        <tr>
+                            <td>@enrollment.Student?.FullName</td>
+                            <td>
+                                @if (enrollment.Grade.HasValue)
+                                {
+                                    <span class="badge bg-success">@enrollment.Grade</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">In Progress</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </dd>
+</dl>
+
+<a asp-action="Edit" asp-route-id="@Model.CourseId" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

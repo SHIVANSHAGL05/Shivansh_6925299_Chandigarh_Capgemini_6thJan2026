@@ -1,0 +1,85 @@
+@model UniversityManagement.Models.Department
+@{ ViewData["Title"] = "Department Details"; }
+
+<div class="mb-4">
+    <h4 class="fw-bold mb-0">Department Details</h4>
+    <small class="text-muted">@Model.Name</small>
+</div>
+
+<div class="row g-4">
+    <!-- Left: Department Info -->
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-building me-2"></i>Info
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">ID</dt>
+                    <dd class="col-sm-7">#@Model.DepartmentId</dd>
+
+                    <dt class="col-sm-5">Name</dt>
+                    <dd class="col-sm-7">@Model.Name</dd>
+
+                    <dt class="col-sm-5">Budget</dt>
+                    <dd class="col-sm-7 text-success fw-bold">@Model.Budget.ToString("C")</dd>
+
+                    <dt class="col-sm-5">Instructors</dt>
+                    <dd class="col-sm-7">@Model.Instructors.Count() assigned</dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-white border-top-0 d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@Model.DepartmentId"
+                   class="btn btn-sm btn-warning text-white">
+                    <i class="bi bi-pencil me-1"></i>Edit
+                </a>
+                <a asp-action="Index" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>Back
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Instructors Table -->
+    <div class="col-md-8">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-person-badge me-2"></i>Instructors in this Department
+                <span class="badge bg-light text-dark ms-2">@Model.Instructors.Count()</span>
+            </div>
+            <div class="card-body p-0">
+                @if (!Model.Instructors.Any())
+                {
+                    <div class="text-center py-5 text-muted">
+                        <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                        No instructors assigned to this department yet.
+                    </div>
+                }
+                else
+                {
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Instructor Name</th>
+                                <th>Courses Teaching</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var instructor in Model.Instructors)
+                            {
+                                <tr>
+                                    <td>@instructor.Name</td>
+                                    <td>
+                                        <span class="badge bg-light text-dark border">
+                                            @instructor.Courses.Count() course(s)
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>

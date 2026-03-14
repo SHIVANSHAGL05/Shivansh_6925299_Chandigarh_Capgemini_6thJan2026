@@ -1,0 +1,127 @@
+@model StudentPortal.ViewModels.StudentIndexViewModel
+@{ ViewData["Title"] = "Students & Request Log"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-0">Student Portal</h4>
+        <small class="text-muted">Tracking every request via custom middleware</small>
+    </div>
+    <a asp-action="Create" class="btn btn-primary btn-sm">
+        <i class="bi bi-plus-lg me-1"></i> Add Student
+    </a>
+</div>
+
+<!-- ── STUDENTS TABLE ──────────────────────────────────────────── -->
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="bi bi-people me-2"></i>Students
+        <span class="badge bg-light text-dark ms-2">@Model.Students.Count()</span>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Enrollment Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int i = 1; }
+                @foreach (var student in Model.Students)
+                {
+                    <tr>
+                        <td class="text-muted">@i++</td>
+                        <td class="fw-semibold">@student.FullName</td>
+                        <td>@student.Email</td>
+                        <td>@student.EnrollmentDate.ToShortDateString()</td>
+                        <td>
+                            <a asp-action="Edit"   asp-route-id="@student.StudentId" class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil"></i></a>
+                            <a asp-action="Delete" asp-route-id="@student.StudentId" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Students.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-4 d-block mb-1"></i>No students found.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ── REQUEST TRACKING LOG ───────────────────────────────────── -->
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>
+            <i class="bi bi-clock-history me-2"></i>Request Tracking Log
+            <span class="badge bg-light text-dark ms-2">@Model.RequestLogs.Count entries</span>
+        </span>
+        <form asp-action="ClearLogs" method="post" class="mb-0">
+            <button type="submit" class="btn btn-sm btn-outline-light">
+                <i class="bi bi-trash me-1"></i>Clear Logs
+            </button>
+        </form>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-sm table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Method</th>
+                    <th>URL</th>
+                    <th>Status</th>
+                    <th>Time (ms)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var log in Model.RequestLogs)
+                {
+                    <tr>
+                        <td class="text-muted" style="font-size:.8rem">
+                            @log.Timestamp.ToString("HH:mm:ss.fff")
+                        </td>
+                        <td>
+                            <span class="badge @(log.Method == "GET" ? "bg-success" : "bg-warning text-dark")">
+                                @log.Method
+                            </span>
+                        </td>
+                        <td style="font-family:monospace;font-size:.82rem">@log.Url</td>
+                        <td>
+                            <span class="badge @(log.StatusCode < 400 ? "bg-success" : "bg-danger")">
+                                @log.StatusCode
+                            </span>
+                        </td>
+                        <td>
+                            <span class="@(log.ElapsedMs > 500 ? "text-danger fw-bold" : log.ElapsedMs > 200 ? "text-warning" : "text-success")">
+                                @log.ElapsedMs ms
+                            </span>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.RequestLogs.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center py-3 text-muted">
+                            <i class="bi bi-hourglass me-1"></i>
+                            No requests tracked yet. Refresh the page to see logs appear.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer bg-white">
+        <small class="text-muted">
+            <i class="bi bi-info-circle me-1"></i>
+            Tracked by <code>RequestTrackingMiddleware</code> — logs appear on the <strong>next</strong> request after the current one completes.
+            Last 50 entries kept. Green &lt;200ms, Yellow &lt;500ms, Red ≥500ms.
+        </small>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿<div class="text-center mb-5">
+    <h1 class="display-4">Hospital Management System</h1>
+    <p class="lead">Manage Patients, Doctors and Appointments easily.</p>
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card shadow-lg border-0">
+            <div class="card-body text-center">
+                <h3>👨‍⚕️ Doctors</h3>
+                <p>Manage hospital doctors</p>
+                <a asp-controller="Doctors" asp-action="Index" class="btn btn-primary">View Doctors</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-lg border-0">
+            <div class="card-body text-center">
+                <h3>🧑‍🤝‍🧑 Patients</h3>
+                <p>Manage patient records</p>
+                <a asp-controller="Patients" asp-action="Index" class="btn btn-success">View Patients</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-lg border-0">
+            <div class="card-body text-center">
+                <h3>📅 Appointments</h3>
+                <p>Schedule doctor appointments</p>
+                <a asp-controller="Appointments" asp-action="Index" class="btn btn-danger">View Appointments</a>
+            </div>
+        </div>
+    </div>
+
+</div>

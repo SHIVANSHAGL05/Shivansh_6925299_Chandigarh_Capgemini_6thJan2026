@@ -1,0 +1,33 @@
+﻿@model ECommerceApp.Models.Product
+
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<h1>Delete Product</h1>
+<hr />
+
+<div class="alert alert-danger">
+    Are you sure you want to delete <strong>@Model.Name</strong>?
+</div>
+
+<div class="card" style="max-width:400px;">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-5">Name</dt>
+            <dd class="col-sm-7">@Model.Name</dd>
+
+            <dt class="col-sm-5">Price</dt>
+            <dd class="col-sm-7">₹@Model.Price.ToString("N0")</dd>
+
+            <dt class="col-sm-5">Category</dt>
+            <dd class="col-sm-7">@Model.Category?.Name</dd>
+        </dl>
+
+        <form method="post" action="/Products/Delete/@Model.ProductId">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="/Products/Index" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>

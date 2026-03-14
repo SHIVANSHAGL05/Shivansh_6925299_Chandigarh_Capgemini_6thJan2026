@@ -1,0 +1,38 @@
+@model LibraryManagement.Models.Book
+@{ ViewData["Title"] = "Delete Book"; }
+
+<div class="mb-4">
+    <h4 class="fw-bold text-danger mb-0">Delete Book</h4>
+    <small class="text-muted">This action cannot be undone</small>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <i class="bi bi-exclamation-triangle me-2"></i>Confirm Deletion
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">Title</dt>
+                    <dd class="col-sm-8 fw-semibold">@Model.Title</dd>
+                    <dt class="col-sm-4">Author</dt>
+                    <dd class="col-sm-8">@Model.Author</dd>
+                    <dt class="col-sm-4">ISBN</dt>
+                    <dd class="col-sm-8"><code>@Model.ISBN</code></dd>
+                    <dt class="col-sm-4">Genre</dt>
+                    <dd class="col-sm-8">@Model.Genre</dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-white d-flex gap-2">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="BookId" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>Yes, Delete
+                    </button>
+                </form>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

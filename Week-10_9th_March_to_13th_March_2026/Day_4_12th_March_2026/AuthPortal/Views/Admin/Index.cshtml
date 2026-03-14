@@ -1,0 +1,121 @@
+﻿@model AuthPortal.Models.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h1>Admin Dashboard <span class="badge bg-danger">Protected</span></h1>
+<p class="text-muted">
+    Logged in as <strong>@Model.LoggedInUser</strong> —
+    <a href="/Admin/Logout" class="text-danger">Logout</a>
+</p>
+<hr />
+
+<!-- ADD STUDENT FORM -->
+<h2>Add New Student</h2>
+<form method="post" action="/Admin/CreateStudent" class="row g-2 mb-4">
+    <div class="col-md-3">
+        <input type="text" name="Name" class="form-control" placeholder="Name" required />
+    </div>
+    <div class="col-md-3">
+        <input type="email" name="Email" class="form-control" placeholder="Email" required />
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="Course" class="form-control" placeholder="Course" required />
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-success w-100">+ Add</button>
+    </div>
+</form>
+
+<hr />
+
+<!-- STUDENTS TABLE WITH INLINE EDIT + DELETE -->
+<h2>Manage Students</h2>
+<table class="table table-bordered table-hover">
+    <thead class="table-danger">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model.Students)
+        {
+            var formId = $"update-form-{student.Id}";
+            <tr>
+                <form id="@formId" method="post" action="/Admin/UpdateStudent" style="display:none">
+                    <input type="hidden" name="Id" value="@student.Id" />
+                </form>
+
+                <td>@student.Id</td>
+                <td><input type="text" name="Name" value="@student.Name" form="@formId" class="form-control form-control-sm" /></td>
+                <td><input type="email" name="Email" value="@student.Email" form="@formId" class="form-control form-control-sm" /></td>
+                <td><input type="text" name="Course" value="@student.Course" form="@formId" class="form-control form-control-sm" /></td>
+                <td>
+                    <button type="submit" form="@formId" class="btn btn-warning btn-sm">Update</button>
+
+                    <form method="post" action="/Admin/DeleteStudent" style="display:inline">
+                        <input type="hidden" name="id" value="@student.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Delete @student.Name?')">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<!-- OPERATION LOGS TABLE -->
+<h2>Operation Logs <small class="text-muted">(all CRUD + Login/Logout with timestamps)</small></h2>
+@if (!Model.OperationLogs.Any())
+{
+    <p class="text-warning">No logs yet. Perform an operation to see entries.</p>
+}
+else
+{
+    <table class="table table-bordered table-sm">
+        <thead class="table-secondary">
+            <tr>
+                <th>Timestamp</th>
+                <th>Operation</th>
+                <th>Section</th>
+                <th>Details</th>
+                <th>Time (ms)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model.OperationLogs.OrderByDescending(l => l.Timestamp))
+            {
+                var badgeClass = log.Operation switch
+                {
+                    "CREATE" => "bg-success",
+                    "UPDATE" => "bg-warning text-dark",
+                    "DELETE" => "bg-danger",
+                    "LOGIN" => "bg-primary",
+                    "LOGOUT" => "bg-secondary",
+                    _ => "bg-dark"
+                };
+                <tr>
+                    <td>@log.Timestamp.ToString("HH:mm:ss.fff")</td>
+                    <td><span class="badge @badgeClass">@log.Operation</span></td>
+                    <td>@log.Section</td>
+                    <td>@log.Details</td>
+                    <td>@log.ExecutionTimeMs ms</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="mt-3">
+    <a href="/Students/Index" class="btn btn-outline-secondary">View Public Page</a>
+    <a href="/Admin/Logout" class="btn btn-outline-danger ms-2">Logout</a>
+</div>

@@ -1,0 +1,33 @@
+﻿@model ECommerceApp.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h1>Product Details</h1>
+<hr />
+
+<div class="card" style="max-width:500px;">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">@Model.Name</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-5">Product ID</dt>
+            <dd class="col-sm-7">@Model.ProductId</dd>
+
+            <dt class="col-sm-5">Price</dt>
+            <dd class="col-sm-7">₹@Model.Price.ToString("N0")</dd>
+
+            <dt class="col-sm-5">Stock Quantity</dt>
+            <dd class="col-sm-7">@Model.StockQuantity</dd>
+
+            <dt class="col-sm-5">Category</dt>
+            <dd class="col-sm-7">@Model.Category?.Name</dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <a href="/Products/Index" class="btn btn-secondary">Back</a>
+        <a href="/Products/Edit/@Model.ProductId" class="btn btn-warning ms-2">Edit</a>
+    </div>
+</div>

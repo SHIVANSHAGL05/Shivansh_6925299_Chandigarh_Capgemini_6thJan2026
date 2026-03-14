@@ -1,0 +1,61 @@
+﻿@model IEnumerable<UniversityManagement.Models.Student>
+@{
+    ViewData["Title"] = "Students";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Students</h2>
+    <a asp-action="Create" class="btn btn-primary">+ Add Student</a>
+</div>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Enrollment Date</th>
+            <th>Enrolled Courses</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.FullName</td>
+                <td>@student.Email</td>
+                <td>@student.EnrollmentDate.ToShortDateString()</td>
+                <td>
+                    @if (!student.Enrollments.Any())
+                    {
+                        <span class="text-muted">No enrollments</span>
+                    }
+                    else
+                    {
+                        <ul class="list-unstyled mb-0">
+                            @foreach (var enrollment in student.Enrollments)
+                            {
+                                <li>
+                                    @enrollment.Course?.Title
+                                    @if (enrollment.Grade.HasValue)
+                                    {
+                                        <span class="badge bg-success">@enrollment.Grade</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning text-dark">In Progress</span>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@student.StudentId" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@student.StudentId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@student.StudentId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,66 @@
+﻿@model ECommerceApp.ViewModels.OrderSummaryViewModel
+
+@{
+    ViewData["Title"] = $"Order Summary #{Model.Order.OrderId}";
+}
+
+<h1>Order Summary</h1>
+<hr />
+
+<!-- Customer Info -->
+<div class="card mb-4" style="max-width:600px;">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">Customer Details</h5>
+    </div>
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-4">Name</dt>
+            <dd class="col-sm-8">@Model.Customer.FullName</dd>
+
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">@Model.Customer.Email</dd>
+
+            <dt class="col-sm-4">Address</dt>
+            <dd class="col-sm-8">@Model.Customer.Address</dd>
+        </dl>
+    </div>
+</div>
+
+<!-- Order Info -->
+<div class="card mb-4" style="max-width:600px;">
+    <div class="card-header bg-warning">
+        <h5 class="mb-0">Order #@Model.Order.OrderId — @Model.Order.OrderDate.ToString("MMM dd, yyyy")</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Product</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var detail in Model.OrderDetails)
+                {
+                    <tr>
+                        <td>@detail.Product?.Name</td>
+                        <td>₹@detail.UnitPrice.ToString("N0")</td>
+                        <td>@detail.Quantity</td>
+                        <td>₹@((detail.UnitPrice * detail.Quantity).ToString("N0"))</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr class="table-success">
+                    <td colspan="3" class="text-end fw-bold">Total Amount</td>
+                    <td class="fw-bold">₹@Model.Order.TotalAmount.ToString("N0")</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<a href="/Orders/Index" class="btn btn-secondary">All Orders</a>
+<a href="/Customers/Index" class="btn btn-outline-success ms-2">Customers</a>

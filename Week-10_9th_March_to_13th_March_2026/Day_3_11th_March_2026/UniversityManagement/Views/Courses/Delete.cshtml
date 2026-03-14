@@ -1,0 +1,28 @@
+﻿@model UniversityManagement.Models.Course
+@{
+    ViewData["Title"] = "Delete Course";
+}
+
+<h2 class="text-danger">Delete Course</h2>
+<hr />
+
+<div class="alert alert-danger">
+    Are you sure you want to delete this course? All student enrollments in this course will also be removed.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Title</dt>
+    <dd class="col-sm-9">@Model.Title</dd>
+
+    <dt class="col-sm-3">Credits</dt>
+    <dd class="col-sm-9">@Model.Credits</dd>
+
+    <dt class="col-sm-3">Instructor</dt>
+    <dd class="col-sm-9">@(Model.Instructor?.Name ?? "Not Assigned")</dd>
+</dl>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="CourseId" />
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
