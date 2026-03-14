@@ -1,0 +1,25 @@
+@model EmployeeProjectManagementSystem.Models.Project
+
+@{
+    ViewData["Title"] = "Project Details";
+}
+
+<h2>Project Details</h2>
+
+<dl>
+    <dt>Title</dt>
+    <dd>@Model.Title</dd>
+    <dt>Description</dt>
+    <dd>@Model.Description</dd>
+</dl>
+
+<h4>Assigned Employees</h4>
+<ul>
+    @foreach (var ep in Model.EmployeeProjects)
+    {
+        <li>@ep.Employee?.Name — @ep.Employee?.Department?.Name — Assigned: @ep.AssignedDate.ToShortDateString()</li>
+    }
+</ul>
+
+<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+<a asp-action="Index">Back to List</a>

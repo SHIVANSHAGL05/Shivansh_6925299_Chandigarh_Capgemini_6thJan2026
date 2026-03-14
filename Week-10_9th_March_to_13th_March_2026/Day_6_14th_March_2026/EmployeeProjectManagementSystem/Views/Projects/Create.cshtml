@@ -1,0 +1,31 @@
+@model EmployeeProjectManagementSystem.Models.Project
+
+@{
+    ViewData["Title"] = "Create Project";
+}
+
+<h2>Create Project</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="Title"></label>
+        <input asp-for="Title" />
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <input asp-for="Description" />
+    </div>
+    <div>
+        <label>Assign Employees</label>
+        @foreach (var employee in ViewBag.Employees)
+        {
+            <div>
+                <input type="checkbox" name="selectedEmployees" value="@employee.Id" />
+                @employee.Name (@employee.Department?.Name)
+            </div>
+        }
+    </div>
+    <button type="submit">Create</button>
+    <a asp-action="Index">Back to List</a>
+</form>

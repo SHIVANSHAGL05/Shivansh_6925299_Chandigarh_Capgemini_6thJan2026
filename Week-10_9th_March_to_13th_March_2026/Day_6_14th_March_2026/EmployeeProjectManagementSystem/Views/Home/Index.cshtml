@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h2>Employee Project Management System</h2>
+
+<h4>Employees per Department</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Department</th>
+            <th>Employee Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.EmployeesPerDepartment)
+        {
+            <tr>
+                <td>@item.DepartmentName</td>
+                <td>@item.EmployeeCount</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+<a asp-controller="Employees" asp-action="Index">Manage Employees</a> |
+<a asp-controller="Projects" asp-action="Index">Manage Projects</a> |
+<a asp-controller="Projects" asp-action="Dashboard">Project Dashboard</a>

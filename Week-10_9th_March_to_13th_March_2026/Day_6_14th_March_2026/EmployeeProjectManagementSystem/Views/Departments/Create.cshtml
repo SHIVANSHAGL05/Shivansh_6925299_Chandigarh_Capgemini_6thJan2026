@@ -1,0 +1,17 @@
+@model EmployeeProjectManagementSystem.Models.Department
+
+@{
+    ViewData["Title"] = "Create Department";
+}
+
+<h2>Create Department</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <button type="submit">Create</button>
+    <a asp-action="Index">Back to List</a>
+</form>

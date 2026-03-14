@@ -1,0 +1,45 @@
+@model IEnumerable<EmployeeProjectManagementSystem.Models.Project>
+
+@{
+    ViewData["Title"] = "Project Dashboard";
+}
+
+<h2>Project Dashboard</h2>
+
+@foreach (var project in Model)
+{
+    <div>
+        <h3>@project.Title</h3>
+        <p>@project.Description</p>
+
+        @if (project.EmployeeProjects.Any())
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Department</th>
+                        <th>Assigned Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ep in project.EmployeeProjects)
+                    {
+                        <tr>
+                            <td>@ep.Employee?.Name</td>
+                            <td>@ep.Employee?.Department?.Name</td>
+                            <td>@ep.AssignedDate.ToShortDateString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No employees assigned.</p>
+        }
+        <hr />
+    </div>
+}
+
+<a asp-action="Index">Back to Projects</a>
