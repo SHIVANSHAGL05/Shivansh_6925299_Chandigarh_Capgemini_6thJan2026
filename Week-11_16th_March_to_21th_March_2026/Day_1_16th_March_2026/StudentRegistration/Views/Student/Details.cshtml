@@ -1,0 +1,165 @@
+@model StudentRegistration.Models.Student
+@* ──────────────────────────────────────────────────────────────────────────
+   Details.cshtml  —  Shows registered student info + TempData success banner
+   ────────────────────────────────────────────────────────────────────────── *@
+
+@{
+    ViewData["Title"] = "Registration Details";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        /* ── Reset ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* ── Page ── */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* ── White box ── */
+        .detail-box {
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+            padding: 30px;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        /* ── Heading ── */
+        h2 {
+            font-size: 20px;
+            color: #222222;
+            margin-bottom: 6px;
+        }
+
+        /* ── Divider ── */
+        hr {
+            border: none;
+            border-top: 1px solid #eeeeee;
+            margin: 16px 0;
+        }
+
+        /* ── TempData success banner ── */
+        .alert-success {
+            background-color: #eaf6ea;
+            border: 1px solid #78c878;
+            color: #2a6a2a;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        /* ── Detail rows ── */
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .detail-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #888888;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            color: #222222;
+            font-weight: bold;
+        }
+
+        /* ID badge */
+        .id-badge {
+            background-color: #3366cc;
+            color: #ffffff;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+        }
+
+        /* ── Back button ── */
+        .btn-back {
+            display: block;
+            width: 100%;
+            padding: 9px;
+            margin-top: 20px;
+            background-color: #3366cc;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-back:hover {
+            background-color: #2255bb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="detail-box">
+
+    <h2>Registration Details</h2>
+    <hr />
+
+    @*
+        TempData["SuccessMessage"] is set by the POST action in StudentController.
+        It survives exactly ONE redirect, then is automatically cleared.
+    *@
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert-success">
+            ✅ @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <!-- Student ID -->
+    <div class="detail-row">
+        <span class="detail-label">Student ID</span>
+        <span class="id-badge">#@Model.Id</span>
+    </div>
+
+    <!-- Name -->
+    <div class="detail-row">
+        <span class="detail-label">Full Name</span>
+        <span class="detail-value">@Model.Name</span>
+    </div>
+
+    <!-- Age -->
+    <div class="detail-row">
+        <span class="detail-label">Age</span>
+        <span class="detail-value">@Model.Age years</span>
+    </div>
+
+    @* Url.Action generates /Student/Register *@
+    <a href="@Url.Action("Register", "Student")" class="btn-back">← Register Another Student</a>
+
+</div>
+
+</body>
+</html>

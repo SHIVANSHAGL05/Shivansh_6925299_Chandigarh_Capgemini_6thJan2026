@@ -1,0 +1,126 @@
+@{
+    ViewData["Title"] = "Available Rooms";
+    var rooms    = ViewBag.Rooms    as List<HotelSimple.Models.Room>;
+    var checkIn  = ViewBag.CheckIn  as string;
+    var checkOut = ViewBag.CheckOut as string;
+    bool searched = ViewBag.Searched ?? false;
+}
+
+<h2 class="mb-4"><i class="bi bi-door-open me-2"></i>Available Rooms</h2>
+
+<!-- Error Alert -->
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle me-2"></i>@TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<!-- Date Filter Form -->
+<div class="card mb-4 p-3">
+    <form method="get" action="/Booking" class="row g-3 align-items-end">
+        <div class="col-md-4">
+            <label class="form-label fw-semibold">Check-In Date</label>
+            <input type="date" name="checkIn" class="form-control"
+                   value="@checkIn"
+                   min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label fw-semibold">Check-Out Date</label>
+            <input type="date" name="checkOut" class="form-control"
+                   value="@checkOut"
+                   min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-search me-2"></i>Check Availability
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Result message -->
+@if (searched)
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>
+        Showing <strong>@rooms?.Count</strong> available room(s) for
+        <strong>@DateTime.Parse(checkIn!).ToString("dd MMM yyyy")</strong> →
+        <strong>@DateTime.Parse(checkOut!).ToString("dd MMM yyyy")</strong>
+        (@ViewBag.Nights night(s))
+    </div>
+}
+
+<!-- Room Cards (Bootstrap card grid) -->
+@if (rooms == null || rooms.Count == 0)
+{
+    <div class="text-center py-5">
+        <i class="bi bi-emoji-frown display-1 text-muted"></i>
+        <h4 class="mt-3">No rooms available for these dates</h4>
+        <p class="text-muted">Try different dates.</p>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var room in rooms)
+        {
+            var badgeClass = room.RoomType switch
+            {
+                "Deluxe" => "bg-purple text-white",
+                "Suite"  => "bg-warning text-dark",
+                _        => "bg-primary text-white"
+            };
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card room-card h-100">
+                    <!-- Room image placeholder with colour -->
+                    <div class="card-img-top d-flex align-items-center justify-content-center text-white"
+                         style="height:160px; background:@(room.RoomType=="Suite" ? "#fd7e14" : room.RoomType=="Deluxe" ? "#6f42c1" : "#0d6efd");">
+                        <div class="text-center">
+                            <i class="bi bi-door-closed display-4"></i>
+                            <div class="fw-bold mt-1">Room @room.RoomNumber</div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <!-- Room type badge -->
+                        <span class="badge @badgeClass mb-2">@room.RoomType</span>
+                        <h5 class="card-title">Room @room.RoomNumber</h5>
+                        <p class="card-text text-muted small">@room.Description</p>
+
+                        <ul class="list-unstyled small mb-3">
+                            <li><i class="bi bi-people me-2 text-primary"></i>Up to @room.Capacity guests</li>
+                            <li><i class="bi bi-currency-rupee me-2 text-success"></i>₹@room.PricePerNight.ToString("N0") per night</li>
+                            @if (searched)
+                            {
+                                <li class="fw-bold text-success">
+                                    <i class="bi bi-calculator me-2"></i>
+                                    Total: ₹@((room.PricePerNight * (int)ViewBag.Nights).ToString("N0"))
+                                    for @ViewBag.Nights night(s)
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="card-footer bg-white">
+                        @if (searched)
+                        {
+                            <a href="/Booking/Book?roomId=@room.Id&checkIn=@checkIn&checkOut=@checkOut"
+                               class="btn btn-success w-100">
+                                <i class="bi bi-calendar-check me-2"></i>Book This Room
+                            </a>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary w-100" disabled>
+                                Select dates above to book
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

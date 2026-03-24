@@ -1,0 +1,63 @@
+@model ECommerceOMS.ViewModels.UpdateShippingViewModel
+@{
+    ViewData["Title"] = "Update Shipping";
+}
+
+<div class="page-header">
+    <h1><i class="bi bi-truck me-2"></i>Update Shipping</h1>
+    <p class="mb-0 opacity-75">Order: @Model.OrderNumber</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <form asp-action="UpdateShipping" method="post">
+                <input type="hidden" asp-for="OrderId" />
+                <input type="hidden" asp-for="ShippingDetailId" />
+                <input type="hidden" asp-for="OrderNumber" />
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger small"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label fw-semibold">Shipping Status</label>
+                    <select asp-for="Status" class="form-select">
+                        @foreach (var s in Enum.GetValues<ECommerceOMS.Models.ShippingStatus>())
+                        {
+                            <option value="@s" selected="@(Model.Status == s)">@s</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Carrier" class="form-label fw-semibold">Carrier</label>
+                    <select asp-for="Carrier" class="form-select">
+                        <option value="">-- Select Carrier --</option>
+                        <option value="Blue Dart">Blue Dart</option>
+                        <option value="Delhivery">Delhivery</option>
+                        <option value="DTDC">DTDC</option>
+                        <option value="FedEx">FedEx</option>
+                        <option value="Amazon Logistics">Amazon Logistics</option>
+                        <option value="India Post">India Post</option>
+                        <option value="Ekart">Ekart</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="TrackingNumber" class="form-label fw-semibold"></label>
+                    <input asp-for="TrackingNumber" class="form-control" placeholder="e.g. BD12345678IN" />
+                    <span asp-validation-for="TrackingNumber" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="EstimatedDelivery" class="form-label fw-semibold"></label>
+                    <input asp-for="EstimatedDelivery" class="form-control" type="date" />
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i>Update Shipping
+                    </button>
+                    <a asp-action="Shipping" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

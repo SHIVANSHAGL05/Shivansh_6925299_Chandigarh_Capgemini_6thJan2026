@@ -1,0 +1,127 @@
+@model List<ShopCart.Models.CartItem>
+@{
+    ViewData["Title"] = "Shopping Cart";
+    decimal total     = ViewBag.Total;
+}
+
+<h2 class="mb-4"><i class="bi bi-cart3 me-2"></i>Shopping Cart</h2>
+
+<!-- Bootstrap Progress Bar — Step 1 active -->
+<div class="mb-4">
+    <div class="d-flex justify-content-between small text-muted mb-1">
+        <span class="fw-bold text-dark">1. Cart</span>
+        <span>2. Address</span>
+        <span>3. Payment</span>
+        <span>4. Done</span>
+    </div>
+    <div class="progress" style="height: 8px;">
+        <div class="progress-bar bg-dark" style="width: 25%;"></div>
+    </div>
+</div>
+
+@if (TempData["Removed"] != null)
+{
+    <div class="alert alert-info alert-dismissible fade show">
+        <i class="bi bi-info-circle me-2"></i>@TempData["Removed"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <i class="bi bi-cart-x display-1 text-muted"></i>
+        <h4 class="mt-3">Your cart is empty</h4>
+        <a href="/Shop" class="btn btn-dark mt-3">
+            <i class="bi bi-arrow-left me-2"></i>Continue Shopping
+        </a>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        <!-- Cart Table -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="@item.ImageUrl" width="55" height="55"
+                                                 class="rounded object-fit-cover" alt="@item.Name" />
+                                            <span class="fw-semibold">@item.Name</span>
+                                        </div>
+                                    </td>
+                                    <td>₹@item.Price.ToString("N0")</td>
+                                    <td style="width:140px;">
+                                        <!-- Inline quantity update form -->
+                                        <form method="post" action="/Cart/Update" class="d-flex align-items-center gap-2">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="productId" value="@item.ProductId" />
+                                            <input type="number" name="quantity" value="@item.Quantity"
+                                                   min="1" max="10"
+                                                   class="form-control form-control-sm text-center"
+                                                   style="width:65px;"
+                                                   onchange="this.form.submit()" />
+                                        </form>
+                                    </td>
+                                    <td class="fw-bold text-success">₹@item.Subtotal.ToString("N0")</td>
+                                    <td>
+                                        <form method="post" action="/Cart/Remove">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="productId" value="@item.ProductId" />
+                                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                    onclick="return confirm('Remove this item?')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <a href="/Shop" class="btn btn-outline-secondary mt-3">
+                <i class="bi bi-arrow-left me-2"></i>Continue Shopping
+            </a>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm p-4">
+                <h5 class="mb-3">Order Summary</h5>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Subtotal</span>
+                    <span>₹@total.ToString("N0")</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Shipping</span>
+                    <span class="text-success">FREE</span>
+                </div>
+                <hr />
+                <div class="d-flex justify-content-between fw-bold fs-5 mb-4">
+                    <span>Total</span>
+                    <span class="text-success">₹@total.ToString("N0")</span>
+                </div>
+                <a href="/Checkout/Address" class="btn btn-success w-100 btn-lg">
+                    <i class="bi bi-lock me-2"></i>Proceed to Checkout
+                </a>
+            </div>
+        </div>
+    </div>
+}

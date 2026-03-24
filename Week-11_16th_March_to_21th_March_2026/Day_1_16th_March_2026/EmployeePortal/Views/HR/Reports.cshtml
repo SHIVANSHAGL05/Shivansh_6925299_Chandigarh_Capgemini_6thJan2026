@@ -1,0 +1,128 @@
+@using EmployeePortal.Controllers
+@model List<DepartmentReport>
+@{ ViewData["Title"] = "HR Reports"; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>HR Reports — Employee Portal</title>
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Arial,sans-serif;background:#f0f2f5;padding:24px;color:#222}
+        .page-header{margin-bottom:16px}
+        .page-header h2{font-size:20px;color:#222;margin-bottom:3px}
+        .page-header p{font-size:13px;color:#888}
+        /* Summary cards */
+        .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px}
+        .card{background:#fff;border:1px solid #ddd;border-radius:6px;padding:16px;text-align:center}
+        .card .icon{font-size:26px;margin-bottom:6px}
+        .card .label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+        .card .value{font-size:24px;font-weight:bold;color:#1e3a5f}
+        /* Report table */
+        .section-title{font-size:15px;font-weight:bold;color:#1e3a5f;margin-bottom:10px}
+        .table-wrap{background:#fff;border:1px solid #ddd;border-radius:6px;overflow:hidden;margin-bottom:20px}
+        table{width:100%;border-collapse:collapse;font-size:14px}
+        thead{background:#1e3a5f;color:#fff}
+        thead th{padding:10px 14px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+        tbody tr:nth-child(even){background:#f9f9f9}
+        tbody tr:hover{background:#eef3ff}
+        tbody td{padding:10px 14px;border-bottom:1px solid #eee;color:#333}
+        tbody tr:last-child td{border-bottom:none}
+        /* Bar chart */
+        .bar-wrap{background:#fff;border:1px solid #ddd;border-radius:6px;padding:20px;margin-bottom:20px}
+        .bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+        .bar-row:last-child{margin-bottom:0}
+        .bar-label{min-width:130px;font-size:13px;color:#444;text-align:right}
+        .bar-track{flex:1;background:#f0f0f0;border-radius:4px;height:22px;overflow:hidden}
+        .bar-fill{height:100%;background:#1e3a5f;border-radius:4px;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:12px;font-weight:bold;min-width:30px;transition:width .4s}
+        /* Buttons */
+        .btn{display:inline-block;padding:7px 14px;font-size:13px;font-weight:bold;border:none;border-radius:4px;text-decoration:none;cursor:pointer}
+        .btn-danger{background:#cc3333;color:#fff}
+        .btn-danger:hover{background:#aa2222}
+        .info-box{background:#fffbe6;border:1px solid #ffe58f;border-radius:4px;padding:10px 14px;font-size:13px;color:#7a5700;margin-bottom:16px}
+    </style>
+</head>
+<body>
+@Html.Partial("_Navbar")
+
+<div class="page-header">
+    <h2>📈 Department Reports</h2>
+    <p>Workforce statistics grouped by department. Generated live from in-memory data.</p>
+</div>
+
+<div class="info-box">
+    ℹ️ <strong>LogActionFilter</strong> logged this Reports action.
+    Click below to test <strong>CustomExceptionFilter</strong>.
+    <a href="@Url.Action("SimulateReportsError","HR")" class="btn btn-danger" style="margin-left:12px">💥 Simulate Error</a>
+</div>
+
+@* ── Summary cards ── *@
+<div class="cards">
+    <div class="card">
+        <div class="icon">🏢</div>
+        <div class="label">Departments</div>
+        <div class="value">@Model.Count</div>
+    </div>
+    <div class="card">
+        <div class="icon">👥</div>
+        <div class="label">Total Employees</div>
+        <div class="value">@Model.Sum(r => r.Count)</div>
+    </div>
+    <div class="card">
+        <div class="icon">📊</div>
+        <div class="label">Avg Age (Overall)</div>
+        <div class="value">@(Model.Any() ? (int)Model.Average(r => r.AvgAge) : 0)</div>
+    </div>
+    <div class="card">
+        <div class="icon">🏆</div>
+        <div class="label">Largest Dept</div>
+        <div class="value" style="font-size:14px;margin-top:4px">@(Model.FirstOrDefault()?.Department ?? "-")</div>
+    </div>
+</div>
+
+@* ── Department table ── *@
+<p class="section-title">📋 Department Breakdown</p>
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Department</th>
+                <th>Headcount</th>
+                <th>Avg Age</th>
+                <th>Latest Joinee</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td><strong>@r.Department</strong></td>
+                    <td>@r.Count employee(s)</td>
+                    <td>@r.AvgAge years</td>
+                    <td>@r.Newest</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@* ── Visual bar chart ── *@
+@{
+    var maxCount = Model.Any() ? Model.Max(r => r.Count) : 1;
+}
+<p class="section-title">📊 Headcount by Department</p>
+<div class="bar-wrap">
+    @foreach (var r in Model)
+    {
+        var pct = (int)((double)r.Count / maxCount * 100);
+        <div class="bar-row">
+            <span class="bar-label">@r.Department</span>
+            <div class="bar-track">
+                <div class="bar-fill" style="width:@pct%">@r.Count</div>
+            </div>
+        </div>
+    }
+</div>
+
+</body>
+</html>

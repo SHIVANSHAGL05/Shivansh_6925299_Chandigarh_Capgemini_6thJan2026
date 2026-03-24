@@ -1,0 +1,223 @@
+@model ECommerceOMS.ViewModels.AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1><i class="bi bi-speedometer2 me-2"></i>Admin Dashboard</h1>
+            <p class="mb-0 opacity-75">Overview of store performance</p>
+        </div>
+        <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+            <i class="bi bi-shield-check me-1"></i>Admin Panel
+        </span>
+    </div>
+</div>
+
+<!-- KPI Stats -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="card stat-card bg-primary text-white position-relative overflow-hidden p-3">
+            <div class="stat-icon"><i class="bi bi-people"></i></div>
+            <div class="text-white-50 small fw-semibold text-uppercase">Customers</div>
+            <div class="fs-2 fw-bold">@Model.TotalCustomers</div>
+            <a asp-controller="Customer" asp-action="Index" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card bg-success text-white position-relative overflow-hidden p-3">
+            <div class="stat-icon"><i class="bi bi-box-seam"></i></div>
+            <div class="text-white-50 small fw-semibold text-uppercase">Products</div>
+            <div class="fs-2 fw-bold">@Model.TotalProducts</div>
+            <a asp-controller="Product" asp-action="Index" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card bg-warning text-dark position-relative overflow-hidden p-3">
+            <div class="stat-icon"><i class="bi bi-cart-check"></i></div>
+            <div class="small fw-semibold text-uppercase opacity-75">Orders</div>
+            <div class="fs-2 fw-bold">@Model.TotalOrders</div>
+            <a asp-controller="Order" asp-action="Index" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card bg-danger text-white position-relative overflow-hidden p-3">
+            <div class="stat-icon"><i class="bi bi-currency-rupee"></i></div>
+            <div class="text-white-50 small fw-semibold text-uppercase">Revenue</div>
+            <div class="fs-4 fw-bold">₹@Model.TotalRevenue.ToString("N0")</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Top 5 Products -->
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span class="fw-bold"><i class="bi bi-trophy me-2 text-warning"></i>Top 5 Selling Products</span>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product</th>
+                            <th class="text-center">Sold</th>
+                            <th class="text-end">Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.TopProducts.Any())
+                        {
+                            <tr><td colspan="4" class="text-center text-muted py-4">No sales data yet.</td></tr>
+                        }
+                        @for (int i = 0; i < Model.TopProducts.Count; i++)
+                        {
+                            var tp = Model.TopProducts[i];
+                            <tr>
+                                <td>
+                                    @if (i == 0) { <span class="badge bg-warning text-dark">🥇</span> }
+                                    else if (i == 1) { <span class="badge bg-secondary">🥈</span> }
+                                    else if (i == 2) { <span class="badge" style="background:#cd7f32">🥉</span> }
+                                    else { <span class="text-muted">@(i + 1)</span> }
+                                </td>
+                                <td>
+                                    <div class="fw-semibold small">@tp.ProductName</div>
+                                    <div class="text-muted" style="font-size:.75rem;">@tp.CategoryName</div>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge bg-primary-subtle text-primary">@tp.TotalQuantitySold units</span>
+                                </td>
+                                <td class="text-end fw-semibold small">₹@tp.TotalRevenue.ToString("N0")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Orders -->
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span class="fw-bold"><i class="bi bi-hourglass-split me-2 text-warning"></i>Pending Orders</span>
+                <a asp-controller="Order" asp-action="Index" asp-route-status="Pending" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th class="text-end">Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.PendingOrders.Any())
+                        {
+                            <tr><td colspan="5" class="text-center text-muted py-4"><i class="bi bi-check-circle text-success me-1"></i>No pending orders!</td></tr>
+                        }
+                        @foreach (var o in Model.PendingOrders)
+                        {
+                            <tr>
+                                <td class="small fw-semibold text-primary">@o.OrderNumber</td>
+                                <td class="small">@o.Customer?.FullName</td>
+                                <td class="small text-muted">@o.OrderDate.ToString("dd MMM")</td>
+                                <td class="text-end small">₹@o.TotalAmount.ToString("N0")</td>
+                                <td>
+                                    <a asp-controller="Order" asp-action="Details" asp-route-id="@o.Id"
+                                       class="btn btn-sm btn-outline-primary py-0">View</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Order Summary -->
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header fw-bold">
+                <i class="bi bi-people me-2 text-primary"></i>Customer Order Summary
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th class="text-center">Orders</th>
+                            <th class="text-end">Total Spent</th>
+                            <th>Last Order</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.CustomerSummaries.Any())
+                        {
+                            <tr><td colspan="5" class="text-center text-muted py-4">No customer data.</td></tr>
+                        }
+                        @foreach (var cs in Model.CustomerSummaries)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold small">@cs.CustomerName</div>
+                                    <div class="text-muted" style="font-size:.75rem;">@cs.Email</div>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge bg-primary-subtle text-primary">@cs.TotalOrders</span>
+                                </td>
+                                <td class="text-end fw-semibold small">₹@cs.TotalSpent.ToString("N0")</td>
+                                <td class="small text-muted">@(cs.LastOrderDate?.ToString("dd MMM yyyy") ?? "—")</td>
+                                <td>
+                                    <a asp-controller="Customer" asp-action="Details" asp-route-id="@cs.CustomerId"
+                                       class="btn btn-sm btn-outline-secondary py-0">View</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span class="fw-bold"><i class="bi bi-clock-history me-2 text-primary"></i>Recent Orders</span>
+                <a asp-controller="Order" asp-action="Index" class="btn btn-sm btn-outline-primary">All Orders</a>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    @if (!Model.RecentOrders.Any())
+                    {
+                        <li class="list-group-item text-muted text-center small py-4">No orders yet.</li>
+                    }
+                    @foreach (var o in Model.RecentOrders)
+                    {
+                        var sc = o.Status.ToString().ToLower();
+                        <li class="list-group-item py-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <a asp-controller="Order" asp-action="Details" asp-route-id="@o.Id"
+                                       class="fw-semibold small text-decoration-none">@o.OrderNumber</a>
+                                    <div class="text-muted" style="font-size:.75rem;">@o.Customer?.FullName · @o.OrderDate.ToString("dd MMM")</div>
+                                </div>
+                                <div class="text-end">
+                                    <div class="small fw-bold text-primary">₹@o.TotalAmount.ToString("N0")</div>
+                                    <span class="badge badge-@sc" style="font-size:.65rem;">@o.Status</span>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

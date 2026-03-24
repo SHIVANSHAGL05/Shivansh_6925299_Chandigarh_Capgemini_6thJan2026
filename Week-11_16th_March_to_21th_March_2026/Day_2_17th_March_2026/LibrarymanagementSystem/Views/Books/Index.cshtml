@@ -1,0 +1,66 @@
+@* Task 4: Strongly typed view using BookViewModel *@
+@model List<LibraryApp.ViewModels.BookViewModel>
+@{
+    ViewData["Title"] = "Book Catalogue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-0">Book Catalogue</h1>
+        @* Task 2: Display ViewBag welcome message *@
+        <p class="text-muted mb-0">@ViewBag.WelcomeMessage</p>
+    </div>
+    <div class="text-end">
+        @* Task 2: Display ViewData total count *@
+        <span class="badge bg-secondary fs-6">Total Books: @ViewData["TotalBooks"]</span>
+        <a asp-action="Create" class="btn btn-primary ms-2">+ Add Book</a>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No books found. <a asp-action="Create">Add the first one!</a></div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var vm in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span class="fw-semibold text-muted small">@vm.Book.Genre</span>
+                        @* Task 3: Show IsAvailable from BookViewModel *@
+                        @if (vm.IsAvailable)
+                        {
+                            <span class="badge bg-success">Available</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">Checked Out</span>
+                        }
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@vm.Book.Title</h5>
+                        <p class="card-text text-muted mb-1">by <strong>@vm.Book.Author</strong></p>
+                        <p class="card-text">
+                            <small class="text-muted">Published: @vm.Book.PublishedYear</small>
+                        </p>
+
+                        @* Task 6: Display BorrowerName if book is checked out *@
+                        @if (vm.IsBorrowed)
+                        {
+                            <div class="alert alert-warning py-1 px-2 mb-0 mt-2 small">
+                                🔖 Borrowed by: <strong>@vm.BorrowerName</strong>
+                            </div>
+                        }
+                    </div>
+                    <div class="card-footer text-muted small">
+                        Book ID: #@vm.Book.Id
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

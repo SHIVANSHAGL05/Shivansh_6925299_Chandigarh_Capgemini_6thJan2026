@@ -1,0 +1,119 @@
+@page
+@model EventApp.Pages.Events.IndexModel
+@{
+    ViewData["Title"] = "Registered Participants";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+
+    // Task 7: Check role once and reuse in template
+    bool isAdmin = User.IsInRole("Admin");
+}
+
+@* Success / error toasts *@
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-0">Registered Participants</h1>
+        <p class="text-muted mb-0">@Model.Registrations.Count participant(s) found</p>
+    </div>
+    <a asp-page="Register" class="btn btn-primary">+ Register New</a>
+</div>
+
+@* Optional filter by event name *@
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-4">
+        <select name="FilterEvent" class="form-select form-select-sm">
+            <option value="">All Events</option>
+            @foreach (var ev in RegistrationStore.Registrations.Select(r => r.EventName).Distinct())
+            {
+                <option value="@ev" selected="@(Model.FilterEvent == ev)">@ev</option>
+            }
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-secondary btn-sm">Filter</button>
+        <a asp-page="Index" class="btn btn-link btn-sm">Clear</a>
+    </div>
+</form>
+
+@if (!Model.Registrations.Any())
+{
+    <div class="alert alert-info">
+        No registrations yet. <a asp-page="Register">Be the first to register!</a>
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Participant Name</th>
+                    <th>Email</th>
+                    <th>Event</th>
+                    <th>Registered At</th>
+                    @* Task 7: Only show Delete column to Admins *@
+                    @if (isAdmin)
+                    {
+                        <th class="text-center">Action</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reg in Model.Registrations)
+                {
+                    <tr>
+                        <td class="text-muted small">@reg.Id</td>
+                        <td class="fw-semibold">@reg.ParticipantName</td>
+                        <td><a href="mailto:@reg.Email" class="text-decoration-none">@reg.Email</a></td>
+                        <td><span class="badge bg-primary">@reg.EventName</span></td>
+                        <td class="text-muted small">@reg.RegisteredAt.ToString("dd MMM yyyy, hh:mm tt")</td>
+
+                        @* Task 5 + 7: Delete button only visible to Admin *@
+                        @if (isAdmin)
+                        {
+                            <td class="text-center">
+                                @* Task 5: form posts to OnPostDelete(id) named handler *@
+                                <form method="post"
+                                      asp-page-handler="Delete"
+                                      asp-route-id="@reg.Id"
+                                      onsubmit="return confirm('Remove @reg.ParticipantName from the list?')">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        🗑 Remove
+                                    </button>
+                                </form>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @* Task 7: Show role notice to non-admin users *@
+    @if (!isAdmin)
+    {
+        <p class="text-muted small mt-2">
+            ℹ️ You are viewing as a <strong>Guest</strong>.
+            Admin login is required to remove participants.
+            <a asp-page="/Index" asp-route-loginAsAdmin="true">Login as Admin (demo)</a>
+        </p>
+    }
+}
+
+@using EventApp.Data

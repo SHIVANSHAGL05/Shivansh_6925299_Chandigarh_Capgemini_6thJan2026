@@ -1,0 +1,108 @@
+@model List<StudentManagementSystem.Models.Student>
+@{ ViewData["Title"] = "Students"; }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Students — Student Management</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 24px; color: #222; }
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: #fff; border: 1px solid #ddd; border-radius: 6px;
+            padding: 12px 20px; margin-bottom: 22px;
+        }
+        .navbar .brand { font-size: 16px; font-weight: bold; color: #3366cc; }
+        .navbar .right { display: flex; align-items: center; gap: 14px; font-size: 13px; color: #555; }
+        .btn { padding: 7px 14px; font-size: 13px; font-weight: bold; border: none;
+               border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-primary  { background: #3366cc; color: #fff; }
+        .btn-danger   { background: #cc3333; color: #fff; }
+        .btn-primary:hover { background: #2255bb; }
+        .btn-danger:hover  { background: #aa2222; }
+        .page-header { margin-bottom: 16px; }
+        .page-header h2 { font-size: 20px; color: #222; margin-bottom: 3px; }
+        .page-header p  { font-size: 13px; color: #888; }
+        .alert { padding: 9px 12px; border-radius: 4px; font-size: 13px; margin-bottom: 14px; }
+        .alert-success { background: #f0fff4; border: 1px solid #9ae6b4; color: #276749; }
+        .toolbar { display: flex; gap: 10px; margin-bottom: 14px; }
+        .table-wrap { background: #fff; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        thead { background: #3366cc; color: #fff; }
+        thead th { padding: 10px 14px; text-align: left; font-size: 12px;
+                   text-transform: uppercase; letter-spacing: .04em; }
+        tbody tr:nth-child(even) { background: #f9f9f9; }
+        tbody tr:hover { background: #eef3ff; }
+        tbody td { padding: 10px 14px; border-bottom: 1px solid #eee; color: #333; }
+        tbody tr:last-child td { border-bottom: none; }
+        .empty { text-align: center; padding: 30px; color: #aaa; font-size: 14px; }
+        a.link { color: #3366cc; text-decoration: none; font-weight: bold; }
+        a.link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <span class="brand">🎓 Student Management System</span>
+    <div style="display:flex;gap:6px;">
+        <a href="@Url.Action("Index","Student")" style="padding:5px 12px;font-size:13px;background:#3366cc;color:#fff;border-radius:4px;text-decoration:none;font-weight:bold;">Students</a>
+        <a href="@Url.Action("Index","Product")" style="padding:5px 12px;font-size:13px;color:#555;border-radius:4px;text-decoration:none;">Products</a>
+    </div>
+    <div class="right">
+        <span>👤 @ViewBag.Username</span>
+        <a href="@Url.Action("Logout", "Account")" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+
+<div class="page-header">
+    <h2>📋 All Students</h2>
+    <p>@Model.Count student(s) registered.</p>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">✅ @TempData["SuccessMessage"]</div>
+}
+
+<div class="toolbar">
+    <a href="@Url.Action("Register", "Student")" class="btn btn-primary">+ Register New Student</a>
+</div>
+
+<div class="table-wrap">
+    @if (!Model.Any())
+    {
+        <p class="empty">No students registered yet. Click "Register New Student" to add one.</p>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in Model)
+                {
+                    <tr>
+                        <td>@s.Id</td>
+                        <td>@s.Name</td>
+                        <td>@s.Age</td>
+                        <td>@s.Email</td>
+                        <td><a href="@Url.Action("Details","Student", new { id = s.Id })" class="link">View Details</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+</body>
+</html>

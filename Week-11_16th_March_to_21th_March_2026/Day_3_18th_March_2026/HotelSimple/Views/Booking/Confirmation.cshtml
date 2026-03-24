@@ -1,0 +1,83 @@
+@model HotelSimple.Models.Booking
+@{
+    ViewData["Title"] = "Booking Confirmed";
+}
+
+<!-- Bootstrap success alert at top -->
+<div class="alert alert-success d-flex align-items-center mb-4" role="alert">
+    <i class="bi bi-check-circle-fill me-3 fs-4"></i>
+    <div>
+        <strong>Booking Confirmed!</strong> Your booking reference is
+        <strong>@Model.BookingRef</strong>. Please save this for your records.
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="bi bi-receipt me-2"></i>Booking Receipt
+                </h5>
+                <span class="badge bg-light text-success fs-6">@Model.BookingRef</span>
+            </div>
+            <div class="card-body">
+                <!-- Guest Info -->
+                <h6 class="text-muted text-uppercase mb-3">Guest Information</h6>
+                <div class="row mb-4">
+                    <div class="col-sm-4"><strong>Name</strong></div>
+                    <div class="col-sm-8">@Model.Customer.FullName</div>
+
+                    <div class="col-sm-4"><strong>Email</strong></div>
+                    <div class="col-sm-8">@Model.Customer.Email</div>
+
+                    <div class="col-sm-4"><strong>Phone</strong></div>
+                    <div class="col-sm-8">@Model.Customer.Phone</div>
+                </div>
+
+                <hr />
+
+                <!-- Room Info -->
+                <h6 class="text-muted text-uppercase mb-3">Room Details</h6>
+                <div class="row mb-4">
+                    <div class="col-sm-4"><strong>Room</strong></div>
+                    <div class="col-sm-8">
+                        @Model.Room.RoomNumber
+                        <span class="badge bg-primary ms-2">@Model.Room.RoomType</span>
+                    </div>
+
+                    <div class="col-sm-4"><strong>Check-In</strong></div>
+                    <div class="col-sm-8">@Model.CheckIn.ToString("dddd, dd MMMM yyyy") (from 2:00 PM)</div>
+
+                    <div class="col-sm-4"><strong>Check-Out</strong></div>
+                    <div class="col-sm-8">@Model.CheckOut.ToString("dddd, dd MMMM yyyy") (by 11:00 AM)</div>
+
+                    <div class="col-sm-4"><strong>Duration</strong></div>
+                    <div class="col-sm-8">@Model.Nights night(s)</div>
+
+                    <div class="col-sm-4"><strong>Guests</strong></div>
+                    <div class="col-sm-8">@Model.Guests</div>
+                </div>
+
+                <hr />
+
+                <!-- Payment -->
+                <div class="d-flex justify-content-between align-items-center py-2">
+                    <h5 class="mb-0">Total Amount</h5>
+                    <h5 class="mb-0 text-success fw-bold">₹@Model.TotalAmount.ToString("N0")</h5>
+                </div>
+                <small class="text-muted">Payment to be made at the hotel.</small>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex gap-2 flex-wrap">
+                    <a href="/" class="btn btn-outline-secondary">
+                        <i class="bi bi-house me-2"></i>Back to Home
+                    </a>
+                    <a href="/Booking/Lookup?bookingRef=@Model.BookingRef" class="btn btn-primary">
+                        <i class="bi bi-search me-2"></i>Manage Booking
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

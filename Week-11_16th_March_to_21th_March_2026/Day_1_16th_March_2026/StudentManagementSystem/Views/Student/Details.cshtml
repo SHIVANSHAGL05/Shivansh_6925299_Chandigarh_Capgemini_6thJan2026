@@ -1,0 +1,81 @@
+@model StudentManagementSystem.Models.Student
+@{ ViewData["Title"] = "Student Details"; }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Details</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: Arial, sans-serif; background: #f0f2f5;
+            min-height: 100vh; display: flex; align-items: center;
+            justify-content: center; padding: 20px;
+        }
+        .box { background: #fff; border: 1px solid #ddd; border-radius: 6px;
+               padding: 30px; width: 100%; max-width: 440px; }
+        .box h2 { font-size: 20px; color: #222; margin-bottom: 20px; }
+        hr { border: none; border-top: 1px solid #eee; margin-bottom: 18px; }
+        .alert-success { background: #f0fff4; border: 1px solid #9ae6b4; color: #276749;
+                         padding: 10px 12px; border-radius: 4px; font-size: 13px;
+                         margin-bottom: 18px; font-weight: bold; }
+        .detail-row {
+            display: flex; justify-content: space-between;
+            padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px;
+        }
+        .detail-row:last-of-type { border-bottom: none; }
+        .detail-label { font-size: 12px; font-weight: bold; text-transform: uppercase;
+                        letter-spacing: .04em; color: #888; }
+        .detail-value { color: #222; font-weight: bold; }
+        .id-badge { background: #3366cc; color: #fff; padding: 2px 10px;
+                    border-radius: 10px; font-size: 13px; }
+        .actions { display: flex; gap: 10px; margin-top: 20px; }
+        .btn { padding: 8px 16px; font-size: 13px; font-weight: bold; border: none;
+               border-radius: 4px; text-decoration: none; display: inline-block; cursor: pointer; }
+        .btn-primary { background: #3366cc; color: #fff; }
+        .btn-outline { background: #fff; color: #3366cc; border: 1px solid #3366cc; }
+        .btn-primary:hover { background: #2255bb; }
+        .btn-outline:hover  { background: #eef3ff; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h2>🎓 Student Details</h2>
+
+    @*
+        TempData["SuccessMessage"] is set by StudentController.Register (POST).
+        It survives exactly ONE redirect (to this page), then is cleared.
+    *@
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert-success">✅ @TempData["SuccessMessage"]</div>
+    }
+
+    <hr />
+
+    <div class="detail-row">
+        <span class="detail-label">Student ID</span>
+        <span class="id-badge">#@Model.Id</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">Full Name</span>
+        <span class="detail-value">@Model.Name</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">Age</span>
+        <span class="detail-value">@Model.Age years</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">Email</span>
+        <span class="detail-value">@Model.Email</span>
+    </div>
+
+    <div class="actions">
+        <a href="@Url.Action("Register", "Student")" class="btn btn-primary">+ Register Another</a>
+        <a href="@Url.Action("Index", "Student")"    class="btn btn-outline">← All Students</a>
+    </div>
+</div>
+</body>
+</html>

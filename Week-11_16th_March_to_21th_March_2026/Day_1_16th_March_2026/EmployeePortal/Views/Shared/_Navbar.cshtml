@@ -1,0 +1,55 @@
+@* _Navbar.cshtml — included in every protected page via @Html.Partial("_Navbar")
+   Reads the active controller from ViewContext to highlight the correct nav link. *@
+
+@{
+    var ctrl    = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    var user    = Context.Session.GetString("Username") ?? "";
+    var role    = Context.Session.GetString("Role") ?? "";
+
+    string Active(string c) => ctrl.Equals(c, StringComparison.OrdinalIgnoreCase)
+        ? "nav-link active" : "nav-link";
+}
+
+<nav class="navbar">
+    <span class="brand">🏢 Employee Management Portal</span>
+
+    <div class="nav-links">
+        <a href="@Url.Action("Index","Employee")"   class="@Active("Employee")">👥 Employees</a>
+        <a href="@Url.Action("Index","HR")"         class="@Active("HR")">📊 HR</a>
+        <a href="@Url.Action("EmployeeList","HR")"  class="nav-link">📋 Employee List</a>
+        <a href="@Url.Action("Reports","HR")"       class="nav-link">📈 Reports</a>
+        <a href="@Url.Action("Dashboard","Account")" class="@Active("Account")">🖥 Dashboard</a>
+    </div>
+
+    <div class="nav-right">
+        <span class="user-badge">👤 @user <span class="role-tag">@role</span></span>
+        <a href="@Url.Action("Logout","Account")" class="btn-logout">Logout</a>
+    </div>
+</nav>
+
+<style>
+    .navbar {
+        display: flex; justify-content: space-between; align-items: center;
+        background: #1e3a5f; padding: 12px 22px;
+        border-radius: 6px; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;
+    }
+    .brand { font-size: 16px; font-weight: bold; color: #fff; }
+    .nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+    .nav-link {
+        padding: 6px 12px; font-size: 13px; color: rgba(255,255,255,.75);
+        text-decoration: none; border-radius: 4px; transition: background .15s;
+    }
+    .nav-link:hover  { background: rgba(255,255,255,.12); color: #fff; }
+    .nav-link.active { background: rgba(255,255,255,.2); color: #fff; font-weight: bold; }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .user-badge { font-size: 13px; color: rgba(255,255,255,.8); }
+    .role-tag {
+        background: #4a9eff; color: #fff; font-size: 10px; font-weight: bold;
+        padding: 1px 6px; border-radius: 8px; margin-left: 4px; vertical-align: middle;
+    }
+    .btn-logout {
+        padding: 5px 12px; background: #cc3333; color: #fff; font-size: 13px;
+        font-weight: bold; border: none; border-radius: 4px; text-decoration: none; cursor: pointer;
+    }
+    .btn-logout:hover { background: #aa2222; }
+</style>

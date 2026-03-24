@@ -1,0 +1,192 @@
+@model StudentRegistration.Models.Student
+@* ──────────────────────────────────────────────────────────────────────────
+   Register.cshtml  —  Student Registration Form (Minimal UI)
+   Tag Helpers used:
+     asp-action / asp-controller  → generates the correct form POST URL
+     asp-for                      → binds input to model property (name, id, value)
+     asp-validation-for           → renders per-field error span
+     asp-validation-summary       → renders model-level errors
+   ────────────────────────────────────────────────────────────────────────── *@
+
+@{
+    ViewData["Title"] = "Student Registration";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        /* ── Reset ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* ── Page ── */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* ── White box ── */
+        .form-box {
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+            padding: 30px;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        /* ── Heading ── */
+        h2 {
+            font-size: 20px;
+            color: #222222;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #888888;
+            margin-bottom: 24px;
+        }
+
+        /* ── Divider ── */
+        hr {
+            border: none;
+            border-top: 1px solid #eeeeee;
+            margin-bottom: 20px;
+        }
+
+        /* ── Form fields ── */
+        .field {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            color: #444444;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 14px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            outline: none;
+            color: #222222;
+            background: #ffffff;
+        }
+
+        input:focus {
+            border-color: #4a90d9;
+        }
+
+        /* ── Validation errors ── */
+        .field-error {
+            color: #cc0000;
+            font-size: 12px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Razor adds this class to invalid inputs */
+        input.input-validation-error {
+            border-color: #cc0000;
+            background-color: #fff8f8;
+        }
+
+        /* ── Submit button ── */
+        .btn-submit {
+            width: 100%;
+            padding: 9px;
+            margin-top: 8px;
+            background-color: #3366cc;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #2255bb;
+        }
+
+        /* ── Footer note ── */
+        .form-note {
+            font-size: 12px;
+            color: #aaaaaa;
+            text-align: center;
+            margin-top: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-box">
+
+    <h2>Student Registration</h2>
+    <p class="subtitle">Enter the student's details to register.</p>
+    <hr />
+
+    @*
+        asp-action="Register"    → POST to StudentController.Register()
+        asp-controller="Student" → targets StudentController
+        method="post"            → HTTP POST request
+    *@
+    <form asp-action="Register" asp-controller="Student" method="post">
+
+        @* Hidden anti-forgery token — required by [ValidateAntiForgeryToken] *@
+        @Html.AntiForgeryToken()
+
+        @* Shows any model-level errors (not tied to a specific field) *@
+        <div asp-validation-summary="ModelOnly" class="field-error" style="margin-bottom:12px;"></div>
+
+        @* ── Name ── *@
+        <div class="field">
+            <label asp-for="Name">Full Name</label>
+            @*
+                asp-for="Name" auto-generates:
+                  name="Name", id="Name", value="..." (repopulates on error)
+                Model Binding maps the posted "Name" value → student.Name
+            *@
+            <input asp-for="Name" type="text" placeholder="e.g. Arjun Sharma" />
+            @* Shows [Required] / [StringLength] error message *@
+            <span asp-validation-for="Name" class="field-error"></span>
+        </div>
+
+        @* ── Age ── *@
+        <div class="field">
+            <label asp-for="Age">Age</label>
+            <input asp-for="Age" type="number" placeholder="Between 18 and 60" min="18" max="60" />
+            @* Shows [Range] error message *@
+            <span asp-validation-for="Age" class="field-error"></span>
+        </div>
+
+        <button type="submit" class="btn-submit">Register</button>
+
+    </form>
+
+    <p class="form-note">All fields are required.</p>
+
+</div>
+
+@* Client-side validation scripts — read data-val-* attributes emitted by asp-for *@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+@model StudentManagement.Models.Student
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow">
+            <div class="card-header bg-primary text-white d-flex align-items-center gap-3 py-3">
+                <div class="avatar-circle-lg bg-white text-primary fw-bold fs-4">
+                    @Model.Name.Substring(0, 1).ToUpper()
+                </div>
+                <div>
+                    <h5 class="mb-0 fw-bold">@Model.Name</h5>
+                    <small class="opacity-75">Student ID: #@Model.Id</small>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted">Email</dt>
+                    <dd class="col-sm-8">@Model.Email</dd>
+
+                    <dt class="col-sm-4 text-muted">Course</dt>
+                    <dd class="col-sm-8">
+                        <span class="badge bg-primary">@Model.Course</span>
+                    </dd>
+
+                    <dt class="col-sm-4 text-muted">Joining Date</dt>
+                    <dd class="col-sm-8">@Model.JoiningDate.ToString("dd MMMM yyyy")</dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-transparent border-0 px-4 pb-4">
+                <a href="/Students" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

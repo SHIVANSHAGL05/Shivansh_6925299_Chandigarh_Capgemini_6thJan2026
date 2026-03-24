@@ -1,0 +1,73 @@
+@model List<EmployeePortal.Models.Employee>
+@{ ViewData["Title"] = "Employees"; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Employees — Portal</title>
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Arial,sans-serif;background:#f0f2f5;padding:24px;color:#222}
+        .page-header{margin-bottom:16px}
+        .page-header h2{font-size:20px;color:#222;margin-bottom:3px}
+        .page-header p{font-size:13px;color:#888}
+        .alert-success{background:#f0fff4;border:1px solid #9ae6b4;color:#276749;padding:10px 14px;border-radius:4px;font-size:13px;margin-bottom:14px;font-weight:bold}
+        .toolbar{display:flex;gap:10px;margin-bottom:14px}
+        .btn{padding:7px 14px;font-size:13px;font-weight:bold;border:none;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block}
+        .btn-primary{background:#1e3a5f;color:#fff}
+        .btn-primary:hover{background:#16304f}
+        .table-wrap{background:#fff;border:1px solid #ddd;border-radius:6px;overflow:hidden}
+        table{width:100%;border-collapse:collapse;font-size:14px}
+        thead{background:#1e3a5f;color:#fff}
+        thead th{padding:10px 14px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+        tbody tr:nth-child(even){background:#f9f9f9}
+        tbody tr:hover{background:#eef3ff}
+        tbody td{padding:10px 14px;border-bottom:1px solid #eee;color:#333}
+        tbody tr:last-child td{border-bottom:none}
+        .dept-tag{background:#e8f4fd;color:#1e3a5f;padding:2px 8px;border-radius:8px;font-size:12px;font-weight:bold}
+        .link{color:#1e3a5f;font-weight:bold;text-decoration:none}
+        .link:hover{text-decoration:underline}
+        .empty{text-align:center;padding:30px;color:#aaa;font-size:14px}
+    </style>
+</head>
+<body>
+@Html.Partial("_Navbar")
+
+<div class="page-header">
+    <h2>👥 All Employees</h2>
+    <p>@Model.Count employee(s) registered.</p>
+</div>
+
+@if (TempData["SuccessMessage"] != null) {
+    <div class="alert-success">✅ @TempData["SuccessMessage"]</div>
+}
+
+<div class="toolbar">
+    <a href="@Url.Action("Register","Employee")" class="btn btn-primary">+ Register New Employee</a>
+</div>
+
+<div class="table-wrap">
+    @if (!Model.Any()) {
+        <p class="empty">No employees yet. Click "Register New Employee" to add one.</p>
+    } else {
+        <table>
+            <thead>
+                <tr><th>#</th><th>Name</th><th>Age</th><th>Email</th><th>Department</th><th>Joined</th><th></th></tr>
+            </thead>
+            <tbody>
+                @foreach (var e in Model) {
+                    <tr>
+                        <td>@e.Id</td>
+                        <td>@e.Name</td>
+                        <td>@e.Age</td>
+                        <td>@e.Email</td>
+                        <td><span class="dept-tag">@e.Department</span></td>
+                        <td>@e.JoinedOn.ToString("dd MMM yyyy")</td>
+                        <td><a href="@Url.Action("Details","Employee",new{id=e.Id})" class="link">View</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+</body></html>

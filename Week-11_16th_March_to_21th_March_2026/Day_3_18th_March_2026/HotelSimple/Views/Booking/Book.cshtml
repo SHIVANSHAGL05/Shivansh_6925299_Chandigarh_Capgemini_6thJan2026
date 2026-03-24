@@ -1,0 +1,111 @@
+@{
+    ViewData["Title"] = "Book Room";
+    var room     = ViewBag.Room     as HotelSimple.Models.Room;
+    var checkIn  = ViewBag.CheckIn  as string;
+    var checkOut = ViewBag.CheckOut as string;
+    int nights   = ViewBag.Nights;
+    decimal total = ViewBag.Total;
+}
+
+<h2 class="mb-4"><i class="bi bi-calendar-plus me-2"></i>Book Room @room?.RoomNumber</h2>
+
+<!-- Error Alert -->
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-triangle me-2"></i>@TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="row g-4">
+
+    <!-- Booking Form -->
+    <div class="col-md-7">
+        <div class="card p-4">
+            <h5 class="mb-3">Your Details</h5>
+
+            <form method="post" action="/Booking/Book">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="roomId"   value="@room?.Id" />
+                <input type="hidden" name="checkIn"  value="@checkIn" />
+                <input type="hidden" name="checkOut" value="@checkOut" />
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Full Name *</label>
+                    <input type="text" name="fullName" class="form-control"
+                           placeholder="Your full name" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email Address *</label>
+                    <input type="email" name="email" class="form-control"
+                           placeholder="you@email.com" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Phone Number *</label>
+                    <input type="tel" name="phone" class="form-control"
+                           placeholder="10-digit mobile number" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Number of Guests</label>
+                    <select name="guests" class="form-select">
+                        @for (int i = 1; i <= (room?.Capacity ?? 4); i++)
+                        {
+                            <option value="@i">@i Guest@(i > 1 ? "s" : "")</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="bi bi-check-circle me-2"></i>Confirm Booking
+                    </button>
+                    <a href="/Booking?checkIn=@checkIn&checkOut=@checkOut" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-2"></i>Back to Rooms
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Booking Summary Sidebar -->
+    <div class="col-md-5">
+        <div class="card p-4 bg-light">
+            <h5 class="mb-3">Booking Summary</h5>
+            <table class="table table-borderless table-sm">
+                <tr>
+                    <td class="text-muted">Room</td>
+                    <td class="fw-semibold">@room?.RoomNumber (@room?.RoomType)</td>
+                </tr>
+                <tr>
+                    <td class="text-muted">Check-In</td>
+                    <td class="fw-semibold">@DateTime.Parse(checkIn!).ToString("dd MMM yyyy")</td>
+                </tr>
+                <tr>
+                    <td class="text-muted">Check-Out</td>
+                    <td class="fw-semibold">@DateTime.Parse(checkOut!).ToString("dd MMM yyyy")</td>
+                </tr>
+                <tr>
+                    <td class="text-muted">Nights</td>
+                    <td class="fw-semibold">@nights</td>
+                </tr>
+                <tr>
+                    <td class="text-muted">Rate/Night</td>
+                    <td class="fw-semibold">₹@room?.PricePerNight.ToString("N0")</td>
+                </tr>
+                <tr class="border-top">
+                    <td class="fw-bold fs-5">Total</td>
+                    <td class="fw-bold fs-5 text-success">₹@total.ToString("N0")</td>
+                </tr>
+            </table>
+
+            <div class="alert alert-success small mt-2 mb-0">
+                <i class="bi bi-shield-check me-2"></i>
+                Free cancellation available. Payment at hotel.
+            </div>
+        </div>
+    </div>
+</div>

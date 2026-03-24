@@ -1,0 +1,118 @@
+@model ProductCatalog.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+    var related = ViewBag.Related as IEnumerable<ProductCatalog.Models.Product>;
+}
+
+<div class="page-header-band py-3">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/" class="text-muted">Home</a></li>
+                <li class="breadcrumb-item"><a href="/Products" class="text-muted">Products</a></li>
+                <li class="breadcrumb-item"><a href="/Products?category=@Model.Category" class="text-muted">@Model.Category</a></li>
+                <li class="breadcrumb-item active text-white">@Model.Name</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container py-6">
+    <div class="row g-5 align-items-start">
+
+        <!-- Image panel -->
+        <div class="col-lg-6">
+            <div class="detail-img-wrap">
+                <img src="@Model.ImageUrl" alt="@Model.Name" class="detail-img" id="mainImage" />
+                @if (Model.IsNew)
+                {
+                    <span class="badge-new badge-new-lg">NEW</span>
+                }
+            </div>
+        </div>
+
+        <!-- Info panel -->
+        <div class="col-lg-6">
+            <span class="product-category mb-2 d-block">@Model.Category</span>
+            <h1 class="detail-title">@Model.Name</h1>
+
+            <!-- Rating -->
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="stars stars-lg">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <i class="bi bi-star@(i <= Math.Round(Model.Rating) ? "-fill" : "")"></i>
+                    }
+                </div>
+                <span class="text-muted">@Model.Rating.ToString("0.0") / 5.0 — @Model.ReviewCount reviews</span>
+            </div>
+
+            <!-- Price -->
+            <div class="detail-price mb-4">$@Model.Price.ToString("N2")</div>
+
+            <!-- Description -->
+            <p class="detail-desc">@Model.Description</p>
+
+            <!-- Highlights -->
+            <ul class="detail-highlights">
+                <li><i class="bi bi-check-circle-fill text-accent me-2"></i>2-Year Warranty included</li>
+                <li><i class="bi bi-check-circle-fill text-accent me-2"></i>Free shipping on this order</li>
+                <li><i class="bi bi-check-circle-fill text-accent me-2"></i>30-day hassle-free returns</li>
+            </ul>
+
+            <!-- CTA buttons -->
+            <div class="d-flex gap-3 flex-wrap mt-4">
+                <button class="btn btn-accent btn-lg px-5">
+                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                </button>
+                <button class="btn btn-outline-light btn-lg px-4">
+                    <i class="bi bi-heart me-2"></i>Wishlist
+                </button>
+            </div>
+
+            <!-- Trust badges -->
+            <div class="trust-badges mt-4">
+                <span><i class="bi bi-shield-lock"></i> Secure checkout</span>
+                <span><i class="bi bi-truck"></i> Ships in 1–2 days</span>
+                <span><i class="bi bi-arrow-repeat"></i> Easy returns</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Related Products ──────────────────────────────────────── -->
+    @if (related != null && related.Any())
+    {
+        <div class="mt-6">
+            <h3 class="section-heading text-white mb-4">More in @Model.Category</h3>
+            <div class="row g-4">
+                @foreach (var rel in related)
+                {
+                    <div class="col-sm-6 col-md-4">
+                        <div class="product-card">
+                            <div class="product-img-wrap">
+                                <img src="@rel.ImageUrl" alt="@rel.Name" class="product-img" loading="lazy" />
+                                <div class="product-overlay">
+                                    <a href="/Products/Details/@rel.Id" class="btn btn-light btn-sm">View</a>
+                                </div>
+                            </div>
+                            <div class="product-body">
+                                <h6 class="product-name">
+                                    <a href="/Products/Details/@rel.Id">@rel.Name</a>
+                                </h6>
+                                <div class="product-meta">
+                                    <div class="stars">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            <i class="bi bi-star@(i <= Math.Round(rel.Rating) ? "-fill" : "")"></i>
+                                        }
+                                    </div>
+                                    <span class="product-price">$@rel.Price.ToString("N2")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

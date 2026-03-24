@@ -1,0 +1,160 @@
+@model ECommerceOMS.ViewModels.ShippingManagementViewModel
+@{
+    ViewData["Title"] = "Shipping Management";
+}
+
+<div class="page-header">
+    <h1><i class="bi bi-truck me-2"></i>Shipping Management</h1>
+    <p class="mb-0 opacity-75">Track and update all shipments</p>
+</div>
+
+<!-- Summary badges -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card bg-warning text-dark p-3 text-center">
+            <div class="fs-3 fw-bold">@Model.PendingShipments.Count</div>
+            <div class="small fw-semibold">Awaiting Shipment</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-primary text-white p-3 text-center">
+            <div class="fs-3 fw-bold">@Model.ActiveShipments.Count</div>
+            <div class="small fw-semibold">In Transit</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white p-3 text-center">
+            <div class="fs-3 fw-bold">@Model.DeliveredShipments.Count</div>
+            <div class="small fw-semibold">Delivered (Recent)</div>
+        </div>
+    </div>
+</div>
+
+<!-- Awaiting Shipment -->
+<div class="card mb-4">
+    <div class="card-header fw-bold bg-warning-subtle">
+        <i class="bi bi-hourglass-split me-2 text-warning"></i>Orders Awaiting Shipment
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Order Date</th>
+                    <th class="text-end">Total</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.PendingShipments.Any())
+                {
+                    <tr><td colspan="6" class="text-center text-muted py-4">
+                        <i class="bi bi-check-circle text-success me-2"></i>All orders have been shipped!
+                    </td></tr>
+                }
+                @foreach (var o in Model.PendingShipments)
+                {
+                    <tr>
+                        <td class="fw-semibold text-primary small">@o.OrderNumber</td>
+                        <td class="small">@o.Customer?.FullName</td>
+                        <td class="small text-muted">@o.OrderDate.ToString("dd MMM yyyy")</td>
+                        <td class="text-end small">₹@o.TotalAmount.ToString("N2")</td>
+                        <td class="text-center"><span class="badge badge-@o.Status.ToString().ToLower()">@o.Status</span></td>
+                        <td class="text-end">
+                            <a asp-action="UpdateShipping" asp-route-orderId="@o.Id" class="btn btn-sm btn-primary">
+                                <i class="bi bi-truck me-1"></i>Ship
+                            </a>
+                            <a asp-controller="Order" asp-action="Details" asp-route-id="@o.Id" class="btn btn-sm btn-outline-secondary">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Active Shipments -->
+<div class="card mb-4">
+    <div class="card-header fw-bold bg-primary-subtle">
+        <i class="bi bi-truck me-2 text-primary"></i>Active Shipments (In Transit)
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Carrier</th>
+                    <th>Tracking #</th>
+                    <th>Est. Delivery</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.ActiveShipments.Any())
+                {
+                    <tr><td colspan="7" class="text-center text-muted py-4">No active shipments.</td></tr>
+                }
+                @foreach (var sd in Model.ActiveShipments)
+                {
+                    <tr>
+                        <td class="fw-semibold text-primary small">@sd.Order?.OrderNumber</td>
+                        <td class="small">@sd.Order?.Customer?.FullName</td>
+                        <td class="small">@(sd.Carrier ?? "—")</td>
+                        <td class="small fw-semibold">@(sd.TrackingNumber ?? "—")</td>
+                        <td class="small">@(sd.EstimatedDelivery?.ToString("dd MMM yyyy") ?? "—")</td>
+                        <td class="text-center">
+                            <span class="badge bg-primary-subtle text-primary">@sd.Status</span>
+                        </td>
+                        <td class="text-end">
+                            <a asp-action="UpdateShipping" asp-route-orderId="@sd.OrderId" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil me-1"></i>Update
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Delivered -->
+<div class="card">
+    <div class="card-header fw-bold bg-success-subtle">
+        <i class="bi bi-check-circle me-2 text-success"></i>Recently Delivered
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Carrier</th>
+                    <th>Tracking #</th>
+                    <th>Delivered On</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.DeliveredShipments.Any())
+                {
+                    <tr><td colspan="5" class="text-center text-muted py-4">No deliveries yet.</td></tr>
+                }
+                @foreach (var sd in Model.DeliveredShipments)
+                {
+                    <tr>
+                        <td class="fw-semibold text-primary small">@sd.Order?.OrderNumber</td>
+                        <td class="small">@sd.Order?.Customer?.FullName</td>
+                        <td class="small">@(sd.Carrier ?? "—")</td>
+                        <td class="small">@(sd.TrackingNumber ?? "—")</td>
+                        <td class="small text-success fw-semibold">@sd.DeliveredOn?.ToString("dd MMM yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
