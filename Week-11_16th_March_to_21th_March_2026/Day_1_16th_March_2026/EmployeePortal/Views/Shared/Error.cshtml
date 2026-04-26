@@ -1,0 +1,63 @@
+@model EmployeePortal.Models.ErrorViewModel
+@{ ViewData["Title"] = "Error"; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Error — Employee Portal</title>
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Arial,sans-serif;background:#f0f2f5;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+        .box{background:#fff;border:1px solid #ddd;border-radius:6px;padding:32px;width:100%;max-width:520px}
+        .icon{font-size:40px;margin-bottom:12px}
+        h2{font-size:20px;color:#cc0000;margin-bottom:8px}
+        .msg{font-size:14px;color:#444;margin-bottom:20px}
+        hr{border:none;border-top:1px solid #eee;margin:16px 0}
+        .detail{background:#fff8f8;border:1px solid #f0c0c0;border-radius:4px;padding:14px;font-size:13px;color:#660000;margin-bottom:20px}
+        .detail strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#990000;margin-bottom:3px}
+        .detail strong:not(:first-child){margin-top:10px}
+        .actions{display:flex;gap:10px;flex-wrap:wrap}
+        .btn{display:inline-block;padding:8px 16px;font-size:13px;font-weight:bold;border-radius:4px;text-decoration:none}
+        .btn-primary{background:#1e3a5f;color:#fff}
+        .btn-outline{background:#fff;color:#1e3a5f;border:1px solid #1e3a5f}
+        .btn-primary:hover{background:#16304f}
+        .btn-outline:hover{background:#e8f0fb}
+        .note{font-size:12px;color:#888;margin-top:16px;line-height:1.6}
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="icon">⚠️</div>
+    <h2>Oops! Something went wrong.</h2>
+
+    @*
+        Model.Message — friendly message set by CustomExceptionFilter.
+        Never exposes internal stack trace to the user.
+    *@
+    <p class="msg">@Model.Message</p>
+    <hr />
+
+    @* Technical detail — useful for learning. Hide in production. *@
+    <div class="detail">
+        <strong>Exception Type</strong>@Model.ExceptionType
+        <strong>Detail</strong>@Model.Detail
+        @if (Model.ShowRequestId)
+        {
+            <strong>Request ID</strong>@Model.RequestId
+        }
+    </div>
+
+    <div class="actions">
+        <a href="@Url.Action("Index","HR")"      class="btn btn-primary">← HR Dashboard</a>
+        <a href="@Url.Action("Index","Employee")" class="btn btn-outline">Employees</a>
+        <a href="@Url.Action("Reports","HR")"     class="btn btn-outline">Reports</a>
+    </div>
+
+    <p class="note">
+        ✅ This page was rendered by <strong>CustomExceptionFilter</strong> —
+        the exception was caught and handled gracefully.<br />
+        Check the <strong>console output</strong> for the full log entry with controller, action, and message.
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LearnHub</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/Courses/Index">🎓 LearnHub</a>
+        </div>
+        <div class="nav-links">
+            <a href="/Courses/Index">Browse Courses</a>
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                var role = User.FindFirst("Role")?.Value ?? User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "";
+                <span class="nav-user">👤 @User.Identity.Name (@role)</span>
+                @if (role == "Instructor" || role == "Admin")
+                {
+                    <a href="/Courses/Create">+ Create Course</a>
+                }
+                <a href="/Student/MyEnrollments">My Learning</a>
+                <a href="/Auth/Logout">Logout</a>
+            }
+            else
+            {
+                <a href="/Auth/Login">Login</a>
+                <a href="/Auth/Register" class="btn-primary-sm">Sign Up</a>
+            }
+        </div>
+    </nav>
+
+    <main class="main-content">
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <p>&copy; @DateTime.Now.Year LearnHub – Online Learning Platform</p>
+    </footer>
+</body>
+</html>

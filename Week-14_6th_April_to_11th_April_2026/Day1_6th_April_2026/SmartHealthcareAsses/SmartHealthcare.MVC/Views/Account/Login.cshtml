@@ -1,0 +1,112 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-10 col-lg-8">
+        <div class="row g-0 shadow-lg rounded-4 overflow-hidden" style="min-height:500px">
+
+            <!-- Left Panel -->
+            <div class="col-md-5 d-none d-md-flex flex-column justify-content-between p-5 text-white"
+                 style="background:linear-gradient(160deg, var(--sc-navy) 0%, #163568 60%, #0ea5a0 100%)">
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-5">
+                        <i class="bi bi-hospital-fill fs-2" style="color:var(--sc-teal-light)"></i>
+                        <span class="fw-800 fs-4" style="font-family:'Outfit',sans-serif">Smart<span style="color:var(--sc-teal-light)">Care</span></span>
+                    </div>
+                    <h2 class="fw-800 mb-3" style="font-family:'Outfit',sans-serif;line-height:1.2">Your health,<br>our priority.</h2>
+                    <p style="opacity:.7;font-size:.9rem;line-height:1.7">
+                        Access your appointments, prescriptions, billing records and more — all in one place.
+                    </p>
+                </div>
+                <div>
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="d-flex align-items-center gap-2 small" style="opacity:.75">
+                            <i class="bi bi-shield-check" style="color:var(--sc-teal-light)"></i> Secure &amp; Private
+                        </div>
+                        <div class="d-flex align-items-center gap-2 small" style="opacity:.75">
+                            <i class="bi bi-lightning-fill" style="color:var(--sc-amber)"></i> Fast Access
+                        </div>
+                    </div>
+                    <div class="rounded-3 p-3" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)">
+                        <div class="small" style="opacity:.6;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Demo Credentials</div>
+                        <div class="small fw-600" style="opacity:.9">admin&#64;healthcare.com</div>
+                        <div class="small" style="opacity:.65">Password: Admin@12345</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="col-md-7 bg-white p-5 d-flex flex-column justify-content-center">
+                <div class="mb-4">
+                    <h4 class="fw-800 text-navy mb-1" style="font-family:'Outfit',sans-serif">Welcome back</h4>
+                    <p class="text-muted small mb-0">Sign in to your SmartCare account</p>
+                </div>
+
+                <form asp-action="Login" method="post" id="loginForm" novalidate>
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="ReturnUrl" />
+
+                    <div asp-validation-summary="All" class="alert alert-danger py-2 small"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Email address</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input asp-for="Email" class="form-control" placeholder="you@example.com" autocomplete="email" />
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input asp-for="Password" class="form-control" placeholder="••••••••" id="passwordInput" autocomplete="current-password" />
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword" style="border-left:0">
+                                <i class="bi bi-eye" id="toggleIcon"></i>
+                            </button>
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4 d-flex align-items-center justify-content-between">
+                        <div class="form-check mb-0">
+                            <input asp-for="RememberMe" class="form-check-input" />
+                            <label asp-for="RememberMe" class="form-check-label small">Remember me</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 btn-lg fw-700">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                    </button>
+
+                    <div class="text-center mt-4">
+                        <span class="text-muted small">Don't have an account? </span>
+                        <a asp-action="Register" class="small fw-600 text-teal text-decoration-none">Create account</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const input = document.getElementById('passwordInput');
+            const icon  = document.getElementById('toggleIcon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('bi-eye', 'bi-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('bi-eye-slash', 'bi-eye');
+            }
+        });
+    </script>
+}

@@ -1,0 +1,44 @@
+@model ProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<section class="checkout-layout reveal">
+    <article class="page-card">
+        <h1>My Profile</h1>
+
+        <form method="post" class="form-grid mt-3">
+            <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
+
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" />
+            <span asp-validation-for="FullName"></span>
+
+            <label asp-for="Email"></label>
+            <input asp-for="Email" readonly />
+            <span asp-validation-for="Email"></span>
+
+            <label asp-for="Phone"></label>
+            <input asp-for="Phone" />
+            <span asp-validation-for="Phone"></span>
+
+            <label asp-for="Address"></label>
+            <textarea asp-for="Address" rows="3"></textarea>
+            <span asp-validation-for="Address"></span>
+
+            <label asp-for="City"></label>
+            <input asp-for="City" />
+            <span asp-validation-for="City"></span>
+
+            <label asp-for="Pincode"></label>
+            <input asp-for="Pincode" />
+            <span asp-validation-for="Pincode"></span>
+
+            <button type="submit" class="btn btn-brand">Update Profile</button>
+        </form>
+    </article>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

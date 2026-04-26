@@ -1,0 +1,80 @@
+@model List<PrescriptionDto>
+@{
+    ViewData["Title"] = "My Prescriptions";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold"><i class="bi bi-file-medical text-info me-2"></i>My Prescriptions</h2>
+    <a asp-action="Profile" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left me-1"></i>Back to Profile
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center text-muted py-5">
+        <i class="bi bi-file-earmark-x display-3 d-block mb-3 opacity-50"></i>
+        <h5>No prescriptions yet.</h5>
+        <p>Prescriptions will appear here after your doctor issues them.</p>
+        <a asp-controller="Appointment" asp-action="Book" class="btn btn-primary mt-2">
+            Book an Appointment
+        </a>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var p in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between">
+                        <span class="fw-semibold">
+                            <i class="bi bi-file-medical text-info me-2"></i>Rx #@p.Id
+                        </span>
+                        <span class="text-muted small">@p.IssuedDate.ToString("dd MMM yyyy")</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <div class="small text-muted">Prescribed by</div>
+                            <div class="fw-semibold">Dr. @p.DoctorName</div>
+                        </div>
+                        @if (!string.IsNullOrEmpty(p.Diagnosis))
+                        {
+                            <div class="mb-2">
+                                <div class="small text-muted">Diagnosis</div>
+                                <div class="small">@p.Diagnosis</div>
+                            </div>
+                        }
+                        <div class="mb-3">
+                            <div class="small text-muted mb-1">Medicines (@p.Medicines.Count)</div>
+                            @foreach (var m in p.Medicines.Take(3))
+                            {
+                                <span class="badge bg-light text-dark border me-1 mb-1">@m.MedicineName</span>
+                            }
+                            @if (p.Medicines.Count > 3)
+                            {
+                                <span class="badge bg-secondary">+@(p.Medicines.Count - 3) more</span>
+                            }
+                        </div>
+                        @if (p.ValidUntil.HasValue)
+                        {
+                            <div class="small @(p.ValidUntil < DateTime.Today ? "text-danger" : "text-muted")">
+                                <i class="bi bi-clock me-1"></i>
+                                @(p.ValidUntil < DateTime.Today ? "Expired: " : "Valid until: ")
+                                @p.ValidUntil.Value.ToString("dd MMM yyyy")
+                            </div>
+                        }
+                    </div>
+                    <div class="card-footer bg-white border-top">
+                        <a asp-controller="Prescription" asp-action="View"
+                           asp-route-appointmentId="@p.AppointmentId"
+                           class="btn btn-outline-info w-100 btn-sm">
+                            <i class="bi bi-eye me-1"></i>View Full Prescription
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,83 @@
+@* EditProfile.cshtml *@
+@model UpdatePatientDto
+@{
+    ViewData["Title"] = "Edit My Profile";
+    int patientId = (int)(ViewBag.PatientId ?? 0);
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-pencil-square me-2"></i>Edit My Profile</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="EditProfile" asp-route-patientId="@patientId" method="post" novalidate>
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="All" class="alert alert-danger py-2 small"></div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="BloodGroup" class="form-label fw-semibold"></label>
+                            <select asp-for="BloodGroup" class="form-select">
+                                <option value="">-- Select --</option>
+                                @foreach (var bg in new[] { "A+","A-","B+","B-","AB+","AB-","O+","O-" })
+                                {
+                                    <option value="@bg" selected="@(Model.BloodGroup == bg)">@bg</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Weight" class="form-label fw-semibold">Weight (kg)</label>
+                            <input asp-for="Weight" type="number" step="0.1" class="form-control" placeholder="70.0" />
+                            <span asp-validation-for="Weight" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Height" class="form-label fw-semibold">Height (cm)</label>
+                            <input asp-for="Height" type="number" step="0.5" class="form-control" placeholder="170" />
+                            <span asp-validation-for="Height" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="AllergiesNotes" class="form-label fw-semibold">Known Allergies</label>
+                        <textarea asp-for="AllergiesNotes" class="form-control" rows="2"
+                                  placeholder="List any known allergies (food, medicine, environmental)..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="MedicalHistory" class="form-label fw-semibold">Medical History</label>
+                        <textarea asp-for="MedicalHistory" class="form-control" rows="3"
+                                  placeholder="Previous surgeries, chronic conditions, etc."></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="EmergencyContactName" class="form-label fw-semibold">Emergency Contact Name</label>
+                            <input asp-for="EmergencyContactName" class="form-control" placeholder="Full name" />
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="EmergencyContactPhone" class="form-label fw-semibold">Emergency Contact Phone</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input asp-for="EmergencyContactPhone" class="form-control" placeholder="+91 98765 43210" />
+                            </div>
+                            <span asp-validation-for="EmergencyContactPhone" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-primary btn-lg px-5 fw-semibold">
+                            <i class="bi bi-check-circle me-2"></i>Save Changes
+                        </button>
+                        <a asp-action="Profile" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

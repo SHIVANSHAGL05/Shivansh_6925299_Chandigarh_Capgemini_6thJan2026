@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    var token = Context.Session.GetString("Token");
+}
+
+<section class="hero-panel mb-5" data-reveal>
+    <div class="hero-copy">
+        <span class="eyebrow"><i class="bi bi-shield-check"></i> Connected Care Platform</span>
+        <h1>Smart Healthcare Management System</h1>
+        <p class="lead">A unified healthcare experience to book visits, manage records, and keep doctors, patients, and administrators on the same digital care track.</p>
+        <div class="hero-actions">
+            @if (token == null)
+            {
+                <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-lg">
+                    <i class="bi bi-person-plus"></i> Create Account
+                </a>
+                <a asp-controller="Doctor" asp-action="Index" class="btn btn-outline-light btn-lg">
+                    <i class="bi bi-search"></i> Browse Doctors
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Dashboard" asp-action="Index" class="btn btn-light btn-lg">
+                    <i class="bi bi-speedometer2"></i> Go to Dashboard
+                </a>
+                <a asp-controller="Appointment" asp-action="Create" class="btn btn-outline-light btn-lg">
+                    <i class="bi bi-calendar-check"></i> Book Appointment
+                </a>
+            }
+        </div>
+    </div>
+    <div class="hero-stats">
+        <div class="stat-card" data-tilt>
+            <div class="stat-icon"><i class="bi bi-clock-fill"></i></div>
+            <div>
+                <div class="stat-value" data-counter="24" data-suffix="/7">0/7</div>
+                <div class="stat-label">Care Platform Access</div>
+            </div>
+        </div>
+        <div class="stat-card" data-tilt>
+            <div class="stat-icon"><i class="bi bi-lightning-fill"></i></div>
+            <div>
+                <div class="stat-value" data-counter="3" data-suffix=" sec">0 sec</div>
+                <div class="stat-label">Appointment Scheduling</div>
+            </div>
+        </div>
+        <div class="stat-card" data-tilt>
+            <div class="stat-icon"><i class="bi bi-shield-lock-fill"></i></div>
+            <div>
+                <div class="stat-value" data-counter="99" data-suffix="%">0%</div>
+                <div class="stat-label">Medical Data Protection</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="feature-grid mb-5" data-reveal>
+    <article class="feature-card" data-tilt>
+        <div class="feature-icon"><i class="bi bi-heart-pulse"></i></div>
+        <h3>For Patients</h3>
+        <p>Book specialist consultations, manage your profile, and keep your appointment history in one clean timeline.</p>
+        <a href="@Url.Action("Index", "Doctor")" class="btn btn-sm btn-outline-primary mt-3">Find Specialists</a>
+    </article>
+    
+    <article class="feature-card" data-tilt>
+        <div class="feature-icon"><i class="bi bi-person-badge"></i></div>
+        <h3>For Doctors</h3>
+        <p>Stay on top of consultations, schedule, and treatment notes with a reliable digital workspace.</p>
+        <a href="@Url.Action("Register", "Account")" class="btn btn-sm btn-outline-primary mt-3">Join Platform</a>
+    </article>
+    
+    <article class="feature-card" data-tilt>
+        <div class="feature-icon"><i class="bi bi-clipboard-data"></i></div>
+        <h3>For Administrators</h3>
+        <p>Monitor operational metrics, users, and appointments with transparent data and action-ready views.</p>
+        <a href="@Url.Action("Login", "Account")" class="btn btn-sm btn-outline-primary mt-3">Open Admin Portal</a>
+    </article>
+</section>
+
+<section class="section-shell" data-reveal>
+    <div class="row g-4 align-items-center">
+        <div class="col-lg-7">
+            <h2 class="mb-4">Why teams choose Smart Healthcare</h2>
+            <div class="d-grid gap-3">
+                <div class="info-panel"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>Fast booking workflow:</strong> reduce appointment friction with simple, reliable forms.</div>
+                <div class="info-panel"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>Verified professionals:</strong> discover experienced doctors by specialization and availability.</div>
+                <div class="info-panel"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>Digital-first care records:</strong> store visits and prescriptions in a secure cloud workflow.</div>
+                <div class="info-panel"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>Any-device experience:</strong> responsive pages for both desktop and mobile users.</div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="section-shell text-center">
+                <p class="mb-2 text-uppercase fw-bold text-muted small">Your Health, Elevated</p>
+                <h3 class="mb-3">Human-centered digital care</h3>
+                <p class="text-muted mb-4">Everything from first consultation to follow-up notes in one beautiful healthcare workspace.</p>
+                @if (token == null)
+                {
+                    <a href="@Url.Action("Register", "Account")" class="btn btn-primary btn-lg">Start Your Journey</a>
+                }
+            </div>
+        </div>
+    </div>
+</section>

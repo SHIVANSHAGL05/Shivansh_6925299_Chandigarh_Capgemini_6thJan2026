@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+<section class="content-page reveal">
+    <h1>Thank you, @ViewData["CustomerName"]</h1>
+    <p>Your order has been placed successfully. Invoice and order confirmation email events are queued.</p>
+
+    <div class="book-actions mt-3">
+        <a class="btn btn-brand" asp-controller="Catalog" asp-action="Index">Continue Shopping</a>
+        <a class="btn btn-ghost" asp-controller="Admin" asp-action="Orders">Track in Admin Orders</a>
+    </div>
+</section>

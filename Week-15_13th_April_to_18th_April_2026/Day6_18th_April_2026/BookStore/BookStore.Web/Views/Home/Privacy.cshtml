@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Architecture and Governance";
+}
+
+<section class="content-page reveal">
+    <h1>@ViewData["Title"]</h1>
+    <p>
+        This frontend maps directly to the 3-tier architecture requested in the case study:
+        MVC presentation, Web API business services, and EF Core repository-backed data access.
+    </p>
+
+    <div class="content-grid">
+        <article>
+            <h3>Security Baseline</h3>
+            <ul>
+                <li>JWT access and refresh token workflow</li>
+                <li>Role-based UI segments for Admin and Customer</li>
+                <li>Versioned endpoints such as /api/v1/books and /api/v1/orders</li>
+            </ul>
+        </article>
+        <article>
+            <h3>Validation Strategy</h3>
+            <ul>
+                <li>Client-side checks via Razor helpers and annotations</li>
+                <li>FluentValidation on API layer for business rules</li>
+                <li>Consistent error envelopes through global middleware</li>
+            </ul>
+        </article>
+        <article>
+            <h3>Deployment Path</h3>
+            <ul>
+                <li>MVC and API on Azure App Service</li>
+                <li>Azure SQL Database and Blob Storage integration</li>
+                <li>GitHub Actions or Azure DevOps CI/CD pipeline</li>
+            </ul>
+        </article>
+    </div>
+</section>

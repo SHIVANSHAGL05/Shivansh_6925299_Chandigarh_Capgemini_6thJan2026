@@ -1,0 +1,30 @@
+@model IReadOnlyList<ReportMetricViewModel>
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<section class="content-page reveal">
+    <h1>Business Reports</h1>
+    <p>Analytics blocks prepared for API-powered reporting and dashboard automation.</p>
+</section>
+
+<section class="catalog-grid reveal">
+    @foreach (var metric in Model)
+    {
+        <article class="kpi-card">
+            <p>@metric.Name</p>
+            <h3>@metric.Value</h3>
+            <span>@metric.Delta</span>
+        </article>
+    }
+</section>
+
+<section class="page-card reveal">
+    <h2>Expected Reporting Modules</h2>
+    <ul>
+        <li>Daily revenue and order count trend</li>
+        <li>Top selling categories and authors</li>
+        <li>Low stock forecast and replenishment queue</li>
+        <li>Customer retention and repeat purchase ratio</li>
+    </ul>
+</section>

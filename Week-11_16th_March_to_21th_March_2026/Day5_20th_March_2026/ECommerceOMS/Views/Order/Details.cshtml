@@ -1,0 +1,175 @@
+@model ECommerceOMS.ViewModels.OrderDetailViewModel
+@using ECommerceOMS.Models
+@{
+    ViewData["Title"] = "Order " + Model.Order.OrderNumber;
+    var statusClass = Model.Order.Status.ToString().ToLower();
+}
+
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Orders</a></li>
+        <li class="breadcrumb-item active">@Model.Order.OrderNumber</li>
+    </ol>
+</nav>
+
+<div class="row g-4">
+    <!-- Left: Order Info + Items -->
+    <div class="col-md-8">
+        <!-- Order Header -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h4 class="fw-bold mb-1">@Model.Order.OrderNumber</h4>
+                        <p class="text-muted small mb-0">
+                            Placed on @Model.Order.OrderDate.ToLocalTime().ToString("dd MMMM yyyy, hh:mm tt")
+                        </p>
+                    </div>
+                    <span class="badge badge-@statusClass fs-6 px-3 py-2">@Model.Order.Status</span>
+                </div>
+                @if (Model.Order.Notes != null)
+                {
+                    <div class="alert alert-info small mt-3 mb-0">
+                        <i class="bi bi-chat-quote me-1"></i>@Model.Order.Notes
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Order Items -->
+        <div class="card mb-3">
+            <div class="card-header fw-semibold"><i class="bi bi-box me-2"></i>Order Items</div>
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th class="text-center">Qty</th>
+                            <th class="text-end">Unit Price</th>
+                            <th class="text-end">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId"
+                                       class="text-decoration-none fw-semibold">
+                                        @item.Product?.Name
+                                    </a>
+                                </td>
+                                <td class="small text-muted">@item.Product?.Category?.Name</td>
+                                <td class="text-center">@item.Quantity</td>
+                                <td class="text-end">₹@item.UnitPrice.ToString("N2")</td>
+                                <td class="text-end fw-semibold">₹@((item.Quantity * item.UnitPrice).ToString("N2"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-light">
+                            <td colspan="4" class="text-end fw-bold fs-5">Grand Total</td>
+                            <td class="text-end fw-bold fs-5 text-primary">₹@Model.TotalAmount.ToString("N2")</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="d-flex gap-2">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>Back
+            </a>
+            @if (Model.Order.Status != OrderStatus.Cancelled && Model.Order.Status != OrderStatus.Delivered)
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Order.Id" class="btn btn-outline-primary">
+                    <i class="bi bi-pencil me-1"></i>Edit Status
+                </a>
+                <form asp-action="Cancel" method="post" onsubmit="return confirm('Cancel this order?')">
+                    <input type="hidden" name="id" value="@Model.Order.Id" />
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="bi bi-x-circle me-1"></i>Cancel Order
+                    </button>
+                </form>
+            }
+            @if (User.IsInRole("Admin") && Model.ShippingDetail != null)
+            {
+                <a asp-controller="Admin" asp-action="UpdateShipping" asp-route-orderId="@Model.Order.Id"
+                   class="btn btn-primary">
+                    <i class="bi bi-truck me-1"></i>Update Shipping
+                </a>
+            }
+        </div>
+    </div>
+
+    <!-- Right: Customer & Shipping -->
+    <div class="col-md-4">
+        <!-- Customer -->
+        <div class="card mb-3">
+            <div class="card-header fw-semibold"><i class="bi bi-person me-2"></i>Customer</div>
+            <div class="card-body">
+                <p class="fw-bold mb-1">@Model.Order.Customer?.FullName</p>
+                <p class="small text-muted mb-1"><i class="bi bi-envelope me-1"></i>@Model.Order.Customer?.Email</p>
+                <p class="small text-muted mb-0"><i class="bi bi-telephone me-1"></i>@Model.Order.Customer?.Phone</p>
+                <a asp-controller="Customer" asp-action="Details" asp-route-id="@Model.Order.CustomerId"
+                   class="btn btn-sm btn-outline-primary mt-2">View Profile</a>
+            </div>
+        </div>
+
+        <!-- Shipping -->
+        @if (Model.ShippingDetail != null)
+        {
+            var sd = Model.ShippingDetail;
+            <div class="card">
+                <div class="card-header fw-semibold"><i class="bi bi-truck me-2"></i>Shipping Details</div>
+                <div class="card-body small">
+                    <p class="fw-semibold mb-1">@sd.RecipientName</p>
+                    <p class="text-muted mb-1">@sd.ShippingAddress</p>
+                    <p class="text-muted mb-2">@sd.City, @sd.State – @sd.PostalCode, @sd.Country</p>
+                    <hr class="my-2">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted">Status</span>
+                        <span class="fw-semibold">@sd.Status</span>
+                    </div>
+                    @if (sd.Carrier != null)
+                    {
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Carrier</span>
+                            <span>@sd.Carrier</span>
+                        </div>
+                    }
+                    @if (sd.TrackingNumber != null)
+                    {
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Tracking</span>
+                            <span class="fw-semibold text-primary">@sd.TrackingNumber</span>
+                        </div>
+                    }
+                    @if (sd.EstimatedDelivery.HasValue)
+                    {
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Est. Delivery</span>
+                            <span>@sd.EstimatedDelivery.Value.ToString("dd MMM yyyy")</span>
+                        </div>
+                    }
+                    @if (sd.ShippedOn.HasValue)
+                    {
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Shipped On</span>
+                            <span>@sd.ShippedOn.Value.ToString("dd MMM yyyy")</span>
+                        </div>
+                    }
+                    @if (sd.DeliveredOn.HasValue)
+                    {
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Delivered On</span>
+                            <span class="text-success fw-semibold">@sd.DeliveredOn.Value.ToString("dd MMM yyyy")</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

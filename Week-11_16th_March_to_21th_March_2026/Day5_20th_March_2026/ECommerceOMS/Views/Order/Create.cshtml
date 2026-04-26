@@ -1,0 +1,210 @@
+@{
+    ViewData["Title"] = "New Order";
+    var products = ViewBag.Products as List<ECommerceOMS.Models.Product> ?? new();
+}
+
+<div class="page-header">
+    <h1><i class="bi bi-cart-plus me-2"></i>Place New Order</h1>
+</div>
+
+<form asp-action="Create" method="post" id="orderForm">
+    <div class="row g-4">
+        <!-- Left: Customer + Products -->
+        <div class="col-md-7">
+            <!-- Customer -->
+            <div class="card mb-3 p-4">
+                <h6 class="fw-bold mb-3"><i class="bi bi-person me-2 text-primary"></i>Customer</h6>
+                <select name="customerId" class="form-select" required>
+                    <option value="">-- Select Customer --</option>
+                    @foreach (var c in ViewBag.Customers as Microsoft.AspNetCore.Mvc.Rendering.SelectList ?? new Microsoft.AspNetCore.Mvc.Rendering.SelectList(new List<object>()))
+                    {
+                        <option value="@c.Value">@c.Text</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Add Products -->
+            <div class="card mb-3 p-4">
+                <h6 class="fw-bold mb-3"><i class="bi bi-box me-2 text-primary"></i>Add Products</h6>
+                <div class="row g-2 mb-3">
+                    <div class="col-md-7">
+                        <select id="productSelect" class="form-select">
+                            <option value="">-- Select Product --</option>
+                            @foreach (var p in products)
+                            {
+                                <option value="@p.Id" data-price="@p.Price" data-name="@p.Name" data-stock="@p.StockQuantity">
+                                    @p.Name – ₹@p.Price.ToString("N2") (@p.Category?.Name)
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" id="qtyInput" class="form-control" placeholder="Qty" min="1" value="1" />
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" id="addItem" class="btn btn-primary w-100">
+                            <i class="bi bi-plus-lg"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cart Items -->
+                <div id="cartItems">
+                    <table class="table table-sm" id="cartTable" style="display:none;">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Product</th>
+                                <th class="text-center">Qty</th>
+                                <th class="text-end">Price</th>
+                                <th class="text-end">Subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartBody"></tbody>
+                    </table>
+                    <div id="emptyCart" class="text-center text-muted py-3 small">
+                        <i class="bi bi-cart3 me-1"></i>No items added yet
+                    </div>
+                </div>
+
+                <div id="cartTotal" class="text-end fw-bold text-primary fs-5 mt-2" style="display:none;"></div>
+            </div>
+
+            <!-- Notes -->
+            <div class="card p-4">
+                <h6 class="fw-bold mb-3"><i class="bi bi-chat me-2 text-primary"></i>Order Notes</h6>
+                <textarea name="notes" class="form-control" rows="2" placeholder="Optional notes…"></textarea>
+            </div>
+        </div>
+
+        <!-- Right: Shipping -->
+        <div class="col-md-5">
+            <div class="card p-4">
+                <h6 class="fw-bold mb-3"><i class="bi bi-truck me-2 text-primary"></i>Shipping Details</h6>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Recipient Name <span class="text-danger">*</span></label>
+                    <input name="recipientName" class="form-control" placeholder="Full name" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold small">Address <span class="text-danger">*</span></label>
+                    <input name="shippingAddress" class="form-control" placeholder="Street address" required />
+                </div>
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="form-label fw-semibold small">City <span class="text-danger">*</span></label>
+                        <input name="city" class="form-control" placeholder="City" required />
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-semibold small">State <span class="text-danger">*</span></label>
+                        <input name="state" class="form-control" placeholder="State" required />
+                    </div>
+                </div>
+                <div class="row g-2 mb-4">
+                    <div class="col-6">
+                        <label class="form-label fw-semibold small">Postal Code <span class="text-danger">*</span></label>
+                        <input name="postalCode" class="form-control" placeholder="PIN" required />
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-semibold small">Country</label>
+                        <input name="country" class="form-control" value="India" />
+                    </div>
+                </div>
+
+                <!-- Hidden arrays for products/quantities -->
+                <div id="hiddenInputs"></div>
+
+                <button type="submit" id="placeOrder" class="btn btn-primary w-100 btn-lg" disabled>
+                    <i class="bi bi-check2-circle me-2"></i>Place Order
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary w-100 mt-2">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+<script>
+    const cart = [];
+
+    document.getElementById('addItem').addEventListener('click', () => {
+        const sel = document.getElementById('productSelect');
+        const qty = parseInt(document.getElementById('qtyInput').value);
+        if (!sel.value || qty < 1) return;
+
+        const opt = sel.options[sel.selectedIndex];
+        const id = parseInt(sel.value);
+        const name = opt.dataset.name;
+        const price = parseFloat(opt.dataset.price);
+        const stock = parseInt(opt.dataset.stock);
+
+        if (qty > stock) {
+            alert(`Only ${stock} units available.`);
+            return;
+        }
+
+        const existing = cart.find(x => x.id === id);
+        if (existing) {
+            existing.qty += qty;
+        } else {
+            cart.push({ id, name, price, qty });
+        }
+
+        renderCart();
+        sel.value = '';
+        document.getElementById('qtyInput').value = 1;
+    });
+
+    function renderCart() {
+        const body = document.getElementById('cartBody');
+        const table = document.getElementById('cartTable');
+        const empty = document.getElementById('emptyCart');
+        const totalDiv = document.getElementById('cartTotal');
+        const hiddenDiv = document.getElementById('hiddenInputs');
+        const placeBtn = document.getElementById('placeOrder');
+
+        body.innerHTML = '';
+        hiddenDiv.innerHTML = '';
+
+        if (cart.length === 0) {
+            table.style.display = 'none';
+            empty.style.display = 'block';
+            totalDiv.style.display = 'none';
+            placeBtn.disabled = true;
+            return;
+        }
+
+        table.style.display = '';
+        empty.style.display = 'none';
+        placeBtn.disabled = false;
+
+        let total = 0;
+        cart.forEach((item, i) => {
+            const sub = item.price * item.qty;
+            total += sub;
+            body.innerHTML += `
+                <tr>
+                    <td class="small">${item.name}</td>
+                    <td class="text-center small">${item.qty}</td>
+                    <td class="text-end small">₹${item.price.toFixed(2)}</td>
+                    <td class="text-end small fw-semibold">₹${sub.toFixed(2)}</td>
+                    <td class="text-center">
+                        <button type="button" onclick="removeItem(${i})" class="btn btn-sm btn-outline-danger py-0">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </td>
+                </tr>`;
+            hiddenDiv.innerHTML += `
+                <input type="hidden" name="productIds" value="${item.id}" />
+                <input type="hidden" name="quantities" value="${item.qty}" />`;
+        });
+
+        totalDiv.style.display = 'block';
+        totalDiv.textContent = `Total: ₹${total.toFixed(2)}`;
+    }
+
+    function removeItem(i) {
+        cart.splice(i, 1);
+        renderCart();
+    }
+</script>
+}

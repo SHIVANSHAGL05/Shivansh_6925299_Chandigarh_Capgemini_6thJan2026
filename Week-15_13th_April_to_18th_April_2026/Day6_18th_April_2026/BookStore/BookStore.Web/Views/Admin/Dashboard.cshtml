@@ -1,0 +1,57 @@
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<section class="content-page reveal">
+    <h1>Operations Command Center</h1>
+    <p>Centralized view for inventory, orders, and reporting insights across all stores.</p>
+</section>
+
+<section class="kpi-grid reveal">
+    @foreach (var kpi in Model.Kpis)
+    {
+        <article class="kpi-card">
+            <p>@kpi.Label</p>
+            <h3>@kpi.Value</h3>
+            <span>@kpi.Trend</span>
+        </article>
+    }
+</section>
+
+<section class="split reveal">
+    <article class="page-card">
+        <h2>Low Stock Alerts</h2>
+        <div class="table-wrap mt-3">
+            <table>
+                <thead>
+                    <tr><th>Book</th><th>Category</th><th>Stock</th><th>Price</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.LowStockItems)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>@item.Category</td>
+                            <td><span class="status-pill status-danger">@item.Stock</span></td>
+                            <td>$@item.Price.ToString("0.00")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </article>
+
+    <aside class="summary-box">
+        <h3>Reporting Snapshot</h3>
+        @foreach (var metric in Model.Reports)
+        {
+            <div class="line"><span>@metric.Name</span><strong>@metric.Value (@metric.Delta)</strong></div>
+        }
+
+        <div class="book-actions mt-3">
+            <a class="btn btn-ghost" asp-action="Inventory">Inventory</a>
+            <a class="btn btn-brand" asp-action="Orders">Orders</a>
+        </div>
+    </aside>
+</section>

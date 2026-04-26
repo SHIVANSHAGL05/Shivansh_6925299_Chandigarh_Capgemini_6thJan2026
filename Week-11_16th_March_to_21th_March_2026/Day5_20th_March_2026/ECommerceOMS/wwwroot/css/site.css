@@ -1,0 +1,135 @@
+/* ── Global ────────────────────────────────────────────────── */
+:root {
+    --primary: #0d6efd;
+    --accent: #ff6b35;
+}
+
+body {
+    background-color: #f8f9fc;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Cards ─────────────────────────────────────────────────── */
+.card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    transition: box-shadow .2s ease, transform .2s ease;
+}
+.card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,.12);
+}
+.product-card:hover {
+    transform: translateY(-3px);
+}
+
+/* ── Stat cards (dashboard) ────────────────────────────────── */
+.stat-card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+.stat-card .stat-icon {
+    font-size: 2.5rem;
+    opacity: .18;
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+}
+
+/* ── Badges / status ───────────────────────────────────────── */
+.badge-pending    { background: #ffc107; color: #000; }
+.badge-processing { background: #0dcaf0; color: #000; }
+.badge-shipped    { background: #0d6efd; color: #fff; }
+.badge-delivered  { background: #198754; color: #fff; }
+.badge-cancelled  { background: #dc3545; color: #fff; }
+
+/* ── Tables ────────────────────────────────────────────────── */
+.table-hover tbody tr:hover {
+    background-color: #eef2ff;
+}
+.table thead th {
+    background: #f1f3ff;
+    font-weight: 600;
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: #495057;
+}
+
+/* ── Page headers ──────────────────────────────────────────── */
+.page-header {
+    background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+}
+.page-header h1 { font-size: 1.6rem; font-weight: 700; }
+
+/* ── Hero (home) ───────────────────────────────────────────── */
+.hero-section {
+    background: linear-gradient(135deg, #0d6efd 0%, #6610f2 80%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 3rem 2rem;
+}
+
+/* ── Product image placeholder ─────────────────────────────── */
+.product-img-placeholder {
+    background: linear-gradient(135deg, #e0e7ff, #f0f4ff);
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #94a3b8;
+    border-radius: 8px 8px 0 0;
+}
+
+/* ── Sidebar filter ────────────────────────────────────────── */
+.filter-sidebar .list-group-item.active {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+.filter-sidebar .list-group-item {
+    transition: background .15s;
+}
+
+/* ── Order timeline ────────────────────────────────────────── */
+.order-timeline {
+    position: relative;
+    padding-left: 1.5rem;
+}
+.order-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #dee2e6;
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 1rem;
+}
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -21px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px var(--primary);
+}
+
+/* ── Utility ───────────────────────────────────────────────── */
+.cursor-pointer { cursor: pointer; }
+.text-accent { color: var(--accent); }
+.bg-soft-primary { background: #eef2ff; }
+.rounded-xl { border-radius: 12px; }
+
+/* ── Navbar active ─────────────────────────────────────────── */
+.navbar .nav-link.active { font-weight: 600; }

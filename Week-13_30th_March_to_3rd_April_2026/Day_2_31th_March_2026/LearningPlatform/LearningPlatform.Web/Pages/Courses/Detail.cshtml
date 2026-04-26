@@ -1,0 +1,83 @@
+@page
+@model LearningPlatform.Web.Pages.Courses.DetailModel
+@{
+    ViewData["Title"] = Model.Course?.Title ?? "Course Detail";
+}
+
+@if (Model.Course == null)
+{
+    <div class="alert-error">Course not found.</div>
+    <a href="/Courses/Index" class="btn-primary">← Back to Courses</a>
+}
+else
+{
+    <div class="detail-header">
+        <div class="detail-info">
+            <span class="course-badge">@Model.Course.Category</span>
+            <h1>@Model.Course.Title</h1>
+            <p>@Model.Course.Description</p>
+            <div class="detail-meta">
+                <span>👤 @Model.Course.InstructorName</span>
+                <span>📊 @Model.Course.Level</span>
+                <span>📘 @Model.Course.LessonCount lessons</span>
+                <span>👥 @Model.Course.EnrollmentCount enrolled</span>
+            </div>
+        </div>
+
+        <div class="detail-action">
+            <div class="price-card">
+                <div class="big-price">@Model.Course.PriceDisplay</div>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    if (Model.AlreadyEnrolled)
+                    {
+                        <div class="alert-success">✅ You are enrolled in this course</div>
+                    }
+                    else
+                    {
+                        <form method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="courseId" value="@Model.Course.Id" />
+                            <button type="submit" class="btn-primary btn-full">Enroll Now</button>
+                        </form>
+                    }
+                }
+                else
+                {
+                    <a href="/Auth/Login" class="btn-primary btn-full">Login to Enroll</a>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.EnrollMessage))
+                {
+                    <div class="@(Model.EnrollSuccess ? "alert-success" : "alert-error") mt-1">
+                        @Model.EnrollMessage
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="lessons-section">
+        <h2>Course Content</h2>
+        @if (Model.Lessons.Any())
+        {
+            <div class="lesson-list">
+                @foreach (var (lesson, i) in Model.Lessons.Select((l, i) => (l, i + 1)))
+                {
+                    <div class="lesson-item">
+                        <span class="lesson-num">@i</span>
+                        <div>
+                            <strong>@lesson.Title</strong>
+                            <small>@lesson.DurationMinutes min</small>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="no-results">No lessons added yet.</p>
+        }
+    </div>
+}

@@ -1,0 +1,36 @@
+@model StudentPortal.Models.Student
+@{ ViewData["Title"] = "Delete Student"; }
+
+<div class="mb-4">
+    <h4 class="fw-bold text-danger mb-0">Delete Student</h4>
+    <small class="text-muted">This action cannot be undone</small>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <i class="bi bi-exclamation-triangle me-2"></i>Confirm Deletion
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">Name</dt>
+                    <dd class="col-sm-8">@Model.FullName</dd>
+                    <dt class="col-sm-4">Email</dt>
+                    <dd class="col-sm-8">@Model.Email</dd>
+                    <dt class="col-sm-4">Enrolled</dt>
+                    <dd class="col-sm-8">@Model.EnrollmentDate.ToShortDateString()</dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-white d-flex gap-2">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="StudentId" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>Yes, Delete
+                    </button>
+                </form>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,127 @@
+@page
+@model ProductClient.Pages.ProductsModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2 class="mb-4">Product Manager</h2>
+
+@if (!string.IsNullOrEmpty(Model.StatusMessage))
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @Model.StatusMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<!-- Product List -->
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Product List</h5>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>@product.Name</td>
+                        <td>$@product.Price.ToString("0.00")</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning me-1"
+                                    onclick="fillEdit(@product.Id, '@product.Name', @product.Price)">
+                                Edit
+                            </button>
+                            <form method="post" asp-page-handler="Delete"
+                                  style="display:inline"
+                                  onsubmit="return confirm('Delete this product?')">
+                                <input type="hidden" name="id" value="@product.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Products.Any())
+                {
+                    <tr><td colspan="4" class="text-center text-muted">No products found.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Product -->
+<div class="card mb-4">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">Add New Product</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" asp-page-handler="Create">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Name</label>
+                    <input asp-for="NewProduct.Name" class="form-control" placeholder="Product name" required />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Price ($)</label>
+                    <input asp-for="NewProduct.Price" type="number" step="0.01" min="0"
+                           class="form-control" placeholder="0.00" required />
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-success w-100">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Product -->
+<div class="card" id="editCard" style="display:none !important">
+    <div class="card-header bg-warning">
+        <h5 class="mb-0">Edit Product</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" asp-page-handler="Update">
+            <input asp-for="EditProduct.Id" type="hidden" id="editId" />
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Name</label>
+                    <input asp-for="EditProduct.Name" class="form-control" id="editName" required />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Price ($)</label>
+                    <input asp-for="EditProduct.Price" type="number" step="0.01" min="0"
+                           class="form-control" id="editPrice" required />
+                </div>
+                <div class="col-md-2 d-flex align-items-end gap-1">
+                    <button type="submit" class="btn btn-warning">Update</button>
+                    <button type="button" class="btn btn-secondary" onclick="hideEdit()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    function fillEdit(id, name, price) {
+        document.getElementById('editId').value = id;
+        document.getElementById('editName').value = name;
+        document.getElementById('editPrice').value = price;
+        document.getElementById('editCard').style.setProperty('display', 'block', 'important');
+        document.getElementById('editCard').scrollIntoView({ behavior: 'smooth' });
+    }
+    function hideEdit() {
+        document.getElementById('editCard').style.setProperty('display', 'none', 'important');
+    }
+</script>
+}

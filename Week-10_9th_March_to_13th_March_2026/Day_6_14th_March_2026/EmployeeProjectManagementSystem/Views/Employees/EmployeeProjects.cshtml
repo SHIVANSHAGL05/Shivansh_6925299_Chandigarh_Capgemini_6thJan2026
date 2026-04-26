@@ -1,0 +1,27 @@
+@model IEnumerable<EmployeeProjectManagementSystem.Models.EmployeeProject>
+
+@{
+    ViewData["Title"] = "Employee Projects";
+}
+
+<h2>Projects for @ViewBag.EmployeeName</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Project</th>
+            <th>Assigned Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ep in Model)
+        {
+            <tr>
+                <td>@ep.Project?.Title</td>
+                <td>@ep.AssignedDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index">Back to Employees</a>

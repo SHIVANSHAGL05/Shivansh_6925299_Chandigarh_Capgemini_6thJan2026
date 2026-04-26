@@ -1,0 +1,119 @@
+@model SmartHealthcare.Core.DTOs.CreateBillDto
+@{
+    ViewData["Title"] = "Create Bill";
+    var appt = ViewBag.Appointment as SmartHealthcare.Core.DTOs.AppointmentDto;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+
+        <div class="page-header">
+            <div>
+                <h4><i class="bi bi-receipt-cutoff me-2 text-teal"></i>Create Bill</h4>
+                <p class="text-muted mb-0 small">Generate billing for appointment #@appt?.Id</p>
+            </div>
+            <a asp-controller="Appointment" asp-action="Details" asp-route-id="@appt?.Id" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left me-1"></i>Back
+            </a>
+        </div>
+
+        @if (appt != null)
+        {
+            <!-- Appointment Summary -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <span class="fw-600 text-navy"><i class="bi bi-calendar-check me-2 text-teal"></i>Appointment Details</span>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="text-muted small fw-600 text-uppercase mb-1" style="letter-spacing:.5px">Patient</div>
+                            <div class="fw-700">@appt.PatientName</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-muted small fw-600 text-uppercase mb-1" style="letter-spacing:.5px">Date</div>
+                            <div class="fw-600">@appt.AppointmentDate.ToString("dd MMMM yyyy")</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-muted small fw-600 text-uppercase mb-1" style="letter-spacing:.5px">Time</div>
+                            <div class="fw-600">@appt.StartTime.ToString(@"hh\:mm") — @appt.EndTime.ToString(@"hh\:mm")</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-muted small fw-600 text-uppercase mb-1" style="letter-spacing:.5px">Type</div>
+                            <div class="fw-600">@appt.Type</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Bill Form -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white">
+                <span class="fw-600 text-navy"><i class="bi bi-currency-rupee me-2 text-amber"></i>Bill Details</span>
+            </div>
+            <div class="card-body">
+                <form asp-action="CreateBill" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="AppointmentId" />
+
+                    <div asp-validation-summary="All" class="alert alert-danger py-2 small"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="ConsultationFee" class="form-label">Consultation Fee (₹)</label>
+                        <div class="input-group">
+                            <span class="input-group-text fw-700">₹</span>
+                            <input asp-for="ConsultationFee" type="number" step="0.01" min="0"
+                                   class="form-control" id="consultFee" oninput="updateTotal()" />
+                        </div>
+                        <span asp-validation-for="ConsultationFee" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="MedicineCharges" class="form-label">Medicine Charges (₹)</label>
+                        <div class="input-group">
+                            <span class="input-group-text fw-700">₹</span>
+                            <input asp-for="MedicineCharges" type="number" step="0.01" min="0"
+                                   class="form-control" id="medFee" oninput="updateTotal()" />
+                        </div>
+                        <span asp-validation-for="MedicineCharges" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Live Total -->
+                    <div class="rounded-3 p-4 mb-4 d-flex justify-content-between align-items-center"
+                         style="background:linear-gradient(135deg,var(--sc-navy),var(--sc-navy-mid))">
+                        <span class="text-white fw-600"><i class="bi bi-calculator me-2" style="opacity:.7"></i>Total Amount</span>
+                        <span class="fw-800 fs-3 font-outfit" style="color:var(--sc-teal-light)" id="totalDisplay">₹0.00</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Notes" class="form-label">Notes <span class="text-muted fw-400">(optional)</span></label>
+                        <textarea asp-for="Notes" class="form-control" rows="3" placeholder="Any additional billing notes..."></textarea>
+                        <span asp-validation-for="Notes" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary flex-grow-1">
+                            <i class="bi bi-receipt-cutoff me-2"></i>Generate Bill
+                        </button>
+                        <a asp-controller="Appointment" asp-action="Details" asp-route-id="@appt?.Id"
+                           class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<script>
+function updateTotal() {
+    const c = parseFloat(document.getElementById('consultFee').value) || 0;
+    const m = parseFloat(document.getElementById('medFee').value) || 0;
+    document.getElementById('totalDisplay').textContent = '₹' + (c + m).toFixed(2);
+}
+updateTotal();
+</script>
+}

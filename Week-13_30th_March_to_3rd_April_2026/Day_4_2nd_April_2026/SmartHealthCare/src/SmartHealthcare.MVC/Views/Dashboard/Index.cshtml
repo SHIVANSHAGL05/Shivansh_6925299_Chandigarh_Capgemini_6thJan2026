@@ -1,0 +1,106 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    var role = ViewBag.Role as string;
+    var fullName = ViewBag.FullName as string;
+}
+
+<section class="section-shell mb-4" data-reveal>
+    <div class="page-hero">
+        <div>
+            <p class="eyebrow text-dark bg-light mb-2"><i class="bi bi-grid-1x2-fill"></i> Command Center</p>
+            <h1 class="display-5 mb-2">Welcome back, @fullName</h1>
+            <p class="text-muted mb-0">You are signed in as <span class="status-pill status-default">@role</span>.</p>
+        </div>
+        <a href="@Url.Action("Index", "Doctor")" class="btn btn-outline-primary"><i class="bi bi-search"></i> Explore Doctors</a>
+    </div>
+</section>
+
+@if (role == "Admin")
+{
+    <section class="section-shell mb-4" data-reveal>
+        <h3 class="mb-3">Administrator Quick Access</h3>
+        <div class="dashboard-quick-grid">
+            <a href="@Url.Action("Users", "Admin")" class="quick-link-card">
+                <span class="quick-link-icon"><i class="bi bi-people"></i></span>
+                <div><strong>Manage Users</strong><br /><small>Control accounts and roles</small></div>
+            </a>
+            <a href="@Url.Action("Index", "Doctor")" class="quick-link-card">
+                <span class="quick-link-icon"><i class="bi bi-hospital"></i></span>
+                <div><strong>Doctors</strong><br /><small>Review providers and profiles</small></div>
+            </a>
+            <a href="@Url.Action("Index", "Appointment")" class="quick-link-card">
+                <span class="quick-link-icon"><i class="bi bi-calendar-check"></i></span>
+                <div><strong>Appointments</strong><br /><small>Track booking activity</small></div>
+            </a>
+            <a href="@Url.Action("Reports", "Admin")" class="quick-link-card">
+                <span class="quick-link-icon"><i class="bi bi-bar-chart"></i></span>
+                <div><strong>Reports</strong><br /><small>View platform analytics</small></div>
+            </a>
+        </div>
+    </section>
+}
+else if (role == "Doctor")
+{
+    <section class="section-shell mb-4" data-reveal>
+        <h3 class="mb-3">Doctor Workspace</h3>
+        <div class="dashboard-quick-grid">
+            <a href="@Url.Action("Index", "Appointment")" class="quick-link-card">
+                <span class="quick-link-icon"><i class="bi bi-calendar-week"></i></span>
+                <div><strong>My Schedule</strong><br /><small>Review upcoming consultations</small></div>
+            </a>
+            <a href="@Url.Action("Profile", "Patient")" class="quick-link-card">
+                <span class="quick-link-icon"><i class="bi bi-person-vcard"></i></span>
+                <div><strong>My Profile</strong><br /><small>Update visible profile details</small></div>
+            </a>
+            <a href="@Url.Action("Index", "Appointment")" class="quick-link-card">
+                <span class="quick-link-icon"><i class="bi bi-journal-medical"></i></span>
+                <div><strong>Patient Visits</strong><br /><small>Follow treatment progress</small></div>
+            </a>
+        </div>
+    </section>
+}
+else if (role == "Patient")
+{
+    <section class="section-shell mb-4" data-reveal>
+        <h3 class="mb-3">Patient Essentials</h3>
+        <div class="dashboard-quick-grid">
+            <a href="@Url.Action("Create", "Appointment")" class="quick-link-card">
+                <span class="quick-link-icon"><i class="bi bi-calendar-plus"></i></span>
+                <div><strong>Book Appointment</strong><br /><small>Schedule your next visit</small></div>
+            </a>
+            <a href="@Url.Action("Index", "Appointment")" class="quick-link-card">
+                <span class="quick-link-icon"><i class="bi bi-clock-history"></i></span>
+                <div><strong>My Appointments</strong><br /><small>View upcoming and past visits</small></div>
+            </a>
+            <a href="@Url.Action("Profile", "Patient")" class="quick-link-card">
+                <span class="quick-link-icon"><i class="bi bi-person-badge"></i></span>
+                <div><strong>Profile</strong><br /><small>Manage your details</small></div>
+            </a>
+            <a href="@Url.Action("Index", "Doctor")" class="quick-link-card">
+                <span class="quick-link-icon"><i class="bi bi-search-heart"></i></span>
+                <div><strong>Find Doctors</strong><br /><small>Browse specialists and availability</small></div>
+            </a>
+        </div>
+    </section>
+}
+
+<section class="section-shell" data-reveal>
+    <h3 class="mb-3">Platform Highlights</h3>
+    <div class="metric-grid">
+        <article class="metric-card" data-tilt>
+            <h6>Connected Teams</h6>
+            <strong><span data-counter="3">0</span> Core Roles</strong>
+            <p class="text-muted mb-0 mt-2">A collaborative ecosystem to keep healthcare workflows aligned.</p>
+        </article>
+        <article class="metric-card" data-tilt>
+            <h6>Operational Focus</h6>
+            <strong><span data-counter="2">0</span> Key Workflows</strong>
+            <p class="text-muted mb-0 mt-2">Core operations are centralized for faster decisions and better continuity.</p>
+        </article>
+        <article class="metric-card" data-tilt>
+            <h6>Care Quality</h6>
+            <strong><span data-counter="100" data-suffix="%">0%</span> Follow-up Visibility</strong>
+            <p class="text-muted mb-0 mt-2">Digital traceability from booking to treatment helps prevent care gaps.</p>
+        </article>
+    </div>
+</section>

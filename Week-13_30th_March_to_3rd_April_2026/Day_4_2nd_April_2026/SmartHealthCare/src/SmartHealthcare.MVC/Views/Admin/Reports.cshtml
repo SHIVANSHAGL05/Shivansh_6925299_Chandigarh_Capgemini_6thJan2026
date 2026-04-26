@@ -1,0 +1,113 @@
+@{
+    ViewData["Title"] = "Admin Reports";
+}
+
+<div class="container-fluid mt-4">
+    <div class="page-hero" data-reveal>
+        <div>
+            <h1 class="mb-1"><i class="bi bi-graph-up"></i> Analytics &amp; Reports</h1>
+            <p class="text-muted mb-0">View platform statistics and healthcare operation metrics.</p>
+        </div>
+    </div>
+
+    <div class="row" data-reveal>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header text-white border-0" style="background: linear-gradient(140deg, #0b2a43, #0e7a78);">
+                    <h5 class="mb-0"><i class="bi bi-bar-chart"></i> System Reports</h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.Report != null)
+                    {
+                        <div class="metric-grid mb-4">
+                            <div class="col-md-3 mb-3">
+                                <div class="metric-card">
+                                    <h6 class="text-muted"><i class="bi bi-people"></i> Total Users</h6>
+                                    <strong class="text-primary">@((dynamic)ViewBag.Report).TotalUsers</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="metric-card">
+                                    <h6 class="text-muted"><i class="bi bi-person-check"></i> Total Patients</h6>
+                                    <strong class="text-info">@((dynamic)ViewBag.Report).TotalPatients</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="metric-card">
+                                    <h6 class="text-muted"><i class="bi bi-hospital"></i> Total Doctors</h6>
+                                    <strong class="text-success">@((dynamic)ViewBag.Report).TotalDoctors</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="metric-card">
+                                    <h6 class="text-muted"><i class="bi bi-building"></i> Total Departments</h6>
+                                    <strong class="text-secondary">@((dynamic)ViewBag.Report).TotalDepartments</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="metric-card">
+                                    <h6 class="text-muted"><i class="bi bi-calendar-check"></i> Total Appointments</h6>
+                                    <strong class="text-warning">@((dynamic)ViewBag.Report).TotalAppointments</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <h5 class="mb-3"><i class="bi bi-line-chart"></i> Appointment Statistics</h5>
+                        <div class="metric-grid mb-4">
+                            <div class="col-md-4 mb-3">
+                                <div class="metric-card">
+                                    <h6 class="text-muted"><i class="bi bi-clock-fill"></i> Booked Appointments</h6>
+                                    <strong class="text-warning">@((dynamic)ViewBag.Report).BookedAppointments</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="metric-card">
+                                    <h6 class="text-muted"><i class="bi bi-check-circle"></i> Completed Appointments</h6>
+                                    <strong class="text-success">@((dynamic)ViewBag.Report).CompletedAppointments</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="metric-card">
+                                    <h6 class="text-muted"><i class="bi bi-x-circle"></i> Cancelled Appointments</h6>
+                                    <strong class="text-danger">@((dynamic)ViewBag.Report).CancelledAppointments</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <h5 class="mb-3"><i class="bi bi-capsule"></i> Prescription Statistics</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="metric-card">
+                                    <h6 class="text-muted"><i class="bi bi-receipt"></i> Total Prescriptions Issued</h6>
+                                    <strong class="text-primary">@((dynamic)ViewBag.Report).TotalPrescriptions</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="metric-card">
+                                    <h6 class="text-muted"><i class="bi bi-wallet2"></i> Total Bills Generated</h6>
+                                    <strong class="text-success">@((dynamic)ViewBag.Report).TotalBills</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="alert alert-info mb-0">
+                            <i class="bi bi-info-circle"></i> <strong>Last Updated:</strong> @DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss")
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="section-shell text-center" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i> No reports available at this time.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

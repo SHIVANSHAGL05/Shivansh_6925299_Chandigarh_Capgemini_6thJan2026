@@ -1,0 +1,77 @@
+@model SmartHealthcare.Models.DTOs.CreateAppointmentDTO
+@{
+    ViewData["Title"] = "Book Appointment";
+    var doctors = ViewBag.Doctors as IEnumerable<SmartHealthcare.Models.DTOs.DoctorDTO> ?? Enumerable.Empty<SmartHealthcare.Models.DTOs.DoctorDTO>();
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <a href="@Url.Action("Index")" class="btn btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Back</a>
+            
+            <div class="card" data-reveal>
+                <div class="card-header border-0 p-4 text-white" style="background: linear-gradient(140deg, #0d5f6e, #0e7a78);">
+                    <h1 class="mb-0"><i class="bi bi-calendar-check"></i> Book an Appointment</h1>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post" novalidate>
+                        <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+                        
+                        <!-- Doctor Selection -->
+                        <div class="mb-4">
+                            <label asp-for="DoctorId" class="form-label fw-bold"><i class="bi bi-hospital"></i> Select Doctor *</label>
+                            <select asp-for="DoctorId" class="form-select form-select-lg">
+                                <option value="" selected>-- Choose a doctor --</option>
+                                @foreach (var doctor in doctors)
+                                {
+                                    <option value="@doctor.Id">Dr. @doctor.FullName (@string.Join(", ", doctor.Specializations ?? new List<string>())) - Fee: Rs.@doctor.ConsultationFee</option>
+                                }
+                            </select>
+                            <span asp-validation-for="DoctorId" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Appointment Date & Time -->
+                        <div class="mb-4">
+                            <label asp-for="AppointmentDate" class="form-label fw-bold"><i class="bi bi-clock"></i> Appointment Date & Time *</label>
+                            <input asp-for="AppointmentDate" class="form-control form-control-lg" type="datetime-local" />
+                            <small class="form-text text-muted d-block mt-2">Please select a future date and time for your appointment</small>
+                            <span asp-validation-for="AppointmentDate" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Notes -->
+                        <div class="mb-4">
+                            <label asp-for="Notes" class="form-label fw-bold"><i class="bi bi-sticky"></i> Additional Notes</label>
+                            <textarea asp-for="Notes" class="form-control form-control-lg" rows="4" placeholder="Describe your medical concern, symptoms, or any other relevant information..."></textarea>
+                            <small class="form-text text-muted d-block mt-2">Optional: Help the doctor understand your needs better</small>
+                            <span asp-validation-for="Notes" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-grid gap-2 d-sm-flex justify-content-sm-between">
+                            <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-check-circle"></i> Book Appointment</button>
+                            <a href="@Url.Action("Index")" class="btn btn-outline-secondary btn-lg"><i class="bi bi-x-circle"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Info Box -->
+            <div class="section-shell mt-4" data-reveal>
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-info-circle"></i> Important Information</h5>
+                    <ul class="mb-0">
+                        <li>Please arrive 10 minutes before your scheduled appointment time</li>
+                        <li>Bring your identification and any relevant medical documents</li>
+                        <li>If you're unable to attend, please cancel with at least 24 hours notice</li>
+                        <li>For emergencies, please contact us directly instead of booking an appointment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

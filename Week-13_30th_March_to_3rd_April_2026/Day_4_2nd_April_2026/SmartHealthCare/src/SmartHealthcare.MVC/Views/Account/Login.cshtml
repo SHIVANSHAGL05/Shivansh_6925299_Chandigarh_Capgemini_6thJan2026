@@ -1,0 +1,97 @@
+@model SmartHealthcare.Models.DTOs.LoginDTO
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container py-4 py-lg-5">
+    <div class="auth-layout">
+        <aside class="auth-visual" data-reveal>
+            <span class="eyebrow"><i class="bi bi-heart-pulse"></i> Smart Healthcare</span>
+            <h1>Sign in to your care workspace.</h1>
+            <p>Access appointments, records, and clinical updates in a sleek, secure dashboard built for speed.</p>
+
+            <div class="auth-metric-grid">
+                <div class="metric-card auth-mini-card" data-tilt>
+                    <h6>Trusted Access</h6>
+                    <strong>JWT</strong>
+                </div>
+                <div class="metric-card auth-mini-card" data-tilt>
+                    <h6>Response Time</h6>
+                    <strong><span data-counter="2" data-suffix=" sec">0 sec</span></strong>
+                </div>
+                <div class="metric-card auth-mini-card" data-tilt>
+                    <h6>Coverage</h6>
+                    <strong>24/7</strong>
+                </div>
+            </div>
+
+            <div class="auth-feature-list">
+                <div><i class="bi bi-check-circle-fill text-success me-2"></i> Fast secure login flow</div>
+                <div><i class="bi bi-check-circle-fill text-success me-2"></i> Appointment and record access</div>
+                <div><i class="bi bi-check-circle-fill text-success me-2"></i> Role-aware dashboard routing</div>
+            </div>
+        </aside>
+
+        <section class="auth-panel card auth-card" data-reveal>
+            <div class="auth-head text-center">
+                <h1 class="mb-2"><i class="bi bi-hospital"></i></h1>
+                <h3 class="mb-0">Welcome back</h3>
+                <p class="mb-0 small mt-2">Login to your account</p>
+            </div>
+
+            <div class="card-body auth-body p-4 p-lg-5">
+                <form asp-action="Login" method="post" novalidate>
+                    <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="Email" class="form-label fw-bold">
+                            <i class="bi bi-envelope"></i> Email Address
+                        </label>
+                        <input asp-for="Email" class="form-control form-control-lg" placeholder="Enter your email" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Password" class="form-label fw-bold">
+                            <i class="bi bi-key"></i> Password
+                        </label>
+                        <input asp-for="Password" class="form-control form-control-lg" type="password" placeholder="Enter your password" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input type="checkbox" class="form-check-input" id="rememberMe" />
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                        <i class="bi bi-box-arrow-in-right"></i> Login
+                    </button>
+
+                    <div class="alert alert-info small mb-0" role="alert">
+                        <strong>Demo Credentials:</strong><br />
+                        Email: admin@healthcare.com<br />
+                        Password: Admin@123
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-footer bg-light p-4 text-center border-0">
+                <p class="mb-0">
+                    Don't have an account?
+                    <a asp-action="Register" class="text-decoration-none fw-bold">
+                        <i class="bi bi-person-plus"></i> Register here
+                    </a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <div class="section-shell mt-4 text-center" role="alert" data-reveal>
+        <small><i class="bi bi-info-circle"></i> For issues or inquiries, contact support@healthcare.com</small>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

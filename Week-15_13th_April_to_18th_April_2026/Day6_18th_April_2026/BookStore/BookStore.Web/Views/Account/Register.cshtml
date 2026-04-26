@@ -1,0 +1,92 @@
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<section class="auth-layout reveal">
+    <article class="page-card">
+        <h1>Create Customer Account</h1>
+        <p>Sign up as User or Admin. Admin signup requires the configured admin registration key.</p>
+
+        <form method="post" class="form-grid mt-3">
+            <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
+
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" />
+            <span asp-validation-for="FullName"></span>
+
+            <label asp-for="Email"></label>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+
+            <label asp-for="Phone"></label>
+            <input asp-for="Phone" />
+            <span asp-validation-for="Phone"></span>
+
+            <label asp-for="Address"></label>
+            <textarea asp-for="Address" rows="2"></textarea>
+            <span asp-validation-for="Address"></span>
+
+            <label asp-for="City"></label>
+            <input asp-for="City" />
+            <span asp-validation-for="City"></span>
+
+            <label asp-for="Pincode"></label>
+            <input asp-for="Pincode" />
+            <span asp-validation-for="Pincode"></span>
+
+            <label asp-for="Role"></label>
+            <select asp-for="Role" id="role-select">
+                <option value="Customer">User (Customer)</option>
+                <option value="Admin">Admin</option>
+            </select>
+            <span asp-validation-for="Role"></span>
+
+            <div id="admin-key-block" style="display:none;">
+                <label asp-for="AdminRegistrationKey"></label>
+                <input asp-for="AdminRegistrationKey" />
+                <span asp-validation-for="AdminRegistrationKey"></span>
+            </div>
+
+            <label asp-for="Password"></label>
+            <input asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+
+            <label asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword" />
+            <span asp-validation-for="ConfirmPassword"></span>
+
+            <button class="btn btn-brand" type="submit">Create Account</button>
+        </form>
+    </article>
+
+    <aside class="summary-box">
+        <h3>Password Policy</h3>
+        <ul>
+            <li>Minimum eight characters</li>
+            <li>At least one uppercase and one lowercase letter</li>
+            <li>At least one number and one symbol</li>
+        </ul>
+    </aside>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (() => {
+            const roleSelect = document.getElementById("role-select");
+            const adminBlock = document.getElementById("admin-key-block");
+
+            if (!roleSelect || !adminBlock) {
+                return;
+            }
+
+            const toggleAdminKey = () => {
+                adminBlock.style.display = roleSelect.value === "Admin" ? "block" : "none";
+            };
+
+            toggleAdminKey();
+            roleSelect.addEventListener("change", toggleAdminKey);
+        })();
+    </script>
+}

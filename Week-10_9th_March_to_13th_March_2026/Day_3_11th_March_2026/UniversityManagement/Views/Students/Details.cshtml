@@ -1,0 +1,60 @@
+﻿@model UniversityManagement.Models.Student
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<h2>Student Details</h2>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Full Name</dt>
+    <dd class="col-sm-9">@Model.FullName</dd>
+
+    <dt class="col-sm-3">Email</dt>
+    <dd class="col-sm-9">@Model.Email</dd>
+
+    <dt class="col-sm-3">Enrollment Date</dt>
+    <dd class="col-sm-9">@Model.EnrollmentDate.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Enrolled Courses</dt>
+    <dd class="col-sm-9">
+        @if (!Model.Enrollments.Any())
+        {
+            <span class="text-muted">No enrollments yet.</span>
+        }
+        else
+        {
+            <table class="table table-sm table-bordered w-auto">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Course</th>
+                        <th>Credits</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var enrollment in Model.Enrollments)
+                    {
+                        <tr>
+                            <td>@enrollment.Course?.Title</td>
+                            <td>@enrollment.Course?.Credits</td>
+                            <td>
+                                @if (enrollment.Grade.HasValue)
+                                {
+                                    <span class="badge bg-success">@enrollment.Grade</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">In Progress</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </dd>
+</dl>
+
+<a asp-action="Edit" asp-route-id="@Model.StudentId" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

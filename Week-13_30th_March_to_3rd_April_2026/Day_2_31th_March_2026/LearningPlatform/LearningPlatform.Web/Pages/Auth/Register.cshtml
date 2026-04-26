@@ -1,0 +1,51 @@
+@page
+@model LearningPlatform.Web.Pages.Auth.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Create Account</h2>
+        <p class="auth-subtitle">Join LearnHub today</p>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert-error">@Model.ErrorMessage</div>
+        }
+        @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+        {
+            <div class="alert-success">@Model.SuccessMessage</div>
+        }
+
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label asp-for="Input.Username">Username</label>
+                <input asp-for="Input.Username" placeholder="johndoe" required />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Email">Email</label>
+                <input asp-for="Input.Email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password">Password</label>
+                <input asp-for="Input.Password" type="password" placeholder="Min 6 characters" required />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <input asp-for="Input.ConfirmPassword" type="password" placeholder="Repeat password" required />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Role">I want to</label>
+                <select asp-for="Input.Role">
+                    <option value="Student">Learn (Student)</option>
+                    <option value="Instructor">Teach (Instructor)</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-primary btn-full">Create Account</button>
+        </form>
+
+        <p class="auth-link">Already have an account? <a href="/Auth/Login">Login</a></p>
+    </div>
+</div>

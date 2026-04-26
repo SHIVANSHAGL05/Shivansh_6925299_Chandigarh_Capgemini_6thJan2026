@@ -1,0 +1,229 @@
+@model List<SmartHealthcare.Core.DTOs.BillDto>
+@{
+    ViewData["Title"] = "Bills & Payments";
+    var filter = ViewBag.FilterStatus as string;
+    var totalAll    = Model.Sum(b => b.TotalAmount);
+    var totalPaid   = Model.Where(b => b.PaymentStatus == "Paid").Sum(b => b.TotalAmount);
+    var totalUnpaid = Model.Where(b => b.PaymentStatus == "Unpaid").Sum(b => b.TotalAmount);
+    var countPaid   = Model.Count(b => b.PaymentStatus == "Paid");
+    var countUnpaid = Model.Count(b => b.PaymentStatus == "Unpaid");
+}
+
+<div class="page-header">
+    <div>
+        <h4><i class="bi bi-receipt-cutoff me-2 text-teal"></i>Bills &amp; Payments</h4>
+        <p class="text-muted mb-0 small">Manage all patient billing records</p>
+    </div>
+</div>
+
+<!-- Summary Stats -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="stat-icon" style="background:#e0f9f8;color:var(--sc-teal)"><i class="bi bi-receipt"></i></div>
+            <div class="stat-number text-navy">@Model.Count</div>
+            <div class="stat-label">Total Bills</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card stat-rose border-0 shadow-sm">
+            <div class="stat-icon" style="background:#fee2e2;color:var(--sc-rose)"><i class="bi bi-clock-fill"></i></div>
+            <div class="stat-number" style="color:var(--sc-rose)">@countUnpaid</div>
+            <div class="stat-label">Unpaid · ₹@totalUnpaid.ToString("0")</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card stat-green border-0 shadow-sm">
+            <div class="stat-icon" style="background:#dcfce7;color:var(--sc-green)"><i class="bi bi-check-circle-fill"></i></div>
+            <div class="stat-number" style="color:var(--sc-green)">@countPaid</div>
+            <div class="stat-label">Paid · ₹@totalPaid.ToString("0")</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card stat-amber border-0 shadow-sm">
+            <div class="stat-icon" style="background:#fef3c7;color:var(--sc-amber)"><i class="bi bi-currency-rupee"></i></div>
+            <div class="stat-number" style="color:var(--sc-amber)">₹@totalAll.ToString("0")</div>
+            <div class="stat-label">Total Revenue</div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter + Table -->
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <span class="fw-600 text-navy"><i class="bi bi-table me-2"></i>Bill Records</span>
+        <div class="filter-tabs">
+            <a href="?" class="filter-tab @(filter == null ? "active" : "")">All</a>
+            <a href="?paymentStatus=Unpaid" class="filter-tab @(filter == "Unpaid" ? "active" : "")">
+                <i class="bi bi-clock me-1"></i>Unpaid
+            </a>
+            <a href="?paymentStatus=Paid" class="filter-tab @(filter == "Paid" ? "active" : "")">
+                <i class="bi bi-check-circle me-1"></i>Paid
+            </a>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Bill #</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Appt. Date</th>
+                        <th>Consultation</th>
+                        <th>Medicine</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var bill in Model)
+                    {
+                        <tr>
+                            <td>
+                                <span class="fw-700 text-teal font-outfit">#@bill.Id</span>
+                            </td>
+                            <td>
+                                <div class="fw-600">@bill.PatientName</div>
+                            </td>
+                            <td>
+                                <div class="text-muted small">Dr. @bill.DoctorName</div>
+                            </td>
+                            <td>
+                                <div class="small">@bill.AppointmentDate.ToString("dd MMM yyyy")</div>
+                            </td>
+                            <td>₹@bill.ConsultationFee.ToString("0.00")</td>
+                            <td>₹@bill.MedicineCharges.ToString("0.00")</td>
+                            <td>
+                                <span class="fw-700 text-navy font-outfit">₹@bill.TotalAmount.ToString("0.00")</span>
+                            </td>
+                            <td>
+                                @if (bill.PaymentStatus == "Paid")
+                                {
+                                    <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Paid</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger"><i class="bi bi-clock me-1"></i>Unpaid</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    @if (bill.PaymentStatus == "Unpaid")
+                                    {
+                                        <form asp-action="MarkBillPaid" method="post" style="display:inline"
+                                              onsubmit="return confirm('Mark bill #@bill.Id as paid?')">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="billId" value="@bill.Id" />
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                <i class="bi bi-check-circle me-1"></i>Mark Paid
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-outline-secondary btn-sm"
+                                                onclick="showAdminReceipt(@bill.Id,'@bill.PatientName','@bill.DoctorName','@bill.AppointmentDate.ToString("dd MMM yyyy")',@bill.ConsultationFee,@bill.MedicineCharges,@bill.TotalAmount)">
+                                            <i class="bi bi-eye me-1"></i>Receipt
+                                        </button>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="9">
+                                <div class="empty-state">
+                                    <i class="bi bi-inbox"></i>
+                                    <p class="fw-600">No bills found</p>
+                                    <p class="text-muted small">@(filter != null ? $"No {filter.ToLower()} bills." : "No bills have been created yet.")</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                @if (Model.Any())
+                {
+                    <tfoot>
+                        <tr style="background:#f8fafc;border-top:2px solid var(--sc-border)">
+                            <td colspan="6" class="text-end fw-700 pe-3 py-3 text-muted small text-uppercase" style="letter-spacing:.5px">Total Shown</td>
+                            <td class="fw-800 py-3 font-outfit" style="color:var(--sc-navy);font-size:1.05rem">₹@totalAll.ToString("0.00")</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Receipt Modal (Admin) -->
+<div class="modal fade" id="adminReceiptModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="receipt-header text-center">
+                <i class="bi bi-hospital-fill fs-1 mb-2 d-block" style="color:var(--sc-teal-light)"></i>
+                <h5 class="fw-800 mb-1" style="font-family:'Outfit',sans-serif">SmartCare</h5>
+                <div style="opacity:.6;font-size:.85rem">Official Payment Receipt</div>
+            </div>
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Receipt No.</span>
+                    <span class="fw-600" id="ar-id"></span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Patient</span>
+                    <span class="fw-600" id="ar-patient"></span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Doctor</span>
+                    <span class="fw-600" id="ar-doctor"></span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Appointment Date</span>
+                    <span class="fw-600" id="ar-date"></span>
+                </div>
+                <div class="receipt-divider"></div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Consultation Fee</span>
+                    <span id="ar-consult"></span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Medicine Charges</span>
+                    <span id="ar-med"></span>
+                </div>
+                <div class="receipt-divider"></div>
+                <div class="d-flex justify-content-between">
+                    <span class="fw-700">Total Paid</span>
+                    <span class="fw-800 fs-5" style="color:var(--sc-teal);font-family:'Outfit',sans-serif" id="ar-total"></span>
+                </div>
+                <div class="text-center mt-4">
+                    <span class="badge bg-success px-4 py-2" style="font-size:.85rem"><i class="bi bi-check-circle-fill me-2"></i>Payment Confirmed</span>
+                </div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4 pt-0">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" onclick="window.print()"><i class="bi bi-printer me-2"></i>Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+function showAdminReceipt(id, patient, doctor, date, consult, med, total) {
+    document.getElementById('ar-id').textContent      = '#' + id;
+    document.getElementById('ar-patient').textContent = patient;
+    document.getElementById('ar-doctor').textContent  = 'Dr. ' + doctor;
+    document.getElementById('ar-date').textContent    = date;
+    document.getElementById('ar-consult').textContent = '₹' + parseFloat(consult).toFixed(2);
+    document.getElementById('ar-med').textContent     = '₹' + parseFloat(med).toFixed(2);
+    document.getElementById('ar-total').textContent   = '₹' + parseFloat(total).toFixed(2);
+    new bootstrap.Modal(document.getElementById('adminReceiptModal')).show();
+}
+</script>
+}

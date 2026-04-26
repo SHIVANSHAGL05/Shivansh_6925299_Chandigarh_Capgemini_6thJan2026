@@ -1,0 +1,90 @@
+@model BookDetailsPageViewModel
+@{
+    ViewData["Title"] = "Book Detail";
+}
+
+<section class="detail-layout reveal">
+    <article class="page-card">
+        <div class="book-cover cover-@Model.Book.CoverAccent">
+            @if (!string.IsNullOrWhiteSpace(Model.Book.ImageUrl))
+            {
+                <img class="book-cover-image" src="@Model.Book.ImageUrl" alt="@Model.Book.Title cover"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" />
+                <span class="book-cover-fallback" style="display:none;">@Model.Book.Category</span>
+            }
+            else
+            {
+                <span class="book-cover-fallback">@Model.Book.Category</span>
+            }
+        </div>
+
+        <h1>@Model.Book.Title</h1>
+        <p>by @Model.Book.Author</p>
+
+        <div class="line"><span>ISBN</span><strong>@Model.Book.Isbn</strong></div>
+        <div class="line"><span>Price</span><strong>$@Model.Book.Price.ToString("0.00")</strong></div>
+        <div class="line"><span>Stock</span><strong>@Model.Book.Stock</strong></div>
+
+        <div class="book-actions mt-3">
+            <a class="btn btn-brand" asp-controller="Cart" asp-action="Add" asp-route-bookId="@Model.Book.BookId">Add to Cart</a>
+            <a class="btn btn-ghost" asp-action="AddWishlist" asp-route-bookId="@Model.Book.BookId">Wishlist</a>
+            <a class="btn btn-ghost" asp-action="Index">Back to Catalog</a>
+        </div>
+    </article>
+
+    <aside class="summary-box">
+        <h3>Write a Review</h3>
+        <form method="post" asp-action="AddReview" class="form-grid mt-2">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="AddReview.BookId" value="@Model.Book.BookId" />
+
+            <label asp-for="AddReview.Rating"></label>
+            <input asp-for="AddReview.Rating" type="number" min="1" max="5" />
+            <span asp-validation-for="AddReview.Rating"></span>
+
+            <label asp-for="AddReview.Comment"></label>
+            <textarea asp-for="AddReview.Comment" rows="4"></textarea>
+            <span asp-validation-for="AddReview.Comment"></span>
+
+            <button type="submit" class="btn btn-brand">Submit Review</button>
+        </form>
+    </aside>
+</section>
+
+<section class="page-card reveal">
+    <h2>Reviews</h2>
+    @if (!Model.Reviews.Any())
+    {
+        <p>No reviews yet. Be the first one.</p>
+    }
+    else
+    {
+        <div class="table-wrap mt-3">
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <tr>
+                            <td>@review.UserName</td>
+                            <td>@review.Rating</td>
+                            <td>@review.Comment</td>
+                            <td>@review.CreatedUtc.ToString("yyyy-MM-dd HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

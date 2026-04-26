@@ -1,0 +1,63 @@
+@model CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<section class="checkout-layout reveal">
+    <article class="page-card">
+        <h1>Secure Checkout</h1>
+        <p>All fields are validated to align with the case-study client-side/server-side rules.</p>
+
+        <form method="post" class="form-grid mt-3">
+            <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
+
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" />
+            <span asp-validation-for="FullName"></span>
+
+            <label asp-for="Email"></label>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+
+            <label asp-for="Phone"></label>
+            <input asp-for="Phone" />
+            <span asp-validation-for="Phone"></span>
+
+            <label asp-for="Address"></label>
+            <textarea asp-for="Address" rows="3"></textarea>
+            <span asp-validation-for="Address"></span>
+
+            <label asp-for="City"></label>
+            <input asp-for="City" />
+            <span asp-validation-for="City"></span>
+
+            <label asp-for="PostalCode"></label>
+            <input asp-for="PostalCode" />
+            <span asp-validation-for="PostalCode"></span>
+
+            <label asp-for="PaymentMethod"></label>
+            <select asp-for="PaymentMethod">
+                <option value="card">Credit Card</option>
+                <option value="upi">UPI</option>
+                <option value="netbanking">Net Banking</option>
+            </select>
+            <span asp-validation-for="PaymentMethod"></span>
+
+            <button class="btn btn-brand mt-2" type="submit">Place Order</button>
+        </form>
+    </article>
+
+    <aside class="summary-box">
+        <h3>What Happens Next</h3>
+        <ul>
+            <li>Order API receives payload and creates order items.</li>
+            <li>Inventory reduces stock for purchased books.</li>
+            <li>Email service dispatches invoice and confirmation.</li>
+            <li>Admin dashboard receives fresh order telemetry.</li>
+        </ul>
+    </aside>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

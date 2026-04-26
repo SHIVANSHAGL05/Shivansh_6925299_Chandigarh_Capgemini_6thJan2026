@@ -1,0 +1,78 @@
+@model List<HotelSimple.Models.Booking>
+@{
+    ViewData["Title"] = "All Bookings";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="bi bi-list-ul me-2"></i>All Bookings</h2>
+    <a href="/Admin" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left me-1"></i>Dashboard
+    </a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="bi bi-check-circle me-2"></i>@TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Ref</th>
+                    <th>Guest</th>
+                    <th>Phone</th>
+                    <th>Room</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Nights</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var b in Model)
+                {
+                    <tr class="@(b.Status == "Cancelled" ? "table-danger" : "")">
+                        <td><strong>@b.BookingRef</strong></td>
+                        <td>@b.Customer.FullName</td>
+                        <td class="text-muted">@b.Customer.Phone</td>
+                        <td>@b.Room.RoomNumber
+                            <span class="badge bg-secondary">@b.Room.RoomType</span>
+                        </td>
+                        <td>@b.CheckIn.ToString("dd MMM yyyy")</td>
+                        <td>@b.CheckOut.ToString("dd MMM yyyy")</td>
+                        <td>@b.Nights</td>
+                        <td class="fw-semibold">₹@b.TotalAmount.ToString("N0")</td>
+                        <td>
+                            @{
+                                var colour = b.Status == "Confirmed" ? "success" : b.Status == "Cancelled" ? "danger" : "secondary";
+                            }
+                            <span class="badge bg-@colour">@b.Status</span>
+                        </td>
+                        <td>
+                            @if (b.Status == "Confirmed")
+                            {
+                                <form method="post" action="/Admin/Cancel"
+                                      onsubmit="return confirm('Cancel booking @b.BookingRef?')">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@b.Id" />
+                                    <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-muted small">—</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

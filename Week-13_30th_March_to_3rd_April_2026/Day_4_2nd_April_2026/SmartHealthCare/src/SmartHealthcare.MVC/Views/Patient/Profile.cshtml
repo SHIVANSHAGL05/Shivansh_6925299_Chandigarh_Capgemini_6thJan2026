@@ -1,0 +1,190 @@
+@model SmartHealthcare.Models.DTOs.PatientDTO
+@{
+    ViewData["Title"] = "My Profile";
+    var needsProfile = ViewBag.NeedsProfile as bool? ?? false;
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            
+            @if (needsProfile)
+            {
+                <div class="card" data-reveal>
+                    <div class="card-header text-white p-4 border-0" style="background: linear-gradient(140deg, #0b2a43, #0e7a78);">
+                        <h3 class="mb-0"><i class="bi bi-person-plus"></i> Complete Your Profile</h3>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <p class="text-muted mb-4">To book appointments and access our services, please complete your medical profile.</p>
+                        
+                        <form asp-action="CreateProfile" method="post" novalidate>
+                            <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+                            
+                            <!-- Date of Birth -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold"><i class="bi bi-calendar-event"></i> Date of Birth *</label>
+                                <input type="date" name="DateOfBirth" class="form-control form-control-lg" required />
+                                <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold"><i class="bi bi-person-fill"></i> Gender *</label>
+                                <select name="Gender" class="form-select form-select-lg" required>
+                                    <option value="" selected>-- Select Gender --</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span asp-validation-for="Gender" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Blood Group -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold"><i class="bi bi-droplet-fill"></i> Blood Group</label>
+                                <input name="BloodGroup" class="form-control form-control-lg" placeholder="e.g., O+, A-, B+, AB+" />
+                                <span asp-validation-for="BloodGroup" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Address -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold"><i class="bi bi-geo-alt"></i> Address *</label>
+                                <textarea name="Address" class="form-control form-control-lg" rows="3" placeholder="Enter your full address" required></textarea>
+                                <span asp-validation-for="Address" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold"><i class="bi bi-telephone"></i> Phone Number *</label>
+                                <input name="Phone" type="tel" class="form-control form-control-lg" placeholder="Your phone number" required />
+                                <span asp-validation-for="Phone" class="text-danger small"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold"><i class="bi bi-journal-medical"></i> Medical History</label>
+                                <textarea name="MedicalHistory" class="form-control form-control-lg" rows="4" placeholder="Past conditions, surgeries, allergies, and chronic issues"></textarea>
+                                <span asp-validation-for="MedicalHistory" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="d-grid gap-2 d-sm-flex">
+                                <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-check-circle"></i> Create Profile</button>
+                                <a href="@Url.Action("Index", "Dashboard")" class="btn btn-outline-secondary btn-lg"><i class="bi bi-x-circle"></i> Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card" data-reveal>
+                    <div class="card-header text-white p-4 border-0" style="background: linear-gradient(140deg, #0e7a78, #0b2a43);">
+                        <h3 class="mb-0"><i class="bi bi-person-check"></i> Your Medical Profile</h3>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="info-panel">
+                                    <h6 class="text-muted mb-2"><i class="bi bi-person"></i> PERSONAL INFORMATION</h6>
+                                    <hr class="my-2" />
+                                    <p class="mb-2">
+                                        <strong>Full Name:</strong><br />
+                                        <span class="ms-3">@Model.FullName</span>
+                                    </p>
+                                    <p class="mb-0">
+                                        <strong>Email:</strong><br />
+                                        <span class="ms-3">@Model.Email</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-panel">
+                                    <h6 class="text-muted mb-2"><i class="bi bi-telephone"></i> CONTACT INFORMATION</h6>
+                                    <hr class="my-2" />
+                                    <p class="mb-2">
+                                        <strong>Phone:</strong><br />
+                                        <span class="ms-3">@Model.Phone</span>
+                                    </p>
+                                    <p class="mb-0">
+                                        <strong>Address:</strong><br />
+                                        <span class="ms-3">@Model.Address</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="info-panel">
+                                    <h6 class="text-muted mb-2"><i class="bi bi-calendar-event"></i> MEDICAL INFORMATION</h6>
+                                    <hr class="my-2" />
+                                    <p class="mb-2">
+                                        <strong>Date of Birth:</strong><br />
+                                        <span class="ms-3">@Model.DateOfBirth.ToString("dd-MMMM-yyyy")</span>
+                                    </p>
+                                    <p class="mb-0">
+                                        <strong>Age:</strong><br />
+                                        <span class="ms-3">@((DateTime.Now.Year - Model.DateOfBirth.Year)) years</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-panel">
+                                    <h6 class="text-muted mb-2"><i class="bi bi-droplet-fill"></i> HEALTH DETAILS</h6>
+                                    <hr class="my-2" />
+                                    <p class="mb-2">
+                                        <strong>Gender:</strong><br />
+                                        <span class="ms-3">@Model.Gender</span>
+                                    </p>
+                                    <p class="mb-0">
+                                        <strong>Blood Group:</strong><br />
+                                        <span class="ms-3">
+                                            @if (!string.IsNullOrEmpty(Model.BloodGroup))
+                                            {
+                                                <span class="badge bg-danger">@Model.BloodGroup</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Not specified</span>
+                                            }
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="info-panel">
+                                    <h6 class="text-muted mb-2"><i class="bi bi-journal-medical"></i> MEDICAL HISTORY</h6>
+                                    <hr class="my-2" />
+                                    @if (!string.IsNullOrWhiteSpace(Model.MedicalHistory))
+                                    {
+                                        <p class="mb-0">@Model.MedicalHistory</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="mb-0 text-muted">No medical history added yet.</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-light p-4">
+                        <div class="d-grid gap-2 d-sm-flex">
+                            <a href="@Url.Action("Index", "Appointment")" class="btn btn-primary btn-lg">
+                                <i class="bi bi-calendar-check"></i> Book Appointment
+                            </a>
+                            <a href="@Url.Action("Index", "Doctor")" class="btn btn-outline-primary btn-lg">
+                                <i class="bi bi-search"></i> Find a Doctor
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ECommerceApp.Models.Customer>
+
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<h1>Customers</h1>
+<a href="/Customers/Create" class="btn btn-success mb-3">+ Add Customer</a>
+<hr />
+
+<table class="table table-bordered table-hover">
+    <thead class="table-success">
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Total Orders</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.CustomerId</td>
+                <td>@customer.FullName</td>
+                <td>@customer.Email</td>
+                <td>@customer.Address</td>
+                <td>
+                    <span class="badge bg-secondary">
+                        @customer.Orders.Count order(s)
+                    </span>
+                </td>
+                <td>
+                    <a href="/Customers/Details/@customer.CustomerId" class="btn btn-info btn-sm">Details</a>
+                    <a href="/Customers/Edit/@customer.CustomerId" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="/Customers/Delete/@customer.CustomerId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

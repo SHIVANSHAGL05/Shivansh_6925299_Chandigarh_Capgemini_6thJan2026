@@ -1,0 +1,119 @@
+@model SmartHealthcare.Models.DTOs.RegisterDTO
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container py-4 py-lg-5">
+    <div class="auth-layout">
+        <aside class="auth-visual auth-visual-register" data-reveal>
+            <span class="eyebrow"><i class="bi bi-person-plus"></i> Join the platform</span>
+            <h1>Create your account in minutes.</h1>
+            <p>Get secure access to appointments, profiles, and care coordination from one polished dashboard.</p>
+
+            <div class="auth-metric-grid">
+                <div class="metric-card auth-mini-card" data-tilt>
+                    <h6>Setup</h6>
+                    <strong>2 Steps</strong>
+                </div>
+                <div class="metric-card auth-mini-card" data-tilt>
+                    <h6>Security</h6>
+                    <strong>Encrypted</strong>
+                </div>
+                <div class="metric-card auth-mini-card" data-tilt>
+                    <h6>Access</h6>
+                    <strong>Instant</strong>
+                </div>
+            </div>
+
+            <div class="auth-feature-list">
+                <div><i class="bi bi-check-circle-fill text-success me-2"></i> Patients and doctors supported</div>
+                <div><i class="bi bi-check-circle-fill text-success me-2"></i> Profile-based dashboard routing</div>
+                <div><i class="bi bi-check-circle-fill text-success me-2"></i> Fast JWT authentication flow</div>
+            </div>
+        </aside>
+
+        <section class="auth-panel card auth-card" data-reveal>
+            <div class="auth-head text-center">
+                <h1 class="mb-2"><i class="bi bi-hospital"></i></h1>
+                <h3 class="mb-0">Smart Healthcare</h3>
+                <p class="mb-0 small mt-2">Create your account</p>
+            </div>
+
+            <div class="card-body auth-body p-4 p-lg-5">
+                <form asp-action="Register" method="post" novalidate>
+                    <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="FullName" class="form-label fw-bold">
+                            <i class="bi bi-person"></i> Full Name *
+                        </label>
+                        <input asp-for="FullName" class="form-control form-control-lg" placeholder="Enter your full name" />
+                        <span asp-validation-for="FullName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Email" class="form-label fw-bold">
+                            <i class="bi bi-envelope"></i> Email Address *
+                        </label>
+                        <input asp-for="Email" class="form-control form-control-lg" type="email" placeholder="Enter your email" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Password" class="form-label fw-bold">
+                            <i class="bi bi-key"></i> Password *
+                        </label>
+                        <input asp-for="Password" class="form-control form-control-lg" type="password" placeholder="Create a strong password" />
+                        <small class="form-text text-muted d-block mt-1">Minimum 6 characters</small>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Role" class="form-label fw-bold">
+                            <i class="bi bi-briefcase"></i> Register as *
+                        </label>
+                        <select asp-for="Role" class="form-select form-select-lg">
+                            <option value="Patient" selected>Patient - I need healthcare services</option>
+                            <option value="Doctor">Doctor - I provide healthcare services</option>
+                        </select>
+                        <span asp-validation-for="Role" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input type="checkbox" class="form-check-input" id="terms" required />
+                        <label class="form-check-label" for="terms">I agree to the Terms &amp; Conditions</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                        <i class="bi bi-person-check"></i> Create Account
+                    </button>
+                </form>
+            </div>
+
+            <div class="card-footer bg-light p-4 text-center border-0">
+                <p class="mb-0">
+                    Already have an account?
+                    <a asp-action="Login" class="text-decoration-none fw-bold">
+                        <i class="bi bi-box-arrow-in-right"></i> Login here
+                    </a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <div class="section-shell mt-4" data-reveal>
+        <div class="card-body">
+            <h6 class="card-title mb-3"><i class="bi bi-info-circle-fill"></i> Why register?</h6>
+            <ul class="small mb-0">
+                <li>Book appointments with qualified doctors</li>
+                <li>Access your medical history anytime</li>
+                <li>Receive digital prescriptions</li>
+                <li>Get health recommendations</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

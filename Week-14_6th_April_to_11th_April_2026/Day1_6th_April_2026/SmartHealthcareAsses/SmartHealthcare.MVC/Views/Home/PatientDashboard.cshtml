@@ -1,0 +1,180 @@
+@model PatientDashboardViewModel
+@{
+    ViewData["Title"] = "My Dashboard";
+}
+
+<!-- Welcome Header -->
+<div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
+    <div>
+        <h3 class="fw-800 mb-1 text-navy" style="font-family:'Outfit',sans-serif">
+            Hello, @(Model.Profile?.FullName?.Split(' ')[0] ?? "there") 👋
+        </h3>
+        <p class="text-muted mb-0 small">
+            <i class="bi bi-calendar3 me-1"></i>@DateTime.Now.ToString("dddd, dd MMMM yyyy")
+        </p>
+    </div>
+    <a asp-controller="Appointment" asp-action="Book" class="btn btn-primary btn-lg">
+        <i class="bi bi-calendar-plus me-2"></i>Book Appointment
+    </a>
+</div>
+
+<!-- Health Stats Row -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="stat-icon" style="background:#fee2e2;color:var(--sc-rose)"><i class="bi bi-droplet-fill"></i></div>
+            <div class="stat-number text-navy">@(Model.Profile?.BloodGroup ?? "—")</div>
+            <div class="stat-label">Blood Group</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="stat-icon" style="background:#e0f9f8;color:var(--sc-teal)"><i class="bi bi-speedometer2"></i></div>
+            <div class="stat-number text-navy">@(Model.Profile?.Weight?.ToString("0") ?? "—")</div>
+            <div class="stat-label">Weight (kg)</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="stat-icon" style="background:#dcfce7;color:var(--sc-green)"><i class="bi bi-arrows-vertical"></i></div>
+            <div class="stat-number text-navy">@(Model.Profile?.Height?.ToString("0") ?? "—")</div>
+            <div class="stat-label">Height (cm)</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card stat-amber border-0 shadow-sm">
+            <div class="stat-icon" style="background:#fef3c7;color:var(--sc-amber)"><i class="bi bi-calendar-check"></i></div>
+            <div class="stat-number text-navy">@Model.UpcomingAppointments.Count</div>
+            <div class="stat-label">Upcoming</div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="row g-4">
+    <!-- Upcoming Appointments -->
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <span class="fw-600 text-navy"><i class="bi bi-calendar-event me-2 text-teal"></i>Upcoming Appointments</span>
+                <a asp-controller="Appointment" asp-action="Index" class="btn btn-outline-primary btn-sm">View All</a>
+            </div>
+            <div class="card-body p-0">
+                @if (!Model.UpcomingAppointments.Any())
+                {
+                    <div class="empty-state">
+                        <i class="bi bi-calendar-x"></i>
+                        <p class="fw-600">No upcoming appointments</p>
+                        <a asp-controller="Appointment" asp-action="Book" class="btn btn-primary btn-sm mt-2">
+                            <i class="bi bi-plus me-1"></i>Book Now
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var a in Model.UpcomingAppointments)
+                        {
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="d-flex gap-3">
+                                        <div class="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                                             style="width:42px;height:42px;background:var(--sc-bg);">
+                                            <i class="bi bi-person-badge text-teal fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-600 small">Dr. @a.DoctorName</div>
+                                            <div class="text-muted" style="font-size:.78rem">
+                                                <i class="bi bi-calendar3 me-1"></i>@a.AppointmentDate.ToString("dd MMM")
+                                                <i class="bi bi-clock ms-2 me-1"></i>@a.StartTime.ToString(@"hh\:mm")
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-1 align-items-center">
+                                        <span class="badge bg-warning" style="font-size:.7rem">@a.StatusName</span>
+                                        <a asp-controller="Appointment" asp-action="Details" asp-route-id="@a.Id"
+                                           class="btn btn-sm btn-outline-primary ms-1" style="padding:3px 8px;font-size:.75rem">
+                                            View
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Past Appointments -->
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white">
+                <span class="fw-600 text-navy"><i class="bi bi-clock-history me-2 text-muted"></i>Past Appointments</span>
+            </div>
+            <div class="card-body p-0">
+                @if (!Model.PastAppointments.Any())
+                {
+                    <div class="empty-state">
+                        <i class="bi bi-inbox"></i>
+                        <p>No past appointments</p>
+                    </div>
+                }
+                else
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var a in Model.PastAppointments)
+                        {
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="fw-600 small">Dr. @a.DoctorName</div>
+                                        <div class="text-muted" style="font-size:.78rem">
+                                            <i class="bi bi-calendar3 me-1"></i>@a.AppointmentDate.ToString("dd MMM yyyy")
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-1">
+                                        <span class="badge @(a.Status == AppointmentStatus.Completed ? "bg-success" : "bg-secondary")" style="font-size:.7rem">
+                                            @a.StatusName
+                                        </span>
+                                        @if (a.HasPrescription)
+                                        {
+                                            <span class="badge bg-info" style="font-size:.7rem">
+                                                <i class="bi bi-file-medical me-1"></i>Rx
+                                            </span>
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row g-3 mt-1">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body py-3">
+                <div class="d-flex flex-wrap gap-2 align-items-center">
+                    <span class="text-muted small fw-600 me-2">Quick Access:</span>
+                    <a asp-controller="Patient" asp-action="MyPrescriptions" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-file-medical me-1"></i>Prescriptions
+                    </a>
+                    <a asp-controller="Patient" asp-action="MyBills" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-receipt me-1"></i>My Bills
+                    </a>
+                    <a asp-controller="Patient" asp-action="Profile" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-person me-1"></i>Profile
+                    </a>
+                    <a asp-controller="Doctor" asp-action="SearchByDepartment" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-building me-1"></i>Browse Departments
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

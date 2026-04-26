@@ -1,0 +1,140 @@
+@model DoctorDashboardViewModel
+@{
+    ViewData["Title"] = "Doctor Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
+    <div>
+        <h3 class="fw-800 mb-1 text-navy" style="font-family:'Outfit',sans-serif">
+            Good @(DateTime.Now.Hour < 12 ? "Morning" : DateTime.Now.Hour < 17 ? "Afternoon" : "Evening"), Dr. @(Model.Profile?.FullName?.Split(' ').LastOrDefault() ?? "Doctor") 👋
+        </h3>
+        <p class="text-muted mb-0 small">
+            <i class="bi bi-calendar3 me-1"></i>@DateTime.Now.ToString("dddd, dd MMMM yyyy")
+        </p>
+    </div>
+    <a asp-controller="Prescription" asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-file-medical me-2"></i>Write Prescription
+    </a>
+</div>
+
+<!-- Stats -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="stat-icon" style="background:#e0f9f8;color:var(--sc-teal)"><i class="bi bi-calendar-event"></i></div>
+            <div class="stat-number text-navy">@Model.TodayAppointments.Count</div>
+            <div class="stat-label">Today</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card stat-amber border-0 shadow-sm">
+            <div class="stat-icon" style="background:#fef3c7;color:var(--sc-amber)"><i class="bi bi-clock"></i></div>
+            <div class="stat-number" style="color:var(--sc-amber)">@Model.TodayAppointments.Count(a => a.Status == AppointmentStatus.Pending)</div>
+            <div class="stat-label">Pending</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card stat-green border-0 shadow-sm">
+            <div class="stat-icon" style="background:#dcfce7;color:var(--sc-green)"><i class="bi bi-check-circle"></i></div>
+            <div class="stat-number" style="color:var(--sc-green)">@Model.TodayAppointments.Count(a => a.Status == AppointmentStatus.Completed)</div>
+            <div class="stat-label">Completed Today</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="stat-icon" style="background:#eff6ff;color:#3b82f6"><i class="bi bi-calendar-check"></i></div>
+            <div class="stat-number" style="color:#3b82f6">@Model.UpcomingAppointments.Count</div>
+            <div class="stat-label">Upcoming</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Today's Schedule -->
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <span class="fw-600 text-navy"><i class="bi bi-calendar-day me-2 text-teal"></i>Today's Schedule</span>
+                <a asp-controller="Appointment" asp-action="Index" class="btn btn-outline-primary btn-sm">All</a>
+            </div>
+            <div class="card-body p-0">
+                @if (!Model.TodayAppointments.Any())
+                {
+                    <div class="empty-state">
+                        <i class="bi bi-calendar-x"></i>
+                        <p>No appointments scheduled for today</p>
+                    </div>
+                }
+                else
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var a in Model.TodayAppointments)
+                        {
+                            var badgeCls = a.Status switch {
+                                AppointmentStatus.Pending    => "bg-warning",
+                                AppointmentStatus.Confirmed  => "bg-info",
+                                AppointmentStatus.InProgress => "bg-primary",
+                                AppointmentStatus.Completed  => "bg-success",
+                                AppointmentStatus.Cancelled  => "bg-danger",
+                                _ => "bg-secondary"
+                            };
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="fw-600 small">@a.PatientName</div>
+                                        <div class="text-muted" style="font-size:.78rem">
+                                            <i class="bi bi-clock me-1"></i>@a.StartTime.ToString(@"hh\:mm") — @a.Type
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-1 align-items-center">
+                                        <span class="badge @badgeCls" style="font-size:.7rem">@a.StatusName</span>
+                                        <a asp-controller="Appointment" asp-action="Details" asp-route-id="@a.Id"
+                                           class="btn btn-sm btn-outline-primary ms-1" style="padding:3px 8px;font-size:.75rem">View</a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming -->
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white">
+                <span class="fw-600 text-navy"><i class="bi bi-calendar-week me-2 text-muted"></i>Upcoming Appointments</span>
+            </div>
+            <div class="card-body p-0">
+                @if (!Model.UpcomingAppointments.Any())
+                {
+                    <div class="empty-state">
+                        <i class="bi bi-inbox"></i>
+                        <p>No upcoming appointments</p>
+                    </div>
+                }
+                else
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var a in Model.UpcomingAppointments)
+                        {
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="fw-600 small">@a.PatientName</div>
+                                        <div class="text-muted" style="font-size:.78rem">
+                                            <i class="bi bi-calendar3 me-1"></i>@a.AppointmentDate.ToString("dd MMM")
+                                            <i class="bi bi-clock ms-2 me-1"></i>@a.StartTime.ToString(@"hh\:mm")
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-info" style="font-size:.7rem">@a.StatusName</span>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</div>

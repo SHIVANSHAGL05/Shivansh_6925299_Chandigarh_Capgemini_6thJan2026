@@ -1,0 +1,58 @@
+@page
+@model LearningPlatform.Web.Pages.Courses.IndexModel
+@{
+    ViewData["Title"] = "Browse Courses";
+}
+
+<div class="page-header">
+    <h1>Browse Courses</h1>
+    <form method="get" class="search-bar">
+        <input type="text" name="search" value="@Model.Search" placeholder="Search courses..." />
+        <select name="category" onchange="this.form.submit()">
+            <option value="">All Categories</option>
+            @foreach (var cat in new[] { "Programming","Design","Business","Data Science","DevOps" })
+            {
+                <option value="@cat" selected="@(Model.Category == cat ? "selected" : null)">@cat</option>
+            }
+        </select>
+        <button type="submit" class="btn-primary">Search</button>
+    </form>
+</div>
+
+@if (Model.Courses == null || !Model.Courses.Any())
+{
+    <p class="no-results">No courses found. Try a different search.</p>
+}
+else
+{
+    <div class="course-grid">
+        @foreach (var course in Model.Courses)
+        {
+            <div class="course-card" onclick="window.location='/Courses/Detail?id=@course.Id'">
+                <div class="course-badge">@course.Category</div>
+                <h3>@course.Title</h3>
+                <p>@course.ShortDescription</p>
+                <div class="course-meta">
+                    <span>👤 @course.InstructorName</span>
+                    <span>📘 @course.LessonCount lessons</span>
+                    <span>👥 @course.EnrollmentCount enrolled</span>
+                </div>
+                <div class="course-footer">
+                    <span class="level-badge level-@course.Level.ToLower()">@course.Level</span>
+                    <span class="price">@course.PriceDisplay</span>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (Model.TotalPages > 1)
+    {
+        <div class="pagination">
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <a href="?page=@i&search=@Model.Search&category=@Model.Category"
+                   class="@(i == Model.CurrentPage ? "active" : "")">@i</a>
+            }
+        </div>
+    }
+}

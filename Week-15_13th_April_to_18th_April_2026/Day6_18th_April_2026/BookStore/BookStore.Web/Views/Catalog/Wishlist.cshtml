@@ -1,0 +1,44 @@
+@model IReadOnlyList<BookCardViewModel>
+@{
+    ViewData["Title"] = "Wishlist";
+}
+
+<section class="page-card reveal">
+    <h1>My Wishlist</h1>
+
+    @if (!Model.Any())
+    {
+        <p>No items in wishlist yet.</p>
+    }
+    else
+    {
+        <div class="catalog-grid reveal">
+            @foreach (var book in Model)
+            {
+                <article class="book-card">
+                    <div class="book-cover cover-@book.CoverAccent">
+                        @if (!string.IsNullOrWhiteSpace(book.ImageUrl))
+                        {
+                            <img class="book-cover-image" src="@book.ImageUrl" alt="@book.Title cover"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" />
+                            <span class="book-cover-fallback" style="display:none;">@book.Category</span>
+                        }
+                        else
+                        {
+                            <span class="book-cover-fallback">@book.Category</span>
+                        }
+                    </div>
+                    <h3>@book.Title</h3>
+                    <p>@book.Author</p>
+                    <div class="meta-row">
+                        <span>$@book.Price.ToString("0.00")</span>
+                    </div>
+                    <div class="book-actions">
+                        <a class="btn btn-brand" asp-controller="Cart" asp-action="Add" asp-route-bookId="@book.BookId">Add to Cart</a>
+                        <a class="btn btn-ghost" asp-action="RemoveWishlist" asp-route-bookId="@book.BookId">Remove</a>
+                    </div>
+                </article>
+            }
+        </div>
+    }
+</section>

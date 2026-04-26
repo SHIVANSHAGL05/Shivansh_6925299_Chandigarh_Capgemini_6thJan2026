@@ -1,0 +1,63 @@
+@model UniversityManagement.Models.Department
+@{ ViewData["Title"] = "Delete Department"; }
+
+<div class="mb-4">
+    <h4 class="fw-bold text-danger mb-0">Delete Department</h4>
+    <small class="text-muted">This action cannot be undone</small>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <i class="bi bi-exclamation-triangle me-2"></i>Confirm Deletion
+            </div>
+            <div class="card-body">
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger py-2 small">
+                        <i class="bi bi-x-circle me-1"></i>
+                        @Html.ValidationSummary(false)
+                    </div>
+                }
+
+                <div class="alert alert-warning py-2 small">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Cannot delete a department that still has instructors assigned.
+                    Reassign or remove all instructors first.
+                </div>
+
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">Name</dt>
+                    <dd class="col-sm-7">@Model.Name</dd>
+
+                    <dt class="col-sm-5">Budget</dt>
+                    <dd class="col-sm-7">@Model.Budget.ToString("C")</dd>
+
+                    <dt class="col-sm-5">Instructors</dt>
+                    <dd class="col-sm-7">
+                        @if (Model.Instructors.Any())
+                        {
+                            <span class="badge bg-danger">@Model.Instructors.Count() assigned</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">None — safe to delete</span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-white d-flex gap-2">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="DepartmentId" />
+                    <button type="submit" class="btn btn-danger"
+                            @(Model.Instructors.Any() ? "disabled title=Remove all instructors first" : "")>
+                        <i class="bi bi-trash me-1"></i> Yes, Delete
+                    </button>
+                </form>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

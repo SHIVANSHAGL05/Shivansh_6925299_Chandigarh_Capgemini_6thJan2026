@@ -1,0 +1,69 @@
+@model IReadOnlyList<OrderSummaryViewModel>
+@{
+    ViewData["Title"] = "Order Pipeline";
+}
+
+<section class="page-card reveal">
+    <h1>Order Pipeline</h1>
+    <p>Recent orders represent a UI target for OrderService and email workflow integration.</p>
+
+    <div class="table-wrap mt-3">
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Ordered On (UTC)</th>
+                    <th>Status</th>
+                    <th>Total Amount</th>
+                    <th>Workflow Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.OrderId</td>
+                        <td>@item.Customer</td>
+                        <td>@item.OrderedOn.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td><span class="status-pill">@item.Status</span></td>
+                        <td>$@item.TotalAmount.ToString("0.00")</td>
+                        <td>
+                            <form method="post" asp-action="UpdateOrderStatus" class="mt-2">
+                                <input type="hidden" name="orderId" value="@item.OrderId" />
+                                <select name="status">
+                                    <option value="Processing">Processing</option>
+                                    <option value="Packed">Packed</option>
+                                    <option value="Shipped">Shipped</option>
+                                    <option value="Delivered">Delivered</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                    <option value="Returned">Returned</option>
+                                    <option value="Refunded">Refunded</option>
+                                </select>
+                                <button type="submit" class="btn btn-brand">Set Status</button>
+                            </form>
+
+                            <form method="post" asp-action="CancelOrder" class="mt-2">
+                                <input type="hidden" name="orderId" value="@item.OrderId" />
+                                <input type="text" name="reason" placeholder="Cancel reason" />
+                                <button type="submit" class="btn btn-ghost">Cancel</button>
+                            </form>
+
+                            <form method="post" asp-action="ReturnOrder" class="mt-2">
+                                <input type="hidden" name="orderId" value="@item.OrderId" />
+                                <input type="text" name="reason" placeholder="Return reason" />
+                                <button type="submit" class="btn btn-ghost">Return</button>
+                            </form>
+
+                            <form method="post" asp-action="RefundOrder" class="mt-2">
+                                <input type="hidden" name="orderId" value="@item.OrderId" />
+                                <input type="text" name="reason" placeholder="Refund note" />
+                                <button type="submit" class="btn btn-ghost">Refund</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

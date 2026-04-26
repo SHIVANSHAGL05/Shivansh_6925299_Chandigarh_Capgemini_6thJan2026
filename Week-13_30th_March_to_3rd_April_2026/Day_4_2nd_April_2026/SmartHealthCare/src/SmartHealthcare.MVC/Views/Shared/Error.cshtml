@@ -1,0 +1,14 @@
+﻿@model SmartHealthcare.MVC.Models.ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="text-center py-5">
+    <h1 class="text-danger">Something went wrong</h1>
+    <p class="lead">@Model?.Message</p>
+    @if (Model?.ShowRequestId == true)
+    {
+        <p class="text-muted">Request ID: @Model.RequestId</p>
+    }
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Go Home</a>
+</div>

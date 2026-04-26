@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ECommerceApp.Models.Order>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>Orders</h1>
+<a href="/Orders/Create" class="btn btn-success mb-3">+ Place New Order</a>
+<hr />
+
+<table class="table table-bordered table-hover">
+    <thead class="table-warning">
+        <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Order Date</th>
+            <th>Items</th>
+            <th>Total Amount</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>#@order.OrderId</td>
+                <td>@order.Customer?.FullName</td>
+                <td>@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                <td>
+                    <span class="badge bg-secondary">
+                        @order.OrderDetails.Count item(s)
+                    </span>
+                </td>
+                <td class="fw-bold text-success">₹@order.TotalAmount.ToString("N0")</td>
+                <td>
+                    <a href="/Orders/Summary/@order.OrderId" class="btn btn-info btn-sm">Summary</a>
+                    <a href="/Orders/Delete/@order.OrderId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

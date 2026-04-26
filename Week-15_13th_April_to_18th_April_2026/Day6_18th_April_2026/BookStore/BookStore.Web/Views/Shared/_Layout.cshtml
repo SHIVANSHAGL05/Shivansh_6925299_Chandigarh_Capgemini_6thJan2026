@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BookStore Pro</title>
+    <script type="importmap"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BookStore.Web.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="side-rail">
+            <a class="rail-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <span class="brandmark-badge">BP</span>
+                <span>
+                    <strong>BookStore Pro</strong>
+                    <small>Customer Experience Suite</small>
+                </span>
+            </a>
+
+            <nav class="rail-nav">
+                <a class="rail-link" asp-controller="Home" asp-action="Index">Home</a>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        <a class="rail-link" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+                        <a class="rail-link" asp-controller="Admin" asp-action="Orders">Order Ops</a>
+                        <a class="rail-link" asp-controller="Admin" asp-action="Inventory">Inventory</a>
+                        <a class="rail-link" asp-controller="Admin" asp-action="Reports">Reports</a>
+                    }
+                    else
+                    {
+                        <a class="rail-link" asp-controller="Catalog" asp-action="Index">Discover Books</a>
+                        <a class="rail-link" asp-controller="Catalog" asp-action="Orders">My Orders</a>
+                        <a class="rail-link" asp-controller="Catalog" asp-action="Wishlist">Wishlist</a>
+                        <a class="rail-link" asp-controller="Cart" asp-action="Index">Cart</a>
+                    }
+                }
+
+                <a class="rail-link" asp-controller="Home" asp-action="Privacy">Architecture</a>
+            </nav>
+        </aside>
+
+        <div class="main-stage-wrap">
+            <header class="top-strip">
+                <div class="top-strip-meta">
+                    <span class="eyebrow">BookStore Workspace</span>
+                    <h2>@(ViewData["Title"] ?? "Dashboard")</h2>
+                </div>
+
+                <div class="nav-actions">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <span class="nav-user">@User.Identity.Name (@(User.IsInRole("Admin") ? "Admin" : "User"))</span>
+                        <a class="btn btn-ghost" asp-controller="Account" asp-action="Profile">Profile</a>
+                        <form asp-controller="Account" asp-action="Logout" method="post" class="logout-form">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-brand">Logout</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a class="btn btn-ghost" asp-controller="Account" asp-action="Login">Login</a>
+                        <a class="btn btn-brand" asp-controller="Account" asp-action="Register">Signup</a>
+                    }
+                </div>
+            </header>
+
+            <div class="shell-container">
+                @if (TempData["AuthMessage"] is string authMessage)
+                {
+                    <div class="shell-alert mt-3">@authMessage</div>
+                }
+
+                <main role="main" class="pb-5">
+                    @RenderBody()
+                </main>
+            </div>
+
+            <footer class="shell-footer">
+                <div class="shell-container footer-grid">
+                    <div>
+                        <h6>BookStore Pro</h6>
+                        <p>Premium MVC storefront with role-based experiences and API-first operations.</p>
+                    </div>
+                    <div>
+                        <p>Presentation: ASP.NET Core MVC</p>
+                        <p>Service Layer: API v1 endpoints via HttpClient</p>
+                    </div>
+                    <div>
+                        <p>&copy; 2026 BookStore Pro</p>
+                        <p><a asp-controller="Home" asp-action="Privacy">Security and deployment notes</a></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

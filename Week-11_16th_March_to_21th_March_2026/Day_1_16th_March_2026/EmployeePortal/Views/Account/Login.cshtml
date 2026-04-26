@@ -1,0 +1,65 @@
+@model EmployeePortal.Models.LoginViewModel
+@{ ViewData["Title"] = "Admin Login"; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login — Employee Portal</title>
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Arial,sans-serif;background:#f0f2f5;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+        .box{background:#fff;border:1px solid #ddd;border-radius:6px;padding:32px 30px;width:100%;max-width:390px}
+        .logo{font-size:28px;text-align:center;margin-bottom:8px}
+        h2{font-size:18px;color:#222;text-align:center;margin-bottom:4px}
+        .sub{font-size:12px;color:#888;text-align:center;margin-bottom:20px}
+        hr{border:none;border-top:1px solid #eee;margin-bottom:18px}
+        .alert{padding:9px 12px;border-radius:4px;font-size:13px;margin-bottom:14px}
+        .alert-error  {background:#fff0f0;border:1px solid #f5c0c0;color:#cc0000}
+        .alert-info   {background:#fffbe6;border:1px solid #ffe58f;color:#7a5700}
+        .alert-success{background:#f0fff4;border:1px solid #9ae6b4;color:#276749}
+        .field{margin-bottom:14px}
+        label{display:block;font-size:12px;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+        input[type=text],input[type=password]{width:100%;padding:8px 10px;font-size:14px;border:1px solid #ccc;border-radius:4px;outline:none;color:#222}
+        input:focus{border-color:#1e3a5f}
+        input.input-validation-error{border-color:#cc0000;background:#fff8f8}
+        .field-error{color:#cc0000;font-size:12px;margin-top:4px;display:block}
+        .btn{width:100%;padding:10px;background:#1e3a5f;color:#fff;font-size:14px;font-weight:bold;border:none;border-radius:4px;cursor:pointer;margin-top:4px}
+        .btn:hover{background:#16304f}
+        .hint{font-size:12px;color:#aaa;text-align:center;margin-top:12px}
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="logo">🏢</div>
+    <h2>Employee Management Portal</h2>
+    <p class="sub">Administrator Login</p>
+    <hr />
+
+    @if (TempData["InfoMessage"]    != null) { <div class="alert alert-info">ℹ️ @TempData["InfoMessage"]</div> }
+    @if (TempData["SuccessMessage"] != null) { <div class="alert alert-success">✅ @TempData["SuccessMessage"]</div> }
+    @if (ViewBag.ErrorMessage       != null) { <div class="alert alert-error">❌ @ViewBag.ErrorMessage</div> }
+
+    <form asp-action="Login" asp-controller="Account" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="field-error" style="margin-bottom:10px"></div>
+
+        <div class="field">
+            <label asp-for="Username">Username</label>
+            <input asp-for="Username" type="text" placeholder="Enter username" autocomplete="username" />
+            <span asp-validation-for="Username" class="field-error"></span>
+        </div>
+
+        <div class="field">
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" type="password" placeholder="Enter password" autocomplete="current-password" />
+            <span asp-validation-for="Password" class="field-error"></span>
+        </div>
+
+        <button type="submit" class="btn">🔐 Login</button>
+    </form>
+    <p class="hint">Credentials: admin / admin123</p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+</body></html>

@@ -1,0 +1,209 @@
+@model CreatePrescriptionDto
+@{
+    ViewData["Title"] = "Write Prescription";
+    var medicines = ViewBag.Medicines as List<MedicineDto> ?? new();
+    var apptId    = (int)(ViewBag.AppointmentId ?? 0);
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-info text-white py-3">
+                <h5 class="mb-0 fw-bold">
+                    <i class="bi bi-file-medical me-2"></i>Write Prescription
+                    <small class="opacity-75 ms-2">for Appointment #@apptId</small>
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post" novalidate>
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="AppointmentId" value="@apptId" />
+                    <div asp-validation-summary="All" class="alert alert-danger py-2 small"></div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Diagnosis" class="form-label fw-semibold"></label>
+                            <textarea asp-for="Diagnosis" class="form-control" rows="2"
+                                      placeholder="Patient diagnosis..."></textarea>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label asp-for="ValidUntil" class="form-label fw-semibold">Valid Until</label>
+                            <input asp-for="ValidUntil" type="date" class="form-control"
+                                   min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label fw-semibold">&nbsp;</label>
+                            <div class="d-flex align-items-center h-100 pb-1">
+                                <small class="text-muted">Leave blank for open-ended prescription</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medicines Table -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <label class="form-label fw-semibold mb-0">
+                                <i class="bi bi-capsule text-info me-1"></i>Medicines
+                                <span class="text-danger">*</span>
+                            </label>
+                            <button type="button" class="btn btn-sm btn-outline-info" id="addMedRow">
+                                <i class="bi bi-plus-circle me-1"></i>Add Medicine
+                            </button>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle" id="medicineTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width:25%">Medicine</th>
+                                        <th style="width:15%">Dosage</th>
+                                        <th style="width:18%">Frequency</th>
+                                        <th style="width:15%">Duration</th>
+                                        <th>Special Instructions</th>
+                                        <th style="width:50px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="medicineRows">
+                                    @for (int i = 0; i < Math.Max(1, Model.Medicines.Count); i++)
+                                    {
+                                        var med = i < Model.Medicines.Count ? Model.Medicines[i] : new CreatePrescriptionMedicineDto();
+                                        <tr class="med-row">
+                                            <td>
+                                                <select name="Medicines[@i].MedicineId" class="form-select form-select-sm">
+                                                    <option value="0">-- Select --</option>
+                                                    @foreach (var m in medicines)
+                                                    {
+                                                        <option value="@m.Id" selected="@(med.MedicineId == m.Id)">
+                                                            @m.Name
+                                                        </option>
+                                                    }
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="Medicines[@i].Dosage"
+                                                       class="form-control form-control-sm"
+                                                       placeholder="500mg" value="@med.Dosage" />
+                                            </td>
+                                            <td>
+                                                <select name="Medicines[@i].Frequency" class="form-select form-select-sm">
+                                                    <option value="" selected="@string.IsNullOrEmpty(med.Frequency)">-- Select --</option>
+                                                    <option value="Once daily"          selected="@(med.Frequency=="Once daily")">Once daily</option>
+                                                    <option value="Twice daily"         selected="@(med.Frequency=="Twice daily")">Twice daily</option>
+                                                    <option value="Three times daily"   selected="@(med.Frequency=="Three times daily")">Three times daily</option>
+                                                    <option value="Four times daily"    selected="@(med.Frequency=="Four times daily")">Four times daily</option>
+                                                    <option value="Every 8 hours"       selected="@(med.Frequency=="Every 8 hours")">Every 8 hours</option>
+                                                    <option value="At bedtime"          selected="@(med.Frequency=="At bedtime")">At bedtime</option>
+                                                    <option value="Before meals"        selected="@(med.Frequency=="Before meals")">Before meals</option>
+                                                    <option value="After meals"         selected="@(med.Frequency=="After meals")">After meals</option>
+                                                    <option value="As needed"           selected="@(med.Frequency=="As needed")">As needed (SOS)</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="Medicines[@i].Duration" class="form-select form-select-sm">
+                                                    <option value="" selected="@string.IsNullOrEmpty(med.Duration)">-- Select --</option>
+                                                    <option value="3 days">3 days</option>
+                                                    <option value="5 days">5 days</option>
+                                                    <option value="7 days">7 days</option>
+                                                    <option value="10 days">10 days</option>
+                                                    <option value="14 days">14 days</option>
+                                                    <option value="1 month">1 month</option>
+                                                    <option value="3 months">3 months</option>
+                                                    <option value="Ongoing">Ongoing</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="Medicines[@i].SpecialInstructions"
+                                                       class="form-control form-control-sm"
+                                                       placeholder="e.g. Take with water"
+                                                       value="@med.SpecialInstructions" />
+                                            </td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-sm btn-outline-danger remove-row">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Instructions" class="form-label fw-semibold">General Instructions</label>
+                            <textarea asp-for="Instructions" class="form-control" rows="3"
+                                      placeholder="Dietary advice, activity restrictions, etc."></textarea>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FollowUpNotes" class="form-label fw-semibold">Follow-up Notes</label>
+                            <textarea asp-for="FollowUpNotes" class="form-control" rows="3"
+                                      placeholder="e.g. Review in 2 weeks..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-info text-white btn-lg px-5 fw-semibold">
+                            <i class="bi bi-file-medical me-2"></i>Issue Prescription
+                        </button>
+                        <a asp-controller="Appointment" asp-action="Details" asp-route-id="@apptId"
+                           class="btn btn-outline-secondary btn-lg">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Build medicine options HTML from server-rendered first row
+        const firstSelect = document.querySelector('#medicineRows select');
+        const optionsHtml = firstSelect ? firstSelect.innerHTML : '';
+
+        document.getElementById('addMedRow').addEventListener('click', function () {
+            const rows  = document.querySelectorAll('.med-row');
+            const idx   = rows.length;
+            const tbody = document.getElementById('medicineRows');
+
+            const tr = document.createElement('tr');
+            tr.className = 'med-row';
+            tr.innerHTML = `
+                <td><select name="Medicines[${idx}].MedicineId" class="form-select form-select-sm">${optionsHtml}</select></td>
+                <td><input type="text" name="Medicines[${idx}].Dosage" class="form-control form-control-sm" placeholder="500mg"></td>
+                <td>
+                    <select name="Medicines[${idx}].Frequency" class="form-select form-select-sm">
+                        <option value="">-- Select --</option>
+                        <option>Once daily</option><option>Twice daily</option>
+                        <option>Three times daily</option><option>Four times daily</option>
+                        <option>Every 8 hours</option><option>At bedtime</option>
+                        <option>Before meals</option><option>After meals</option><option>As needed</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="Medicines[${idx}].Duration" class="form-select form-select-sm">
+                        <option value="">-- Select --</option>
+                        <option>3 days</option><option>5 days</option><option>7 days</option>
+                        <option>10 days</option><option>14 days</option>
+                        <option>1 month</option><option>3 months</option><option>Ongoing</option>
+                    </select>
+                </td>
+                <td><input type="text" name="Medicines[${idx}].SpecialInstructions" class="form-control form-control-sm" placeholder="e.g. Take with water"></td>
+                <td class="text-center"><button type="button" class="btn btn-sm btn-outline-danger remove-row"><i class="bi bi-trash"></i></button></td>
+            `;
+            tbody.appendChild(tr);
+            bindRemove(tr.querySelector('.remove-row'));
+        });
+
+        function bindRemove(btn) {
+            btn.addEventListener('click', function () {
+                const rows = document.querySelectorAll('.med-row');
+                if (rows.length > 1) btn.closest('tr').remove();
+                else alert('At least one medicine is required.');
+            });
+        }
+
+        document.querySelectorAll('.remove-row').forEach(bindRemove);
+    </script>
+}

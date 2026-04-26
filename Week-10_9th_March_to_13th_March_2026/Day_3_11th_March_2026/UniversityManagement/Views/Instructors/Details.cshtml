@@ -1,0 +1,101 @@
+@model UniversityManagement.Models.Instructor
+@{ ViewData["Title"] = "Instructor Details"; }
+
+<div class="mb-4">
+    <h4 class="fw-bold mb-0">Instructor Details</h4>
+    <small class="text-muted">@Model.Name</small>
+</div>
+
+<div class="row g-4">
+    <!-- Left: Instructor Info -->
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-person-badge me-2"></i>Profile
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">ID</dt>
+                    <dd class="col-sm-7">#@Model.InstructorId</dd>
+
+                    <dt class="col-sm-5">Name</dt>
+                    <dd class="col-sm-7">@Model.Name</dd>
+
+                    <dt class="col-sm-5">Department</dt>
+                    <dd class="col-sm-7">
+                        <span class="badge bg-light text-dark border">
+                            @(Model.Department?.Name ?? "Unassigned")
+                        </span>
+                    </dd>
+
+                    <dt class="col-sm-5">Dept Budget</dt>
+                    <dd class="col-sm-7 text-success fw-semibold">
+                        @(Model.Department?.Budget.ToString("C") ?? "-")
+                    </dd>
+
+                    <dt class="col-sm-5">Courses</dt>
+                    <dd class="col-sm-7">@Model.Courses.Count() teaching</dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-white border-top-0 d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@Model.InstructorId"
+                   class="btn btn-sm btn-warning text-white">
+                    <i class="bi bi-pencil me-1"></i>Edit
+                </a>
+                <a asp-action="Index" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>Back
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Courses Table -->
+    <div class="col-md-8">
+        <div class="card h-100">
+            <div class="card-header">
+                <i class="bi bi-book me-2"></i>Courses Teaching
+                <span class="badge bg-light text-dark ms-2">@Model.Courses.Count()</span>
+            </div>
+            <div class="card-body p-0">
+                @if (!Model.Courses.Any())
+                {
+                    <div class="text-center py-5 text-muted">
+                        <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                        No courses assigned to this instructor yet.
+                    </div>
+                }
+                else
+                {
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Course Title</th>
+                                <th>Credits</th>
+                                <th>Students Enrolled</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var course in Model.Courses)
+                            {
+                                <tr>
+                                    <td>@course.Title</td>
+                                    <td>
+                                        <span class="badge bg-primary rounded-pill">
+                                            @course.Credits cr.
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-light text-dark border">
+                                            <i class="bi bi-people me-1"></i>
+                                            @course.Enrollments.Count()
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>

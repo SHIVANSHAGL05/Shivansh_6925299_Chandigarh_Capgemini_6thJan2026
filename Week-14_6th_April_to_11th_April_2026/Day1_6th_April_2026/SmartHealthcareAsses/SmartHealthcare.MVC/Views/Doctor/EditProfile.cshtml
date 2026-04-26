@@ -1,0 +1,93 @@
+@model UpdateDoctorDto
+@{
+    ViewData["Title"] = "Edit Doctor Profile";
+    var allSpecs  = ViewBag.AllSpecializations as List<SpecializationDto> ?? new();
+    var doctorId  = (int)(ViewBag.DoctorId ?? 0);
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-pencil-square me-2"></i>Edit Doctor Profile</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="EditProfile" asp-route-doctorId="@doctorId" method="post" novalidate>
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="All" class="alert alert-danger py-2 small"></div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="LicenseNumber" class="form-label fw-semibold"></label>
+                            <input asp-for="LicenseNumber" class="form-control" />
+                            <span asp-validation-for="LicenseNumber" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Qualifications" class="form-label fw-semibold"></label>
+                            <input asp-for="Qualifications" class="form-control" placeholder="MBBS, MD, etc." />
+                            <span asp-validation-for="Qualifications" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ExperienceYears" class="form-label fw-semibold"></label>
+                            <input asp-for="ExperienceYears" type="number" class="form-control" min="0" max="60" />
+                            <span asp-validation-for="ExperienceYears" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ConsultationFee" class="form-label fw-semibold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text">₹</span>
+                                <input asp-for="ConsultationFee" type="number" class="form-control" min="0" step="50" />
+                            </div>
+                            <span asp-validation-for="ConsultationFee" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Biography" class="form-label fw-semibold"></label>
+                        <textarea asp-for="Biography" class="form-control" rows="3"
+                                  placeholder="Tell patients about your expertise and approach..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Specializations</label>
+                        <div class="row g-2">
+                            @foreach (var s in allSpecs)
+                            {
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="SpecializationIds" value="@s.Id"
+                                               id="spec_@s.Id"
+                                               @(Model.SpecializationIds.Contains(s.Id) ? "checked" : "") />
+                                        <label class="form-check-label" for="spec_@s.Id">@s.Name</label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="form-check form-switch">
+                            <input asp-for="IsAvailable" class="form-check-input" role="switch" />
+                            <label asp-for="IsAvailable" class="form-check-label fw-semibold">Available for Appointments</label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-primary btn-lg px-5 fw-semibold">
+                            <i class="bi bi-check-circle me-2"></i>Save Changes
+                        </button>
+                        <a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

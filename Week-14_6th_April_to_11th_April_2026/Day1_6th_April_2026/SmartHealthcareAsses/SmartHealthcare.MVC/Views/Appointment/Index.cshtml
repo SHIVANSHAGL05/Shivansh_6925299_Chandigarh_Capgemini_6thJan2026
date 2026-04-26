@@ -1,0 +1,151 @@
+@model AppointmentListViewModel
+@{
+    ViewData["Title"] = "Appointments";
+    var role = Context.Session.GetString("UserRole");
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold"><i class="bi bi-calendar-check text-primary me-2"></i>Appointments</h2>
+    @if (role == "Patient")
+    {
+        <a asp-action="Book" class="btn btn-primary">
+            <i class="bi bi-calendar-plus me-2"></i>Book New
+        </a>
+    }
+</div>
+
+<!-- Filters -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label fw-semibold small">Filter by Date</label>
+                <input type="date" name="date" class="form-control" value="@Context.Request.Query["date"]" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold small">Filter by Status</label>
+                <select name="status" class="form-select">
+                    <option value="">All Statuses</option>
+                    @foreach (var s in Enum.GetValues<SmartHealthcare.Core.Enums.AppointmentStatus>())
+                    {
+                        <option value="@((int)s)"
+                                selected="@(Context.Request.Query["status"].ToString() == ((int)s).ToString())">
+                            @s
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-funnel me-1"></i>Filter
+                </button>
+            </div>
+            <div class="col-md-2">
+                <a asp-action="Index" class="btn btn-outline-secondary w-100">
+                    <i class="bi bi-x-circle me-1"></i>Clear
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Table -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        @if (!Model.Appointments.Any())
+        {
+            <div class="text-center text-muted py-5">
+                <i class="bi bi-calendar-x display-3 d-block mb-3"></i>
+                <h5>No appointments found</h5>
+                @if (role == "Patient")
+                {
+                    <a asp-action="Book" class="btn btn-primary mt-2">Book your first appointment</a>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            @if (role != "Patient") { <th>Patient</th> }
+                            @if (role != "Doctor")  { <th>Doctor</th> }
+                            <th>Date</th><th>Time</th><th>Type</th><th>Status</th><th>Fee</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var a in Model.Appointments)
+                        {
+                            var badgeCls = a.Status switch {
+                                AppointmentStatus.Pending    => "bg-warning text-dark",
+                                AppointmentStatus.Confirmed  => "bg-info text-white",
+                                AppointmentStatus.InProgress => "bg-primary",
+                                AppointmentStatus.Completed  => "bg-success",
+                                AppointmentStatus.Cancelled  => "bg-danger",
+                                AppointmentStatus.NoShow     => "bg-secondary",
+                                _ => "bg-secondary"
+                            };
+                            <tr>
+                                <td class="text-muted small">@a.Id</td>
+                                @if (role != "Patient") { <td class="fw-semibold">@a.PatientName</td> }
+                                @if (role != "Doctor")  { <td>Dr. @a.DoctorName</td> }
+                                <td>@a.AppointmentDate.ToString("dd MMM yyyy")</td>
+                                <td>@a.StartTime.ToString(@"hh\:mm")</td>
+                                <td>
+                                    <span class="badge bg-light text-dark border">@a.Type</span>
+                                </td>
+                                <td><span class="badge @badgeCls">@a.StatusName</span></td>
+                                <td>₹@a.Fee?.ToString("0")</td>
+                                <td class="text-end">
+                                    <a asp-action="Details" asp-route-id="@a.Id" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    @if (role == "Patient" && a.Status == AppointmentStatus.Pending)
+                                    {
+                                        <form asp-action="Cancel" method="post" class="d-inline"
+                                              onsubmit="return confirm('Cancel this appointment?')">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="id" value="@a.Id" />
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @if (Model.TotalPages > 1)
+            {
+                <div class="d-flex justify-content-between align-items-center p-3 border-top">
+                    <small class="text-muted">Showing @Model.Appointments.Count of @Model.TotalCount appointments</small>
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item @(Model.Page <= 1 ? "disabled" : "")">
+                                <a class="page-link" asp-action="Index" asp-route-page="@(Model.Page-1)">
+                                    <i class="bi bi-chevron-left"></i>
+                                </a>
+                            </li>
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == Model.Page ? "active" : "")">
+                                    <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                                </li>
+                            }
+                            <li class="page-item @(Model.Page >= Model.TotalPages ? "disabled" : "")">
+                                <a class="page-link" asp-action="Index" asp-route-page="@(Model.Page+1)">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            }
+        }
+    </div>
+</div>

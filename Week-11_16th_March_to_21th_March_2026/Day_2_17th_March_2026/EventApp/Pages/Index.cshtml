@@ -1,0 +1,46 @@
+@page
+@model EventApp.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="text-center py-5">
+    <h1 class="display-5 fw-bold">🎫 Event Registration System</h1>
+    <p class="lead text-muted mb-4">Register for upcoming events and view the full participant list.</p>
+
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a asp-page="/Events/Register" class="btn btn-primary btn-lg">Register for an Event</a>
+        <a asp-page="/Events/Index"    class="btn btn-outline-secondary btn-lg">View Participants</a>
+    </div>
+
+    @* Task 7: Admin login demo panel *@
+    @if (!User.IsInRole("Admin"))
+    {
+        <div class="mt-5 p-4 bg-white rounded shadow-sm d-inline-block text-start">
+            <h6 class="fw-semibold">🔐 Task 7 Demo — Role-Based Access</h6>
+            <p class="text-muted small mb-2">
+                Click below to simulate an Admin login. This sets a cookie with the <code>Admin</code> role claim,
+                enabling the Delete button on the participants page.
+            </p>
+            <a asp-page="/Index" asp-route-loginAsAdmin="true" class="btn btn-warning btn-sm">
+                Login as Admin (Demo)
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="mt-4 alert alert-warning d-inline-block">
+            You are logged in as <strong>Admin</strong>.
+            <a asp-page="/Index" asp-route-logout="true" class="ms-2 btn btn-sm btn-outline-dark">Logout</a>
+        </div>
+    }
+</div>

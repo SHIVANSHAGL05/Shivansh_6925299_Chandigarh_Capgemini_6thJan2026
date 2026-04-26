@@ -1,0 +1,148 @@
+@model IEnumerable<ProductCatalog.Models.Product>
+@{
+    ViewData["Title"] = "Products";
+    var categories = ViewBag.Categories as IEnumerable<string>;
+    string q        = ViewBag.Query;
+    string selCat   = ViewBag.Category;
+    string selSort  = ViewBag.Sort;
+    var   list      = Model.ToList();
+}
+
+<div class="page-header-band">
+    <div class="container">
+        <h1 class="page-title">All Products</h1>
+        <p class="page-subtitle text-muted">@list.Count product@(list.Count != 1 ? "s" : "") found
+            @if (!string.IsNullOrEmpty(q)) { <span>for "<strong>@q</strong>"</span> }
+        </p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <!-- ── Filter bar ───────────────────────────────────────────── -->
+    <form method="get" action="/Products" id="filterForm">
+        <div class="row g-3 align-items-end mb-5">
+            <!-- Search -->
+            <div class="col-md-5">
+                <label class="filter-label">Search</label>
+                <div class="input-group">
+                    <span class="input-group-text dark-input-addon"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control dark-input" name="q"
+                           value="@q" placeholder="Search by name or keyword…" id="liveSearch" />
+                </div>
+            </div>
+            <!-- Category -->
+            <div class="col-md-3">
+                <label class="filter-label">Category</label>
+                <select class="form-select dark-input" name="category" onchange="this.form.submit()">
+                    @if (selCat == "All")
+                    {
+                        <option value="All" selected="selected">All Categories</option>
+                    }
+                    else
+                    {
+                        <option value="All">All Categories</option>
+                    }
+                    @foreach (var cat in categories!)
+                    {
+                        if (selCat == cat)
+                        {
+                            <option value="@cat" selected="selected">@cat</option>
+                        }
+                        else
+                        {
+                            <option value="@cat">@cat</option>
+                        }
+                    }
+                </select>
+            </div>
+            <!-- Sort -->
+            <div class="col-md-3">
+                <label class="filter-label">Sort by</label>
+                <select class="form-select dark-input" name="sort" onchange="this.form.submit()">
+                    @{
+                        var sortOptions = new[]
+                        {
+                            ("name",       "Name A–Z"),
+                            ("price_asc",  "Price: Low to High"),
+                            ("price_desc", "Price: High to Low"),
+                            ("rating",     "Top Rated"),
+                            ("newest",     "Newest First"),
+                        };
+                        foreach (var (val, label) in sortOptions)
+                        {
+                            if (selSort == val)
+                            {
+                                <option value="@val" selected="selected">@label</option>
+                            }
+                            else
+                            {
+                                <option value="@val">@label</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-accent w-100">Go</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- ── Product grid ─────────────────────────────────────────── -->
+    @if (!list.Any())
+    {
+        <div class="empty-state">
+            <i class="bi bi-search display-1 text-muted"></i>
+            <h4 class="mt-4 text-white">No products found</h4>
+            <p class="text-muted">Try a different search or category.</p>
+            <a href="/Products" class="btn btn-accent mt-2">Clear filters</a>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4" id="productGrid">
+            @foreach (var product in list)
+            {
+                <div class="col-sm-6 col-lg-4 col-xl-3 product-grid-item"
+                     data-name="@product.Name.ToLower()"
+                     data-category="@product.Category.ToLower()">
+                    <div class="product-card h-100">
+                        <div class="product-img-wrap">
+                            <img src="@product.ImageUrl" alt="@product.Name"
+                                 class="product-img" loading="lazy" />
+                            @if (product.IsNew)
+                            {
+                                <span class="badge-new">NEW</span>
+                            }
+                            <div class="product-overlay">
+                                <a href="/Products/Details/@product.Id" class="btn btn-light btn-sm">
+                                    <i class="bi bi-eye me-1"></i>Quick View
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-body d-flex flex-column">
+                            <span class="product-category">@product.Category</span>
+                            <h5 class="product-name flex-grow-1">
+                                <a href="/Products/Details/@product.Id">@product.Name</a>
+                            </h5>
+                            <p class="product-desc-short">@(product.Description.Length > 80 ? product.Description[..80] + "…" : product.Description)</p>
+                            <div class="product-meta mt-auto">
+                                <div class="stars">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <i class="bi bi-star@(i <= Math.Round(product.Rating) ? "-fill" : "")"></i>
+                                    }
+                                    <span class="review-count">(@product.ReviewCount)</span>
+                                </div>
+                                <span class="product-price">$@product.Price.ToString("N2")</span>
+                            </div>
+                            <a href="/Products/Details/@product.Id" class="btn btn-outline-accent btn-sm mt-3">
+                                View Details <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -1,0 +1,154 @@
+@model List<AppointmentDto>
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold"><i class="bi bi-bar-chart-line text-primary me-2"></i>System Reports</h2>
+    <span class="text-muted small">Generated: @DateTime.Now.ToString("dd MMM yyyy HH:mm")</span>
+</div>
+
+<!-- KPI Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center py-4 border-top border-primary border-4">
+            <i class="bi bi-people display-5 text-primary mb-2"></i>
+            <div class="display-6 fw-bold text-primary">@ViewBag.TotalPatients</div>
+            <div class="text-muted small">Total Patients</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center py-4 border-top border-success border-4">
+            <i class="bi bi-person-badge display-5 text-success mb-2"></i>
+            <div class="display-6 fw-bold text-success">@ViewBag.TotalDoctors</div>
+            <div class="text-muted small">Total Doctors</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center py-4 border-top border-info border-4">
+            <i class="bi bi-calendar-check display-5 text-info mb-2"></i>
+            <div class="display-6 fw-bold text-info">@ViewBag.TotalAppointments</div>
+            <div class="text-muted small">Total Appointments</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center py-4 border-top border-warning border-4">
+            <i class="bi bi-currency-rupee display-5 text-warning mb-2"></i>
+            <div class="display-6 fw-bold text-warning">₹@(((decimal)ViewBag.TotalRevenue).ToString("N0"))</div>
+            <div class="text-muted small">Total Revenue</div>
+        </div>
+    </div>
+</div>
+
+<!-- Appointment Breakdown -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom fw-semibold py-3">
+                <i class="bi bi-pie-chart text-primary me-2"></i>Appointment Status Breakdown
+            </div>
+            <div class="card-body">
+                @{
+                    int total = (int)ViewBag.TotalAppointments;
+                    int completed = (int)ViewBag.CompletedCount;
+                    int cancelled = (int)ViewBag.CancelledCount;
+                    int pending   = (int)ViewBag.PendingCount;
+                    int other     = total - completed - cancelled - pending;
+                }
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small fw-semibold">Completed</span>
+                        <span class="small text-success fw-bold">@completed</span>
+                    </div>
+                    <div class="progress" style="height:10px">
+                        <div class="progress-bar bg-success"
+                             style="width: @(total > 0 ? (completed * 100 / total) : 0)%"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small fw-semibold">Pending</span>
+                        <span class="small text-warning fw-bold">@pending</span>
+                    </div>
+                    <div class="progress" style="height:10px">
+                        <div class="progress-bar bg-warning"
+                             style="width: @(total > 0 ? (pending * 100 / total) : 0)%"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small fw-semibold">Cancelled</span>
+                        <span class="small text-danger fw-bold">@cancelled</span>
+                    </div>
+                    <div class="progress" style="height:10px">
+                        <div class="progress-bar bg-danger"
+                             style="width: @(total > 0 ? (cancelled * 100 / total) : 0)%"></div>
+                    </div>
+                </div>
+                <div class="mb-0">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small fw-semibold">Other</span>
+                        <span class="small text-secondary fw-bold">@other</span>
+                    </div>
+                    <div class="progress" style="height:10px">
+                        <div class="progress-bar bg-secondary"
+                             style="width: @(total > 0 ? (other * 100 / total) : 0)%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom fw-semibold py-3 d-flex justify-content-between">
+                <span><i class="bi bi-clock-history text-primary me-2"></i>Recent Appointments</span>
+                <a asp-controller="Appointment" asp-action="Index" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body p-0" style="max-height:320px;overflow-y:auto">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light sticky-top">
+                        <tr>
+                            <th>Patient</th><th>Doctor</th><th>Date</th><th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var a in Model)
+                        {
+                            <tr>
+                                <td class="small fw-semibold">@a.PatientName</td>
+                                <td class="small text-muted">Dr. @a.DoctorName</td>
+                                <td class="small text-muted">@a.AppointmentDate.ToString("dd MMM")</td>
+                                <td>
+                                    @{
+                                        var cls = a.Status switch {
+                                            AppointmentStatus.Completed  => "bg-success",
+                                            AppointmentStatus.Cancelled  => "bg-danger",
+                                            AppointmentStatus.Pending    => "bg-warning text-dark",
+                                            AppointmentStatus.Confirmed  => "bg-info",
+                                            _ => "bg-secondary"
+                                        };
+                                    }
+                                    <span class="badge @cls">@a.StatusName</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Today's stats -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body d-flex align-items-center gap-4 py-3">
+        <i class="bi bi-calendar-day display-5 text-info"></i>
+        <div>
+            <div class="fw-bold fs-4">@ViewBag.TodayCount appointments today</div>
+            <div class="text-muted small">@DateTime.Today.ToString("dddd, MMMM dd yyyy")</div>
+        </div>
+        <a asp-controller="Appointment" asp-action="Index"
+           asp-route-date="@DateTime.Today.ToString("yyyy-MM-dd")"
+           class="btn btn-outline-info ms-auto">View Today's Schedule</a>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
+    <div>
+        <h3 class="fw-800 mb-1 text-navy" style="font-family:'Outfit',sans-serif">
+            <i class="bi bi-shield-check me-2 text-teal"></i>Admin Dashboard
+        </h3>
+        <p class="text-muted mb-0 small"><i class="bi bi-calendar3 me-1"></i>@DateTime.Now.ToString("dddd, dd MMMM yyyy")</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-controller="Admin" asp-action="Bills" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-receipt me-1"></i>Bills
+        </a>
+        <a href="/swagger" target="_blank" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-code-square me-1"></i>API Docs
+        </a>
+    </div>
+</div>
+
+<!-- Stat Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="stat-icon" style="background:#e0f9f8;color:var(--sc-teal)"><i class="bi bi-people-fill"></i></div>
+            <div class="stat-number text-navy">@Model.TotalPatients</div>
+            <div class="stat-label">Total Patients</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card stat-green border-0 shadow-sm">
+            <div class="stat-icon" style="background:#dcfce7;color:var(--sc-green)"><i class="bi bi-person-badge-fill"></i></div>
+            <div class="stat-number" style="color:var(--sc-green)">@Model.TotalDoctors</div>
+            <div class="stat-label">Total Doctors</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="stat-icon" style="background:#eff6ff;color:#3b82f6"><i class="bi bi-calendar-check-fill"></i></div>
+            <div class="stat-number" style="color:#3b82f6">@Model.TotalAppointments</div>
+            <div class="stat-label">Total Appointments</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stat-card stat-amber border-0 shadow-sm">
+            <div class="stat-icon" style="background:#fef3c7;color:var(--sc-amber)"><i class="bi bi-calendar-day-fill"></i></div>
+            <div class="stat-number" style="color:var(--sc-amber)">@Model.TodayAppointments</div>
+            <div class="stat-label">Today's Appointments</div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white">
+        <span class="fw-600 text-navy"><i class="bi bi-lightning-charge-fill me-2 text-amber"></i>Quick Actions</span>
+    </div>
+    <div class="card-body py-3">
+        <div class="d-flex gap-2 flex-wrap">
+            <a asp-controller="Admin" asp-action="Patients"       class="btn btn-outline-secondary btn-sm"><i class="bi bi-people me-1"></i>Patients</a>
+            <a asp-controller="Admin" asp-action="Doctors"        class="btn btn-outline-secondary btn-sm"><i class="bi bi-person-badge me-1"></i>Doctors</a>
+            <a asp-controller="Appointment" asp-action="Index"    class="btn btn-outline-secondary btn-sm"><i class="bi bi-calendar-check me-1"></i>Appointments</a>
+            <a asp-controller="Admin" asp-action="Bills"          class="btn btn-outline-secondary btn-sm"><i class="bi bi-receipt me-1"></i>Bills &amp; Payments</a>
+            <a asp-controller="Admin" asp-action="Reports"        class="btn btn-outline-secondary btn-sm"><i class="bi bi-bar-chart-line me-1"></i>Reports</a>
+            <a asp-controller="Admin" asp-action="Medicines"      class="btn btn-outline-secondary btn-sm"><i class="bi bi-capsule me-1"></i>Medicines</a>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Appointments -->
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <span class="fw-600 text-navy"><i class="bi bi-clock-history me-2 text-teal"></i>Recent Appointments</span>
+        <a asp-controller="Appointment" asp-action="Index" class="btn btn-sm btn-outline-primary">View All</a>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th><th>Patient</th><th>Doctor</th>
+                        <th>Date</th><th>Time</th><th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.RecentAppointments.Any())
+                    {
+                        <tr><td colspan="6"><div class="empty-state py-4"><i class="bi bi-inbox"></i><p>No appointments yet</p></div></td></tr>
+                    }
+                    @foreach (var a in Model.RecentAppointments)
+                    {
+                        <tr>
+                            <td><span class="fw-700 text-teal font-outfit">#@a.Id</span></td>
+                            <td><div class="fw-600 small">@a.PatientName</div></td>
+                            <td><div class="text-muted small">@a.DoctorName</div></td>
+                            <td><div class="small">@a.AppointmentDate.ToString("dd MMM yyyy")</div></td>
+                            <td><div class="small">@a.StartTime.ToString(@"hh\:mm")</div></td>
+                            <td><span class="badge @GetStatusBadge(a.Status)">@a.StatusName</span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@functions {
+    static string GetStatusBadge(SmartHealthcare.Core.Enums.AppointmentStatus s) => s switch {
+        AppointmentStatus.Pending    => "bg-warning",
+        AppointmentStatus.Confirmed  => "bg-info",
+        AppointmentStatus.Completed  => "bg-success",
+        AppointmentStatus.Cancelled  => "bg-danger",
+        AppointmentStatus.InProgress => "bg-primary",
+        _ => "bg-secondary"
+    };
+}

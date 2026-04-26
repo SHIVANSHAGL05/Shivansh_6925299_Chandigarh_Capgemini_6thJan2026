@@ -1,0 +1,43 @@
+﻿@model ECommerceApp.Models.Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<h1>Edit Product</h1>
+<hr />
+
+<div class="card" style="max-width:500px;">
+    <div class="card-body">
+        <form method="post" action="/Products/Edit/@Model.ProductId">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="ProductId" value="@Model.ProductId" />
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="Name" value="@Model.Name" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price (₹)</label>
+                <input type="number" name="Price" value="@Model.Price" class="form-control" step="0.01" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Stock Quantity</label>
+                <input type="number" name="StockQuantity" value="@Model.StockQuantity" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select name="CategoryId" class="form-select" required>
+                    @foreach (var cat in ViewBag.Categories)
+                    {
+                        <option value="@cat.CategoryId"
+                                selected="@(cat.CategoryId == Model.CategoryId ? "selected" : null)">
+                            @cat.Name
+                        </option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-warning">Update Product</button>
+            <a href="/Products/Index" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>

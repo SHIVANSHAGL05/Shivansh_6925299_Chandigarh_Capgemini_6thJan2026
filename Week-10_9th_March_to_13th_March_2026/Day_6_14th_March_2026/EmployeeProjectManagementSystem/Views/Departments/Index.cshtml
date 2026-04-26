@@ -1,0 +1,31 @@
+@model IEnumerable<EmployeeProjectManagementSystem.Models.Department>
+
+@{
+    ViewData["Title"] = "Departments";
+}
+
+<h2>Departments</h2>
+<a asp-action="Create">Create New</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Employee Count</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dept in Model)
+        {
+            <tr>
+                <td>@dept.Name</td>
+                <td>@dept.Employees.Count</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@dept.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@dept.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

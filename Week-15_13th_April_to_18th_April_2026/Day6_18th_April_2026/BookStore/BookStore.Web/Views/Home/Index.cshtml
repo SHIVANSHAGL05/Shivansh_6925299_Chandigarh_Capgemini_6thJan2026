@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+}
+
+<section class="hero reveal">
+    <div class="hero-content">
+        <p class="eyebrow">BookStore Pro Platform</p>
+        <h1>A calmer, prettier bookstore for everyday browsing</h1>
+        <p>
+            Sign in or sign up to continue. The storefront is designed for a softer, more premium feel
+            while keeping the same role-based access and working API flows.
+        </p>
+        <div class="hero-actions">
+            <a class="btn btn-brand" asp-controller="Account" asp-action="Login">Login</a>
+            <a class="btn btn-ghost" asp-controller="Account" asp-action="Register">Signup</a>
+        </div>
+    </div>
+    <div class="hero-panel">
+        <h2>What stays the same</h2>
+        <ul>
+            <li>Public landing page stays visible before login</li>
+            <li>User role keeps storefront, cart, and checkout</li>
+            <li>Admin role keeps inventory, orders, and reports</li>
+            <li>API-backed operations stay unchanged under the new style</li>
+        </ul>
+    </div>
+</section>

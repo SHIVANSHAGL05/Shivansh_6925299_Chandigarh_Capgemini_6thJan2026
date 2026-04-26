@@ -1,0 +1,125 @@
+@model List<DoctorDto>
+@{
+    ViewData["Title"] = "Our Doctors";
+    var specs    = ViewBag.Specializations as List<SpecializationDto> ?? new List<SpecializationDto>();
+    var currPage = (int)(ViewBag.CurrentPage ?? 1);
+    var totPages = (int)(ViewBag.TotalPages  ?? 1);
+    string search = ViewBag.Search as string ?? string.Empty;
+    int? specId  = ViewBag.SpecializationId as int?;
+}
+
+<div class="mb-4">
+    <h2 class="fw-bold"><i class="bi bi-person-badge text-success me-2"></i>Our Doctors</h2>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold small">Search by Name</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" name="search" class="form-control" placeholder="Doctor name..." value="@search" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold small">Specialization</label>
+                <select name="specializationId" class="form-select">
+                    <option value="">All Specializations</option>
+                    @foreach (var s in specs)
+                    {
+                        <option value="@s.Id" selected="@(specId == s.Id)">@s.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-funnel me-1"></i>Search</button>
+            </div>
+            <div class="col-md-2">
+                <a asp-action="Index" class="btn btn-outline-secondary w-100"><i class="bi bi-x-circle me-1"></i>Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center text-muted py-5">
+        <i class="bi bi-person-x display-3 d-block mb-3"></i>
+        <h5>No doctors found matching your criteria.</h5>
+    </div>
+}
+else
+{
+    <div class="row g-4 mb-4">
+        @foreach (var d in Model)
+        {
+            var initials = string.Join("", d.FullName.Split(' ').Take(2).Select(w => w[0]));
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center pb-2">
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3"
+                             style="width:72px;height:72px;font-size:1.75rem;font-weight:700">
+                            @initials
+                        </div>
+                        <h5 class="fw-bold mb-1">Dr. @d.FullName</h5>
+                        <p class="text-muted small mb-2">@string.Join(" · ", d.Specializations.Select(s => s.Name))</p>
+                        <div class="d-flex justify-content-center gap-4 mb-3 text-muted small">
+                            <span><i class="bi bi-briefcase me-1"></i>@d.ExperienceYears yrs</span>
+                            <span><i class="bi bi-currency-rupee me-1"></i>@d.ConsultationFee.ToString("0")</span>
+                        </div>
+                        @if (d.IsAvailable)
+                        {
+                            <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                <i class="bi bi-circle-fill me-1" style="font-size:.5rem;vertical-align:middle"></i>Available
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Unavailable</span>
+                        }
+                    </div>
+                    <div class="card-footer bg-white border-0 d-flex gap-2 px-3 pb-3">
+                        <a asp-action="Details" asp-route-id="@d.Id" class="btn btn-outline-primary btn-sm flex-grow-1">
+                            <i class="bi bi-eye me-1"></i>View Profile
+                        </a>
+                        @if (Context.Session.GetString("UserRole") == "Patient" && d.IsAvailable)
+                        {
+                            <a asp-controller="Appointment" asp-action="Book" asp-route-doctorId="@d.Id"
+                               class="btn btn-primary btn-sm flex-grow-1">
+                                <i class="bi bi-calendar-plus me-1"></i>Book
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (totPages > 1)
+    {
+        <nav class="d-flex justify-content-center">
+            <ul class="pagination">
+                <li class="page-item @(currPage <= 1 ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(currPage-1)"
+                       asp-route-search="@search" asp-route-specializationId="@specId">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                </li>
+                @for (int i = 1; i <= totPages; i++)
+                {
+                    <li class="page-item @(i == currPage ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-page="@i"
+                           asp-route-search="@search" asp-route-specializationId="@specId">@i</a>
+                    </li>
+                }
+                <li class="page-item @(currPage >= totPages ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(currPage+1)"
+                       asp-route-search="@search" asp-route-specializationId="@specId">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+}

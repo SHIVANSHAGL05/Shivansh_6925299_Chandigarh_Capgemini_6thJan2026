@@ -1,0 +1,127 @@
+@model ProductManagement.Filters.ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error — @ViewData["Title"]</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .error-box {
+            background: #fff;
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .error-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #cc0000;
+            margin-bottom: 8px;
+        }
+
+        .friendly-msg {
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        hr { border: none; border-top: 1px solid #eee; margin: 16px 0; }
+
+        /* Technical detail block */
+        .detail-block {
+            background-color: #fff8f8;
+            border: 1px solid #f0c0c0;
+            border-radius: 4px;
+            padding: 12px 14px;
+            font-size: 12px;
+            color: #660000;
+            margin-bottom: 20px;
+        }
+
+        .detail-block strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #990000;
+        }
+
+        .btn-back {
+            display: inline-block;
+            padding: 8px 18px;
+            background-color: #3366cc;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .btn-back:hover { background-color: #2255bb; }
+
+        .filter-note {
+            font-size: 12px;
+            color: #888;
+            margin-top: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="error-box">
+
+    <div class="error-icon">⚠️</div>
+    <h2>Oops! Something went wrong.</h2>
+
+    @*
+        Model.Message is the friendly message set by CustomExceptionFilter.
+        It never leaks internal stack trace details to the user.
+    *@
+    <p class="friendly-msg">@Model.Message</p>
+
+    <hr />
+
+    @* Technical details — visible here for learning purposes.
+       In production you would hide this block (check IWebHostEnvironment). *@
+    <div class="detail-block">
+        <strong>Exception Type</strong>
+        @Model.ExceptionType
+        <strong style="margin-top:8px;">Detail</strong>
+        @Model.Detail
+    </div>
+
+    <a href="@Url.Action("Index", "Product")" class="btn-back">← Back to Products</a>
+
+    <p class="filter-note">
+        ✅ This page was rendered by <strong>CustomExceptionFilter</strong> —
+        the exception was caught and handled gracefully. Check the console for the full log.
+    </p>
+
+</div>
+
+</body>
+</html>

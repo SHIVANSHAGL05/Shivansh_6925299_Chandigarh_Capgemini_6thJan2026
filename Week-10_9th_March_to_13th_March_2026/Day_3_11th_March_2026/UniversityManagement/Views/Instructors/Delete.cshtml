@@ -1,0 +1,55 @@
+@model UniversityManagement.Models.Instructor
+@{ ViewData["Title"] = "Delete Instructor"; }
+
+<div class="mb-4">
+    <h4 class="fw-bold text-danger mb-0">Delete Instructor</h4>
+    <small class="text-muted">This action cannot be undone</small>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <i class="bi bi-exclamation-triangle me-2"></i>Confirm Deletion
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning py-2 small">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Courses assigned to this instructor will have their instructor
+                    set to <strong>Not Assigned</strong> (they will not be deleted).
+                </div>
+
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">Name</dt>
+                    <dd class="col-sm-7">@Model.Name</dd>
+
+                    <dt class="col-sm-5">Department</dt>
+                    <dd class="col-sm-7">@(Model.Department?.Name ?? "-")</dd>
+
+                    <dt class="col-sm-5">Courses</dt>
+                    <dd class="col-sm-7">
+                        @if (Model.Courses.Any())
+                        {
+                            <span class="badge bg-warning text-dark">
+                                @Model.Courses.Count() will be unassigned
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">No courses assigned</span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-white d-flex gap-2">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="InstructorId" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i> Yes, Delete
+                    </button>
+                </form>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

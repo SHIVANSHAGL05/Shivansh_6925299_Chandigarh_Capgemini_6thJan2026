@@ -1,0 +1,31 @@
+﻿@model ECommerceApp.Models.Customer
+
+@{
+    ViewData["Title"] = "Edit Customer";
+}
+
+<h1>Edit Customer</h1>
+<hr />
+
+<div class="card" style="max-width:500px;">
+    <div class="card-body">
+        <form method="post" action="/Customers/Edit/@Model.CustomerId">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="CustomerId" value="@Model.CustomerId" />
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" name="FullName" value="@Model.FullName" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="Email" value="@Model.Email" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <textarea name="Address" class="form-control" rows="3" required>@Model.Address</textarea>
+            </div>
+            <button type="submit" class="btn btn-warning">Update Customer</button>
+            <a href="/Customers/Index" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>

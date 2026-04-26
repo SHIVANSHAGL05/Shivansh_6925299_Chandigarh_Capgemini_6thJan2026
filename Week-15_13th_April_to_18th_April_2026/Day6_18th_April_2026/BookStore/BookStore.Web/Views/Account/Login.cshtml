@@ -1,0 +1,43 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<section class="auth-layout reveal">
+    <article class="page-card">
+        <h1>Sign In</h1>
+        <p>Authenticate to enter role-based areas of the MVC app.</p>
+
+        <form method="post" class="form-grid mt-3">
+            <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
+
+            <label asp-for="Email"></label>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+
+            <label asp-for="Password"></label>
+            <input asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+
+            <label>
+                <input asp-for="RememberMe" /> @Html.DisplayNameFor(x => x.RememberMe)
+            </label>
+
+            <button class="btn btn-brand" type="submit">Sign In</button>
+        </form>
+    </article>
+
+    <aside class="summary-box">
+        <h3>Role Access</h3>
+        <ul>
+            <li>Customer: browse books, cart, checkout, order history.</li>
+            <li>Admin: manage books, monitor orders, generate reports.</li>
+        </ul>
+
+        <a class="btn btn-ghost w-100" asp-action="Register">Create New Account</a>
+    </aside>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

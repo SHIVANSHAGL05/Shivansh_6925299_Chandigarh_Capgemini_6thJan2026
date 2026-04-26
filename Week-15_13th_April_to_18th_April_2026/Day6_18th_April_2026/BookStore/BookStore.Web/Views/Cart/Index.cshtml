@@ -1,0 +1,60 @@
+@model CartPageViewModel
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<section class="checkout-layout reveal">
+    <article class="page-card">
+        <h1>Cart Summary</h1>
+        <p>Review selected books before checkout and payment.</p>
+
+        <div class="table-wrap mt-3">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Line Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.Title<br /><small>@item.Author</small></td>
+                            <td>$@item.UnitPrice.ToString("0.00")</td>
+                            <td>
+                                <form method="post" asp-action="UpdateQuantity" class="d-flex gap-2 align-items-center">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="bookId" value="@item.BookId" />
+                                    <input type="number" name="quantity" value="@item.Quantity" min="0" style="width:80px" />
+                                    <button type="submit" class="btn btn-ghost">Update</button>
+                                </form>
+                            </td>
+                            <td>$@item.LineTotal.ToString("0.00")</td>
+                            <td>
+                                <form method="post" asp-action="Remove">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="bookId" value="@item.BookId" />
+                                    <button type="submit" class="btn btn-ghost">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </article>
+
+    <aside class="summary-box">
+        <h3>Order Totals</h3>
+        <div class="line"><span>Subtotal</span><strong>$@Model.Subtotal.ToString("0.00")</strong></div>
+        <div class="line"><span>Tax</span><strong>$@Model.Tax.ToString("0.00")</strong></div>
+        <div class="line"><span>Shipping</span><strong>$@Model.Shipping.ToString("0.00")</strong></div>
+        <hr />
+        <div class="line total"><span>Grand Total</span><strong>$@Model.GrandTotal.ToString("0.00")</strong></div>
+        <a class="btn btn-brand mt-3 w-100" asp-action="Checkout">Proceed to Checkout</a>
+    </aside>
+</section>

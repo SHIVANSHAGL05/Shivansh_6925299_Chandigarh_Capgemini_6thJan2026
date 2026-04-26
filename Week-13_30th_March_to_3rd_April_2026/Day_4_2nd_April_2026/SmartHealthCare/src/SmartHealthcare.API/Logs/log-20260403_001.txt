@@ -1,0 +1,1206 @@
+2026-04-03 10:35:43.182 +05:30 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-03 10:35:43.266 +05:30 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-04-03 10:35:43.275 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-03 10:35:43.281 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-04-03 10:35:43.307 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-04-03 10:35:43.335 +05:30 [INF] No migrations were applied. The database is already up to date.
+2026-04-03 10:35:43.593 +05:30 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Doctors] AS [d]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 10:35:43.623 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Patients] AS [p]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 10:35:43.634 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Appointments] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 10:35:43.646 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Prescriptions] AS [p]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 10:35:43.670 +05:30 [INF] User profile is available. Using 'C:\Users\shiva\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-03 10:35:43.747 +05:30 [ERR] Hosting failed to start
+System.IO.IOException: Failed to bind to address http://127.0.0.1:5293: address already in use.
+ ---> Microsoft.AspNetCore.Connections.AddressInUseException: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+ ---> System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, Boolean disconnectOnFailure, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportOptions.CreateDefaultBoundListenSocket(EndPoint endpoint)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportFactory.BindAsync(EndPoint endpoint, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.TransportManager.BindAsync(EndPoint endPoint, ConnectionDelegate connectionDelegate, EndpointConfig endpointConfig, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.<>c__DisplayClass28_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+2026-04-03 10:41:00.911 +05:30 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-03 10:41:00.998 +05:30 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-04-03 10:41:01.005 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-03 10:41:01.008 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-04-03 10:41:01.038 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-04-03 10:41:01.058 +05:30 [INF] No migrations were applied. The database is already up to date.
+2026-04-03 10:41:01.309 +05:30 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Doctors] AS [d]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 10:41:01.331 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Patients] AS [p]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 10:41:01.345 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Appointments] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 10:41:01.355 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Prescriptions] AS [p]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 10:41:01.379 +05:30 [INF] User profile is available. Using 'C:\Users\shiva\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-03 10:41:01.469 +05:30 [INF] Now listening on: http://localhost:5293
+2026-04-03 10:41:01.473 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-03 10:41:01.475 +05:30 [INF] Hosting environment: Development
+2026-04-03 10:41:01.476 +05:30 [INF] Content root path: E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API
+2026-04-03 10:41:04.378 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/ - null null
+2026-04-03 10:41:04.457 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-04-03 10:41:04.463 +05:30 [INF] Incoming Request: GET / at "2026-04-03T05:11:04.4601479Z"
+2026-04-03 10:41:04.511 +05:30 [INF] Outgoing Response: 404 for GET / in 50ms
+2026-04-03 10:41:04.519 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/ - 404 0 null 144.202ms
+2026-04-03 10:41:04.524 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5293/, Response status code: 404
+2026-04-03 10:41:08.062 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/index.html - null null
+2026-04-03 10:41:08.131 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/index.html - 200 null text/html;charset=utf-8 69.4692ms
+2026-04-03 10:41:08.399 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - null null
+2026-04-03 10:41:08.522 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 122.312ms
+2026-04-03 10:44:04.084 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/doctors?pageNumber=1&pageSize=20 - null null
+2026-04-03 10:44:04.091 +05:30 [INF] Incoming Request: GET /api/doctors at "2026-04-03T05:14:04.0912460Z"
+2026-04-03 10:44:04.096 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.DoctorsController.GetAll (SmartHealthcare.API)'
+2026-04-03 10:44:04.126 +05:30 [INF] Route matched with {action = "GetAll", controller = "Doctors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll(Int32, Int32) on controller SmartHealthcare.API.Controllers.DoctorsController (SmartHealthcare.API).
+2026-04-03 10:44:04.701 +05:30 [INF] Executed DbCommand (39ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[ConsultationFee], [t].[IsAvailable], [t].[LicenseNumber], [t].[Phone], [t].[UserId], [t].[YearsOfExperience], [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role], [t0].[DoctorId], [t0].[SpecializationId], [t0].[Id], [t0].[Description], [t0].[Name]
+FROM (
+    SELECT [d].[Id], [d].[ConsultationFee], [d].[IsAvailable], [d].[LicenseNumber], [d].[Phone], [d].[UserId], [d].[YearsOfExperience]
+    FROM [Doctors] AS [d]
+    ORDER BY [d].[Id]
+    OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+) AS [t]
+INNER JOIN [Users] AS [u] ON [t].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [d0].[DoctorId], [d0].[SpecializationId], [s].[Id], [s].[Description], [s].[Name]
+    FROM [DoctorSpecializations] AS [d0]
+    INNER JOIN [Specializations] AS [s] ON [d0].[SpecializationId] = [s].[Id]
+) AS [t0] ON [t].[Id] = [t0].[DoctorId]
+ORDER BY [t].[Id], [u].[Id], [t0].[DoctorId], [t0].[SpecializationId]
+2026-04-03 10:44:04.937 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Doctors] AS [d]
+2026-04-03 10:44:04.969 +05:30 [INF] Doctor list cached for page 1
+2026-04-03 10:44:04.983 +05:30 [INF] Executing OkObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.PagedResult`1[[SmartHealthcare.Models.DTOs.DoctorDTO, SmartHealthcare.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-03 10:44:05.128 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.DoctorsController.GetAll (SmartHealthcare.API) in 994.4099ms
+2026-04-03 10:44:05.133 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.DoctorsController.GetAll (SmartHealthcare.API)'
+2026-04-03 10:44:05.137 +05:30 [INF] Outgoing Response: 200 for GET /api/doctors in 1046ms
+2026-04-03 10:44:05.145 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/doctors?pageNumber=1&pageSize=20 - 200 1300 application/json; charset=utf-8 1061.0872ms
+2026-04-03 10:44:20.990 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/index.html - null null
+2026-04-03 10:44:20.993 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/index.html - 200 null text/html;charset=utf-8 3.5755ms
+2026-04-03 10:44:21.170 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - null null
+2026-04-03 10:44:21.187 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 16.8065ms
+2026-04-03 10:46:00.282 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/login - application/json; charset=utf-8 55
+2026-04-03 10:46:00.289 +05:30 [INF] Incoming Request: POST /api/auth/login at "2026-04-03T05:16:00.2899159Z"
+2026-04-03 10:46:00.298 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 10:46:00.314 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(SmartHealthcare.Models.DTOs.LoginDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 10:46:00.554 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 10:46:00.558 +05:30 [WRN] Login attempt failed for: shivansh@gmail.com
+2026-04-03 10:46:00.561 +05:30 [INF] Executing UnauthorizedObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 10:46:00.569 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API) in 250.8675ms
+2026-04-03 10:46:00.571 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 10:46:00.573 +05:30 [INF] Outgoing Response: 401 for POST /api/auth/login in 283ms
+2026-04-03 10:46:00.577 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/login - 401 99 application/json; charset=utf-8 295.0221ms
+2026-04-03 12:09:01.564 +05:30 [INF] Executed DbCommand (36ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-03 12:09:01.662 +05:30 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-04-03 12:09:01.669 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-03 12:09:01.674 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-04-03 12:09:01.721 +05:30 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-04-03 12:09:01.749 +05:30 [INF] No migrations were applied. The database is already up to date.
+2026-04-03 12:09:02.109 +05:30 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Doctors] AS [d]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 12:09:02.136 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Patients] AS [p]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 12:09:02.152 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Appointments] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 12:09:02.166 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Prescriptions] AS [p]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 12:09:02.197 +05:30 [INF] User profile is available. Using 'C:\Users\shiva\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-03 12:09:02.305 +05:30 [INF] Now listening on: http://localhost:5293
+2026-04-03 12:09:02.309 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-03 12:09:02.312 +05:30 [INF] Hosting environment: Development
+2026-04-03 12:09:02.313 +05:30 [INF] Content root path: E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API
+2026-04-03 12:09:55.833 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/login - application/json; charset=utf-8 53
+2026-04-03 12:09:55.900 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-04-03 12:09:55.904 +05:30 [INF] Incoming Request: POST /api/auth/login at "2026-04-03T06:39:55.9030120Z"
+2026-04-03 12:09:55.955 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 12:09:55.988 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(SmartHealthcare.Models.DTOs.LoginDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 12:09:56.429 +05:30 [INF] Executed DbCommand (28ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 12:09:56.439 +05:30 [WRN] Login attempt failed for: user@healthcare.com
+2026-04-03 12:09:56.452 +05:30 [INF] Executing UnauthorizedObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 12:09:56.516 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API) in 518.4586ms
+2026-04-03 12:09:56.520 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 12:09:56.524 +05:30 [INF] Outgoing Response: 401 for POST /api/auth/login in 621ms
+2026-04-03 12:09:56.542 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/login - 401 99 application/json; charset=utf-8 709.7832ms
+2026-04-03 12:10:04.916 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/index.html - null null
+2026-04-03 12:10:05.013 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/index.html - 200 null text/html;charset=utf-8 97.3252ms
+2026-04-03 12:10:05.393 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - null null
+2026-04-03 12:10:05.596 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 203.6994ms
+2026-04-03 12:10:22.663 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/login - application/json; charset=utf-8 56
+2026-04-03 12:10:22.680 +05:30 [INF] Incoming Request: POST /api/auth/login at "2026-04-03T06:40:22.6804788Z"
+2026-04-03 12:10:22.686 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 12:10:22.695 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(SmartHealthcare.Models.DTOs.LoginDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 12:10:23.038 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 12:10:23.533 +05:30 [WRN] Login attempt failed for: admin@healthcare.com
+2026-04-03 12:10:23.536 +05:30 [INF] Executing UnauthorizedObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 12:10:23.541 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API) in 837.7332ms
+2026-04-03 12:10:23.555 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 12:10:23.644 +05:30 [INF] Outgoing Response: 401 for POST /api/auth/login in 964ms
+2026-04-03 12:10:23.649 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/login - 401 99 application/json; charset=utf-8 986.0583ms
+2026-04-03 12:13:51.168 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/login - application/json; charset=utf-8 53
+2026-04-03 12:13:51.172 +05:30 [INF] Incoming Request: POST /api/auth/login at "2026-04-03T06:43:51.1722613Z"
+2026-04-03 12:13:51.180 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 12:13:51.182 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(SmartHealthcare.Models.DTOs.LoginDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 12:13:51.204 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 12:13:51.209 +05:30 [WRN] Login attempt failed for: user@healthcare.com
+2026-04-03 12:13:51.211 +05:30 [INF] Executing UnauthorizedObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 12:13:51.213 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API) in 28.5683ms
+2026-04-03 12:13:51.214 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 12:13:51.216 +05:30 [INF] Outgoing Response: 401 for POST /api/auth/login in 44ms
+2026-04-03 12:13:51.220 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/login - 401 99 application/json; charset=utf-8 52.6953ms
+2026-04-03 12:16:35.750 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger - null null
+2026-04-03 12:16:35.756 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger - 301 0 null 5.9541ms
+2026-04-03 12:16:35.760 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/index.html - null null
+2026-04-03 12:16:35.763 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/index.html - 200 null text/html;charset=utf-8 2.8608ms
+2026-04-03 14:44:18.082 +05:30 [INF] Executed DbCommand (40ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-03 14:44:18.172 +05:30 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-04-03 14:44:18.179 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-03 14:44:18.185 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-04-03 14:44:18.220 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-04-03 14:44:18.243 +05:30 [INF] No migrations were applied. The database is already up to date.
+2026-04-03 14:44:18.532 +05:30 [INF] Executed DbCommand (24ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Doctors] AS [d]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 14:44:18.562 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Patients] AS [p]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 14:44:18.578 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Appointments] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 14:44:18.598 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Prescriptions] AS [p]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-04-03 14:44:18.630 +05:30 [INF] User profile is available. Using 'C:\Users\shiva\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-03 14:44:18.729 +05:30 [INF] Now listening on: http://localhost:5293
+2026-04-03 14:44:18.734 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-03 14:44:18.736 +05:30 [INF] Hosting environment: Development
+2026-04-03 14:44:18.738 +05:30 [INF] Content root path: E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API
+2026-04-03 14:44:38.882 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/ - null null
+2026-04-03 14:44:38.935 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-04-03 14:44:38.938 +05:30 [INF] Incoming Request: GET / at "2026-04-03T09:14:38.9372833Z"
+2026-04-03 14:44:38.977 +05:30 [INF] Outgoing Response: 404 for GET / in 40ms
+2026-04-03 14:44:38.986 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/ - 404 0 null 108.422ms
+2026-04-03 14:44:38.993 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5293/, Response status code: 404
+2026-04-03 14:44:42.725 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/index.html - null null
+2026-04-03 14:44:42.893 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/index.html - 200 null text/html;charset=utf-8 168.0208ms
+2026-04-03 14:44:43.195 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - null null
+2026-04-03 14:44:43.343 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 147.5336ms
+2026-04-03 14:45:05.540 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/login - application/json; charset=utf-8 57
+2026-04-03 14:45:05.548 +05:30 [INF] Incoming Request: POST /api/auth/login at "2026-04-03T09:15:05.5482261Z"
+2026-04-03 14:45:05.554 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 14:45:05.585 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(SmartHealthcare.Models.DTOs.LoginDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:45:05.991 +05:30 [INF] Executed DbCommand (27ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:45:06.342 +05:30 [WRN] Login attempt failed for: admin@healthcare.com
+2026-04-03 14:45:06.354 +05:30 [INF] Executing UnauthorizedObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 14:45:06.407 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API) in 813.4439ms
+2026-04-03 14:45:06.410 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 14:45:06.414 +05:30 [INF] Outgoing Response: 401 for POST /api/auth/login in 865ms
+2026-04-03 14:45:06.427 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/login - 401 99 application/json; charset=utf-8 886.8736ms
+2026-04-03 14:45:12.943 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/index.html - null null
+2026-04-03 14:45:12.950 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/index.html - 200 null text/html;charset=utf-8 7.2112ms
+2026-04-03 14:45:13.073 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - null null
+2026-04-03 14:45:13.089 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 16.3663ms
+2026-04-03 14:45:21.068 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/login - application/json; charset=utf-8 55
+2026-04-03 14:45:21.075 +05:30 [INF] Incoming Request: POST /api/auth/login at "2026-04-03T09:15:21.0757828Z"
+2026-04-03 14:45:21.085 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 14:45:21.088 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(SmartHealthcare.Models.DTOs.LoginDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:45:21.215 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:45:21.421 +05:30 [INF] User logged in: admin@healthcare.com
+2026-04-03 14:45:21.661 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Boolean), @p3='?' (Size = 4000), @p4='?' (DbType = Int32), @p10='?' (DbType = Int32), @p5='?' (DbType = DateTime2), @p6='?' (Size = 150), @p7='?' (Size = 100), @p8='?' (Size = 4000), @p9='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [RefreshTokens] ([CreatedAt], [ExpiresAt], [IsRevoked], [Token], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+UPDATE [Users] SET [CreatedAt] = @p5, [Email] = @p6, [FullName] = @p7, [PasswordHash] = @p8, [Role] = @p9
+OUTPUT 1
+WHERE [Id] = @p10;
+2026-04-03 14:45:21.708 +05:30 [INF] Executing OkObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.TokenDTO'.
+2026-04-03 14:45:21.717 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API) in 625.1077ms
+2026-04-03 14:45:21.720 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 14:45:21.722 +05:30 [INF] Outgoing Response: 200 for POST /api/auth/login in 646ms
+2026-04-03 14:45:21.726 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/login - 200 838 application/json; charset=utf-8 657.271ms
+2026-04-03 14:45:21.809 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/admin/reports - null null
+2026-04-03 14:45:21.814 +05:30 [INF] Incoming Request: GET /api/admin/reports at "2026-04-03T09:15:21.8142475Z"
+2026-04-03 14:45:21.877 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AdminController.GetReports (SmartHealthcare.API)'
+2026-04-03 14:45:21.890 +05:30 [INF] Route matched with {action = "GetReports", controller = "Admin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetReports() on controller SmartHealthcare.API.Controllers.AdminController (SmartHealthcare.API).
+2026-04-03 14:45:22.086 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Users] AS [u]
+2026-04-03 14:45:22.105 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Patients] AS [p]
+2026-04-03 14:45:22.120 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Doctors] AS [d]
+2026-04-03 14:45:22.133 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+2026-04-03 14:45:22.154 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+WHERE [a].[Status] = N'Pending'
+2026-04-03 14:45:22.163 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+WHERE [a].[Status] = N'Completed'
+2026-04-03 14:45:22.172 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+WHERE [a].[Status] = N'Cancelled'
+2026-04-03 14:45:22.182 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Prescriptions] AS [p]
+2026-04-03 14:45:22.187 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType2`8[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-03 14:45:22.198 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AdminController.GetReports (SmartHealthcare.API) in 305.241ms
+2026-04-03 14:45:22.203 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AdminController.GetReports (SmartHealthcare.API)'
+2026-04-03 14:45:22.205 +05:30 [INF] Outgoing Response: 200 for GET /api/admin/reports in 391ms
+2026-04-03 14:45:22.207 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/admin/reports - 200 173 application/json; charset=utf-8 398.387ms
+2026-04-03 14:45:30.719 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/admin/reports - null null
+2026-04-03 14:45:30.723 +05:30 [INF] Incoming Request: GET /api/admin/reports at "2026-04-03T09:15:30.7234986Z"
+2026-04-03 14:45:30.731 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AdminController.GetReports (SmartHealthcare.API)'
+2026-04-03 14:45:30.734 +05:30 [INF] Route matched with {action = "GetReports", controller = "Admin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetReports() on controller SmartHealthcare.API.Controllers.AdminController (SmartHealthcare.API).
+2026-04-03 14:45:30.739 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType2`8[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-03 14:45:30.741 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AdminController.GetReports (SmartHealthcare.API) in 4.2473ms
+2026-04-03 14:45:30.743 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AdminController.GetReports (SmartHealthcare.API)'
+2026-04-03 14:45:30.745 +05:30 [INF] Outgoing Response: 200 for GET /api/admin/reports in 21ms
+2026-04-03 14:45:30.753 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/admin/reports - 200 173 application/json; charset=utf-8 33.7563ms
+2026-04-03 14:45:32.454 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/doctors?pageNumber=1&pageSize=20 - null null
+2026-04-03 14:45:32.457 +05:30 [INF] Incoming Request: GET /api/doctors at "2026-04-03T09:15:32.4578241Z"
+2026-04-03 14:45:32.461 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.DoctorsController.GetAll (SmartHealthcare.API)'
+2026-04-03 14:45:32.474 +05:30 [INF] Route matched with {action = "GetAll", controller = "Doctors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll(Int32, Int32) on controller SmartHealthcare.API.Controllers.DoctorsController (SmartHealthcare.API).
+2026-04-03 14:45:32.549 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[ConsultationFee], [t].[IsAvailable], [t].[LicenseNumber], [t].[Phone], [t].[UserId], [t].[YearsOfExperience], [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role], [t0].[DoctorId], [t0].[SpecializationId], [t0].[Id], [t0].[Description], [t0].[Name]
+FROM (
+    SELECT [d].[Id], [d].[ConsultationFee], [d].[IsAvailable], [d].[LicenseNumber], [d].[Phone], [d].[UserId], [d].[YearsOfExperience]
+    FROM [Doctors] AS [d]
+    ORDER BY [d].[Id]
+    OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+) AS [t]
+INNER JOIN [Users] AS [u] ON [t].[UserId] = [u].[Id]
+LEFT JOIN (
+    SELECT [d0].[DoctorId], [d0].[SpecializationId], [s].[Id], [s].[Description], [s].[Name]
+    FROM [DoctorSpecializations] AS [d0]
+    INNER JOIN [Specializations] AS [s] ON [d0].[SpecializationId] = [s].[Id]
+) AS [t0] ON [t].[Id] = [t0].[DoctorId]
+ORDER BY [t].[Id], [u].[Id], [t0].[DoctorId], [t0].[SpecializationId]
+2026-04-03 14:45:32.619 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Doctors] AS [d]
+2026-04-03 14:45:32.642 +05:30 [INF] Doctor list cached for page 1
+2026-04-03 14:45:32.644 +05:30 [INF] Executing OkObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.PagedResult`1[[SmartHealthcare.Models.DTOs.DoctorDTO, SmartHealthcare.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-03 14:45:32.662 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.DoctorsController.GetAll (SmartHealthcare.API) in 184.5905ms
+2026-04-03 14:45:32.670 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.DoctorsController.GetAll (SmartHealthcare.API)'
+2026-04-03 14:45:32.671 +05:30 [INF] Outgoing Response: 200 for GET /api/doctors in 214ms
+2026-04-03 14:45:32.674 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/doctors?pageNumber=1&pageSize=20 - 200 1300 application/json; charset=utf-8 220.1644ms
+2026-04-03 14:45:36.756 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/patients/my-profile - null null
+2026-04-03 14:45:36.759 +05:30 [INF] Incoming Request: GET /api/patients/my-profile at "2026-04-03T09:15:36.7593689Z"
+2026-04-03 14:45:36.768 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Patient)
+2026-04-03 14:45:36.772 +05:30 [INF] AuthenticationScheme: Bearer was forbidden.
+2026-04-03 14:45:36.773 +05:30 [INF] Outgoing Response: 403 for GET /api/patients/my-profile in 14ms
+2026-04-03 14:45:36.775 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/patients/my-profile - 403 0 null 19.8057ms
+2026-04-03 14:45:38.935 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/appointments?pageNumber=1&pageSize=50 - null null
+2026-04-03 14:45:38.940 +05:30 [INF] Incoming Request: GET /api/appointments at "2026-04-03T09:15:38.9402273Z"
+2026-04-03 14:45:38.943 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AppointmentsController.GetAll (SmartHealthcare.API)'
+2026-04-03 14:45:38.956 +05:30 [INF] Route matched with {action = "GetAll", controller = "Appointments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll(System.Nullable`1[System.DateTime], Int32, Int32) on controller SmartHealthcare.API.Controllers.AppointmentsController (SmartHealthcare.API).
+2026-04-03 14:45:39.005 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[AppointmentDate], [t].[CreatedAt], [t].[DoctorId], [t].[Notes], [t].[PatientId], [t].[Status], [p].[Id], [p].[Address], [p].[BloodGroup], [p].[DateOfBirth], [p].[Gender], [p].[Phone], [p].[UserId], [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role], [d].[Id], [d].[ConsultationFee], [d].[IsAvailable], [d].[LicenseNumber], [d].[Phone], [d].[UserId], [d].[YearsOfExperience], [u0].[Id], [u0].[CreatedAt], [u0].[Email], [u0].[FullName], [u0].[PasswordHash], [u0].[Role]
+FROM (
+    SELECT [a].[Id], [a].[AppointmentDate], [a].[CreatedAt], [a].[DoctorId], [a].[Notes], [a].[PatientId], [a].[Status]
+    FROM [Appointments] AS [a]
+    ORDER BY [a].[AppointmentDate] DESC
+    OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+) AS [t]
+INNER JOIN [Patients] AS [p] ON [t].[PatientId] = [p].[Id]
+INNER JOIN [Users] AS [u] ON [p].[UserId] = [u].[Id]
+INNER JOIN [Doctors] AS [d] ON [t].[DoctorId] = [d].[Id]
+INNER JOIN [Users] AS [u0] ON [d].[UserId] = [u0].[Id]
+ORDER BY [t].[AppointmentDate] DESC
+2026-04-03 14:45:39.055 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+2026-04-03 14:45:39.067 +05:30 [INF] Executing OkObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.PagedResult`1[[SmartHealthcare.Models.DTOs.AppointmentDTO, SmartHealthcare.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-03 14:45:39.076 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AppointmentsController.GetAll (SmartHealthcare.API) in 115.9454ms
+2026-04-03 14:45:39.082 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AppointmentsController.GetAll (SmartHealthcare.API)'
+2026-04-03 14:45:39.086 +05:30 [INF] Outgoing Response: 200 for GET /api/appointments in 146ms
+2026-04-03 14:45:39.089 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/appointments?pageNumber=1&pageSize=50 - 200 1078 application/json; charset=utf-8 153.5859ms
+2026-04-03 14:45:44.354 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/admin/reports - null null
+2026-04-03 14:45:44.358 +05:30 [INF] Incoming Request: GET /api/admin/reports at "2026-04-03T09:15:44.3586071Z"
+2026-04-03 14:45:44.362 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AdminController.GetReports (SmartHealthcare.API)'
+2026-04-03 14:45:44.369 +05:30 [INF] Route matched with {action = "GetReports", controller = "Admin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetReports() on controller SmartHealthcare.API.Controllers.AdminController (SmartHealthcare.API).
+2026-04-03 14:45:44.377 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType2`8[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-03 14:45:44.382 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AdminController.GetReports (SmartHealthcare.API) in 7.9002ms
+2026-04-03 14:45:44.386 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AdminController.GetReports (SmartHealthcare.API)'
+2026-04-03 14:45:44.387 +05:30 [INF] Outgoing Response: 200 for GET /api/admin/reports in 29ms
+2026-04-03 14:45:44.389 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/admin/reports - 200 173 application/json; charset=utf-8 35.2711ms
+2026-04-03 14:46:16.644 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/register - application/json; charset=utf-8 96
+2026-04-03 14:46:16.648 +05:30 [INF] Incoming Request: POST /api/auth/register at "2026-04-03T09:16:16.6481765Z"
+2026-04-03 14:46:16.651 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:46:16.661 +05:30 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(SmartHealthcare.Models.DTOs.RegisterDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:46:16.684 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:46:16.906 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (Size = 150), @p2='?' (Size = 100), @p3='?' (Size = 4000), @p4='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Users] ([CreatedAt], [Email], [FullName], [PasswordHash], [Role])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2026-04-03 14:46:16.917 +05:30 [INF] User registered: shivansh@gmail.com, Role: Doctor
+2026-04-03 14:46:16.922 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Boolean), @p3='?' (Size = 4000), @p4='?' (DbType = Int32), @p10='?' (DbType = Int32), @p5='?' (DbType = DateTime2), @p6='?' (Size = 150), @p7='?' (Size = 100), @p8='?' (Size = 4000), @p9='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [RefreshTokens] ([CreatedAt], [ExpiresAt], [IsRevoked], [Token], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+UPDATE [Users] SET [CreatedAt] = @p5, [Email] = @p6, [FullName] = @p7, [PasswordHash] = @p8, [Role] = @p9
+OUTPUT 1
+WHERE [Id] = @p10;
+2026-04-03 14:46:16.956 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[ConsultationFee], [t].[IsAvailable], [t].[LicenseNumber], [t].[Phone], [t].[UserId], [t].[YearsOfExperience], [t].[Id0], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [t0].[DoctorId], [t0].[SpecializationId], [t0].[Id], [t0].[Description], [t0].[Name]
+FROM (
+    SELECT TOP(1) [d].[Id], [d].[ConsultationFee], [d].[IsAvailable], [d].[LicenseNumber], [d].[Phone], [d].[UserId], [d].[YearsOfExperience], [u].[Id] AS [Id0], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Doctors] AS [d]
+    INNER JOIN [Users] AS [u] ON [d].[UserId] = [u].[Id]
+    WHERE [d].[UserId] = @__userId_0
+) AS [t]
+LEFT JOIN (
+    SELECT [d0].[DoctorId], [d0].[SpecializationId], [s].[Id], [s].[Description], [s].[Name]
+    FROM [DoctorSpecializations] AS [d0]
+    INNER JOIN [Specializations] AS [s] ON [d0].[SpecializationId] = [s].[Id]
+) AS [t0] ON [t].[Id] = [t0].[DoctorId]
+ORDER BY [t].[Id], [t].[Id0], [t0].[DoctorId], [t0].[SpecializationId]
+2026-04-03 14:46:16.962 +05:30 [INF] Executing CreatedAtActionResult, writing value of type 'SmartHealthcare.Models.DTOs.TokenDTO'.
+2026-04-03 14:46:16.987 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API) in 320.3111ms
+2026-04-03 14:46:16.989 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:46:16.991 +05:30 [INF] Outgoing Response: 201 for POST /api/auth/register in 343ms
+2026-04-03 14:46:16.997 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/register - 201 832 application/json; charset=utf-8 353.1063ms
+2026-04-03 14:46:26.736 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/doctors?pageNumber=1&pageSize=20 - null null
+2026-04-03 14:46:26.749 +05:30 [INF] Incoming Request: GET /api/doctors at "2026-04-03T09:16:26.7492462Z"
+2026-04-03 14:46:26.755 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.DoctorsController.GetAll (SmartHealthcare.API)'
+2026-04-03 14:46:26.759 +05:30 [INF] Route matched with {action = "GetAll", controller = "Doctors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll(Int32, Int32) on controller SmartHealthcare.API.Controllers.DoctorsController (SmartHealthcare.API).
+2026-04-03 14:46:26.769 +05:30 [INF] Executing OkObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.PagedResult`1[[SmartHealthcare.Models.DTOs.DoctorDTO, SmartHealthcare.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-03 14:46:26.772 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.DoctorsController.GetAll (SmartHealthcare.API) in 5.4188ms
+2026-04-03 14:46:26.773 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.DoctorsController.GetAll (SmartHealthcare.API)'
+2026-04-03 14:46:26.775 +05:30 [INF] Outgoing Response: 200 for GET /api/doctors in 25ms
+2026-04-03 14:46:26.788 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/doctors?pageNumber=1&pageSize=20 - 200 1300 application/json; charset=utf-8 51.4425ms
+2026-04-03 14:46:28.910 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/appointments/doctor-appointments?pageNumber=1&pageSize=50 - null null
+2026-04-03 14:46:28.919 +05:30 [INF] Incoming Request: GET /api/appointments/doctor-appointments at "2026-04-03T09:16:28.9198525Z"
+2026-04-03 14:46:28.924 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API)'
+2026-04-03 14:46:28.941 +05:30 [INF] Route matched with {action = "GetDoctorAppointments", controller = "Appointments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDoctorAppointments(Int32, Int32) on controller SmartHealthcare.API.Controllers.AppointmentsController (SmartHealthcare.API).
+2026-04-03 14:46:28.958 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[ConsultationFee], [t].[IsAvailable], [t].[LicenseNumber], [t].[Phone], [t].[UserId], [t].[YearsOfExperience], [t].[Id0], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [t0].[DoctorId], [t0].[SpecializationId], [t0].[Id], [t0].[Description], [t0].[Name]
+FROM (
+    SELECT TOP(1) [d].[Id], [d].[ConsultationFee], [d].[IsAvailable], [d].[LicenseNumber], [d].[Phone], [d].[UserId], [d].[YearsOfExperience], [u].[Id] AS [Id0], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Doctors] AS [d]
+    INNER JOIN [Users] AS [u] ON [d].[UserId] = [u].[Id]
+    WHERE [d].[UserId] = @__userId_0
+) AS [t]
+LEFT JOIN (
+    SELECT [d0].[DoctorId], [d0].[SpecializationId], [s].[Id], [s].[Description], [s].[Name]
+    FROM [DoctorSpecializations] AS [d0]
+    INNER JOIN [Specializations] AS [s] ON [d0].[SpecializationId] = [s].[Id]
+) AS [t0] ON [t].[Id] = [t0].[DoctorId]
+ORDER BY [t].[Id], [t].[Id0], [t0].[DoctorId], [t0].[SpecializationId]
+2026-04-03 14:46:28.968 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 14:46:28.971 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API) in 19.3497ms
+2026-04-03 14:46:28.973 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API)'
+2026-04-03 14:46:28.974 +05:30 [INF] Outgoing Response: 400 for GET /api/appointments/doctor-appointments in 54ms
+2026-04-03 14:46:28.978 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/appointments/doctor-appointments?pageNumber=1&pageSize=50 - 400 98 application/json; charset=utf-8 67.4614ms
+2026-04-03 14:46:30.831 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/patients/my-profile - null null
+2026-04-03 14:46:30.837 +05:30 [INF] Incoming Request: GET /api/patients/my-profile at "2026-04-03T09:16:30.8372995Z"
+2026-04-03 14:46:30.843 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Patient)
+2026-04-03 14:46:30.852 +05:30 [INF] AuthenticationScheme: Bearer was forbidden.
+2026-04-03 14:46:30.853 +05:30 [INF] Outgoing Response: 403 for GET /api/patients/my-profile in 16ms
+2026-04-03 14:46:30.855 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/patients/my-profile - 403 0 null 24.014ms
+2026-04-03 14:46:33.995 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/appointments/doctor-appointments?pageNumber=1&pageSize=50 - null null
+2026-04-03 14:46:34.007 +05:30 [INF] Incoming Request: GET /api/appointments/doctor-appointments at "2026-04-03T09:16:34.0069662Z"
+2026-04-03 14:46:34.019 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API)'
+2026-04-03 14:46:34.021 +05:30 [INF] Route matched with {action = "GetDoctorAppointments", controller = "Appointments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDoctorAppointments(Int32, Int32) on controller SmartHealthcare.API.Controllers.AppointmentsController (SmartHealthcare.API).
+2026-04-03 14:46:34.038 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[ConsultationFee], [t].[IsAvailable], [t].[LicenseNumber], [t].[Phone], [t].[UserId], [t].[YearsOfExperience], [t].[Id0], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [t0].[DoctorId], [t0].[SpecializationId], [t0].[Id], [t0].[Description], [t0].[Name]
+FROM (
+    SELECT TOP(1) [d].[Id], [d].[ConsultationFee], [d].[IsAvailable], [d].[LicenseNumber], [d].[Phone], [d].[UserId], [d].[YearsOfExperience], [u].[Id] AS [Id0], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Doctors] AS [d]
+    INNER JOIN [Users] AS [u] ON [d].[UserId] = [u].[Id]
+    WHERE [d].[UserId] = @__userId_0
+) AS [t]
+LEFT JOIN (
+    SELECT [d0].[DoctorId], [d0].[SpecializationId], [s].[Id], [s].[Description], [s].[Name]
+    FROM [DoctorSpecializations] AS [d0]
+    INNER JOIN [Specializations] AS [s] ON [d0].[SpecializationId] = [s].[Id]
+) AS [t0] ON [t].[Id] = [t0].[DoctorId]
+ORDER BY [t].[Id], [t].[Id0], [t0].[DoctorId], [t0].[SpecializationId]
+2026-04-03 14:46:34.040 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 14:46:34.041 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API) in 18.9944ms
+2026-04-03 14:46:34.043 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API)'
+2026-04-03 14:46:34.055 +05:30 [INF] Outgoing Response: 400 for GET /api/appointments/doctor-appointments in 48ms
+2026-04-03 14:46:34.128 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/appointments/doctor-appointments?pageNumber=1&pageSize=50 - 400 98 application/json; charset=utf-8 133.1942ms
+2026-04-03 14:46:56.353 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/register - application/json; charset=utf-8 92
+2026-04-03 14:46:56.357 +05:30 [INF] Incoming Request: POST /api/auth/register at "2026-04-03T09:16:56.3570149Z"
+2026-04-03 14:46:56.359 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:46:56.363 +05:30 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(SmartHealthcare.Models.DTOs.RegisterDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:46:56.370 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:46:56.650 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (Size = 150), @p2='?' (Size = 100), @p3='?' (Size = 4000), @p4='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Users] ([CreatedAt], [Email], [FullName], [PasswordHash], [Role])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2026-04-03 14:46:56.653 +05:30 [INF] User registered: Agrawal@gmail.com, Role: Doctor
+2026-04-03 14:46:56.657 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Boolean), @p3='?' (Size = 4000), @p4='?' (DbType = Int32), @p10='?' (DbType = Int32), @p5='?' (DbType = DateTime2), @p6='?' (Size = 150), @p7='?' (Size = 100), @p8='?' (Size = 4000), @p9='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [RefreshTokens] ([CreatedAt], [ExpiresAt], [IsRevoked], [Token], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+UPDATE [Users] SET [CreatedAt] = @p5, [Email] = @p6, [FullName] = @p7, [PasswordHash] = @p8, [Role] = @p9
+OUTPUT 1
+WHERE [Id] = @p10;
+2026-04-03 14:46:56.666 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[ConsultationFee], [t].[IsAvailable], [t].[LicenseNumber], [t].[Phone], [t].[UserId], [t].[YearsOfExperience], [t].[Id0], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [t0].[DoctorId], [t0].[SpecializationId], [t0].[Id], [t0].[Description], [t0].[Name]
+FROM (
+    SELECT TOP(1) [d].[Id], [d].[ConsultationFee], [d].[IsAvailable], [d].[LicenseNumber], [d].[Phone], [d].[UserId], [d].[YearsOfExperience], [u].[Id] AS [Id0], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Doctors] AS [d]
+    INNER JOIN [Users] AS [u] ON [d].[UserId] = [u].[Id]
+    WHERE [d].[UserId] = @__userId_0
+) AS [t]
+LEFT JOIN (
+    SELECT [d0].[DoctorId], [d0].[SpecializationId], [s].[Id], [s].[Description], [s].[Name]
+    FROM [DoctorSpecializations] AS [d0]
+    INNER JOIN [Specializations] AS [s] ON [d0].[SpecializationId] = [s].[Id]
+) AS [t0] ON [t].[Id] = [t0].[DoctorId]
+ORDER BY [t].[Id], [t].[Id0], [t0].[DoctorId], [t0].[SpecializationId]
+2026-04-03 14:46:56.670 +05:30 [INF] Executing CreatedAtActionResult, writing value of type 'SmartHealthcare.Models.DTOs.TokenDTO'.
+2026-04-03 14:46:56.672 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API) in 305.6608ms
+2026-04-03 14:46:56.674 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:46:56.676 +05:30 [INF] Outgoing Response: 201 for POST /api/auth/register in 318ms
+2026-04-03 14:46:56.681 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/register - 201 826 application/json; charset=utf-8 327.8504ms
+2026-04-03 14:47:01.984 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/appointments/doctor-appointments?pageNumber=1&pageSize=50 - null null
+2026-04-03 14:47:01.987 +05:30 [INF] Incoming Request: GET /api/appointments/doctor-appointments at "2026-04-03T09:17:01.9872108Z"
+2026-04-03 14:47:01.990 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API)'
+2026-04-03 14:47:01.993 +05:30 [INF] Route matched with {action = "GetDoctorAppointments", controller = "Appointments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDoctorAppointments(Int32, Int32) on controller SmartHealthcare.API.Controllers.AppointmentsController (SmartHealthcare.API).
+2026-04-03 14:47:02.018 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[ConsultationFee], [t].[IsAvailable], [t].[LicenseNumber], [t].[Phone], [t].[UserId], [t].[YearsOfExperience], [t].[Id0], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [t0].[DoctorId], [t0].[SpecializationId], [t0].[Id], [t0].[Description], [t0].[Name]
+FROM (
+    SELECT TOP(1) [d].[Id], [d].[ConsultationFee], [d].[IsAvailable], [d].[LicenseNumber], [d].[Phone], [d].[UserId], [d].[YearsOfExperience], [u].[Id] AS [Id0], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Doctors] AS [d]
+    INNER JOIN [Users] AS [u] ON [d].[UserId] = [u].[Id]
+    WHERE [d].[UserId] = @__userId_0
+) AS [t]
+LEFT JOIN (
+    SELECT [d0].[DoctorId], [d0].[SpecializationId], [s].[Id], [s].[Description], [s].[Name]
+    FROM [DoctorSpecializations] AS [d0]
+    INNER JOIN [Specializations] AS [s] ON [d0].[SpecializationId] = [s].[Id]
+) AS [t0] ON [t].[Id] = [t0].[DoctorId]
+ORDER BY [t].[Id], [t].[Id0], [t0].[DoctorId], [t0].[SpecializationId]
+2026-04-03 14:47:02.022 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 14:47:02.023 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API) in 18.6901ms
+2026-04-03 14:47:02.024 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API)'
+2026-04-03 14:47:02.052 +05:30 [INF] Outgoing Response: 400 for GET /api/appointments/doctor-appointments in 65ms
+2026-04-03 14:47:02.079 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/appointments/doctor-appointments?pageNumber=1&pageSize=50 - 400 98 application/json; charset=utf-8 94.6994ms
+2026-04-03 14:47:07.770 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/api/appointments/doctor-appointments?pageNumber=1&pageSize=50 - null null
+2026-04-03 14:47:07.776 +05:30 [INF] Incoming Request: GET /api/appointments/doctor-appointments at "2026-04-03T09:17:07.7768570Z"
+2026-04-03 14:47:07.783 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API)'
+2026-04-03 14:47:07.786 +05:30 [INF] Route matched with {action = "GetDoctorAppointments", controller = "Appointments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDoctorAppointments(Int32, Int32) on controller SmartHealthcare.API.Controllers.AppointmentsController (SmartHealthcare.API).
+2026-04-03 14:47:07.792 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[ConsultationFee], [t].[IsAvailable], [t].[LicenseNumber], [t].[Phone], [t].[UserId], [t].[YearsOfExperience], [t].[Id0], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [t0].[DoctorId], [t0].[SpecializationId], [t0].[Id], [t0].[Description], [t0].[Name]
+FROM (
+    SELECT TOP(1) [d].[Id], [d].[ConsultationFee], [d].[IsAvailable], [d].[LicenseNumber], [d].[Phone], [d].[UserId], [d].[YearsOfExperience], [u].[Id] AS [Id0], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Doctors] AS [d]
+    INNER JOIN [Users] AS [u] ON [d].[UserId] = [u].[Id]
+    WHERE [d].[UserId] = @__userId_0
+) AS [t]
+LEFT JOIN (
+    SELECT [d0].[DoctorId], [d0].[SpecializationId], [s].[Id], [s].[Description], [s].[Name]
+    FROM [DoctorSpecializations] AS [d0]
+    INNER JOIN [Specializations] AS [s] ON [d0].[SpecializationId] = [s].[Id]
+) AS [t0] ON [t].[Id] = [t0].[DoctorId]
+ORDER BY [t].[Id], [t].[Id0], [t0].[DoctorId], [t0].[SpecializationId]
+2026-04-03 14:47:07.799 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 14:47:07.801 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API) in 11.4379ms
+2026-04-03 14:47:07.804 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AppointmentsController.GetDoctorAppointments (SmartHealthcare.API)'
+2026-04-03 14:47:07.807 +05:30 [INF] Outgoing Response: 400 for GET /api/appointments/doctor-appointments in 30ms
+2026-04-03 14:47:07.817 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/api/appointments/doctor-appointments?pageNumber=1&pageSize=50 - 400 98 application/json; charset=utf-8 46.7742ms
+2026-04-03 14:47:24.367 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/register - application/json; charset=utf-8 81
+2026-04-03 14:47:24.372 +05:30 [INF] Incoming Request: POST /api/auth/register at "2026-04-03T09:17:24.3720288Z"
+2026-04-03 14:47:24.374 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:47:24.376 +05:30 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(SmartHealthcare.Models.DTOs.RegisterDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:47:24.385 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:47:24.668 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (Size = 150), @p2='?' (Size = 100), @p3='?' (Size = 4000), @p4='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Users] ([CreatedAt], [Email], [FullName], [PasswordHash], [Role])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2026-04-03 14:47:24.690 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (Size = 4000), @p4='?' (Size = 15), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Patients] ([Address], [BloodGroup], [DateOfBirth], [Gender], [Phone], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-04-03 14:47:24.720 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'SmartHealthcare.API.Data.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated in table 'SmartHealthCareDB.dbo.Patients', column 'BloodGroup'. Truncated value: 'Not S'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:7ec38bf6-b93d-4a14-8e42-78571badddba
+Error Number:2628,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated in table 'SmartHealthCareDB.dbo.Patients', column 'BloodGroup'. Truncated value: 'Not S'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:7ec38bf6-b93d-4a14-8e42-78571badddba
+Error Number:2628,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-04-03 14:47:24.734 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API) in 354.9028ms
+2026-04-03 14:47:24.735 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:47:24.737 +05:30 [ERR] An unhandled exception occurred
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated in table 'SmartHealthCareDB.dbo.Patients', column 'BloodGroup'. Truncated value: 'Not S'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:7ec38bf6-b93d-4a14-8e42-78571badddba
+Error Number:2628,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at SmartHealthcare.API.Repositories.GenericRepository`1.SaveAsync() in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Repositories\GenericRepository.cs:line 26
+   at SmartHealthcare.API.Services.AuthService.RegisterAsync(RegisterDTO dto) in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Services\AuthService.cs:line 64
+   at SmartHealthcare.API.Controllers.AuthController.Register(RegisterDTO dto) in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Controllers\AuthController.cs:line 25
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at SmartHealthcare.API.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Middleware\ExceptionHandlingMiddleware.cs:line 22
+2026-04-03 14:47:24.768 +05:30 [INF] Outgoing Response: 500 for POST /api/auth/register in 396ms
+2026-04-03 14:47:24.770 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/register - 500 null application/json 403.2083ms
+2026-04-03 14:47:39.043 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/register - application/json; charset=utf-8 81
+2026-04-03 14:47:39.049 +05:30 [INF] Incoming Request: POST /api/auth/register at "2026-04-03T09:17:39.0491181Z"
+2026-04-03 14:47:39.051 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:47:39.052 +05:30 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(SmartHealthcare.Models.DTOs.RegisterDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:47:39.064 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:47:39.069 +05:30 [WRN] Registration failed - email already exists: Ram@gmail.com
+2026-04-03 14:47:39.071 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 14:47:39.073 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API) in 18.2475ms
+2026-04-03 14:47:39.076 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:47:39.086 +05:30 [INF] Outgoing Response: 400 for POST /api/auth/register in 36ms
+2026-04-03 14:47:39.091 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/register - 400 94 application/json; charset=utf-8 47.8039ms
+2026-04-03 14:50:41.574 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/index.html - null null
+2026-04-03 14:50:41.583 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/index.html - 200 null text/html;charset=utf-8 9.5297ms
+2026-04-03 14:50:41.929 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - null null
+2026-04-03 14:50:42.033 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 103.8802ms
+2026-04-03 14:50:50.345 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/register - application/json; charset=utf-8 81
+2026-04-03 14:50:50.348 +05:30 [INF] Incoming Request: POST /api/auth/register at "2026-04-03T09:20:50.3488548Z"
+2026-04-03 14:50:50.350 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:50:50.352 +05:30 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(SmartHealthcare.Models.DTOs.RegisterDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:50:50.361 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:50:50.368 +05:30 [WRN] Registration failed - email already exists: Ram@gmail.com
+2026-04-03 14:50:50.369 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 14:50:50.371 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API) in 16.64ms
+2026-04-03 14:50:50.382 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:50:50.384 +05:30 [INF] Outgoing Response: 400 for POST /api/auth/register in 35ms
+2026-04-03 14:50:50.387 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/register - 400 94 application/json; charset=utf-8 42.229ms
+2026-04-03 14:51:07.058 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/register - application/json; charset=utf-8 87
+2026-04-03 14:51:07.062 +05:30 [INF] Incoming Request: POST /api/auth/register at "2026-04-03T09:21:07.0628321Z"
+2026-04-03 14:51:07.065 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:51:07.067 +05:30 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(SmartHealthcare.Models.DTOs.RegisterDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:51:07.078 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:51:07.321 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (Size = 150), @p2='?' (Size = 100), @p3='?' (Size = 4000), @p4='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Users] ([CreatedAt], [Email], [FullName], [PasswordHash], [Role])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2026-04-03 14:51:07.332 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (Size = 4000), @p4='?' (Size = 15), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Patients] ([Address], [BloodGroup], [DateOfBirth], [Gender], [Phone], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-04-03 14:51:07.336 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'SmartHealthcare.API.Data.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated in table 'SmartHealthCareDB.dbo.Patients', column 'BloodGroup'. Truncated value: 'Not S'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:7ec38bf6-b93d-4a14-8e42-78571badddba
+Error Number:2628,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated in table 'SmartHealthCareDB.dbo.Patients', column 'BloodGroup'. Truncated value: 'Not S'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:7ec38bf6-b93d-4a14-8e42-78571badddba
+Error Number:2628,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-04-03 14:51:07.368 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API) in 296.9232ms
+2026-04-03 14:51:07.370 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:51:07.373 +05:30 [ERR] An unhandled exception occurred
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated in table 'SmartHealthCareDB.dbo.Patients', column 'BloodGroup'. Truncated value: 'Not S'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:7ec38bf6-b93d-4a14-8e42-78571badddba
+Error Number:2628,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at SmartHealthcare.API.Repositories.GenericRepository`1.SaveAsync() in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Repositories\GenericRepository.cs:line 26
+   at SmartHealthcare.API.Services.AuthService.RegisterAsync(RegisterDTO dto) in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Services\AuthService.cs:line 64
+   at SmartHealthcare.API.Controllers.AuthController.Register(RegisterDTO dto) in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Controllers\AuthController.cs:line 25
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at SmartHealthcare.API.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Middleware\ExceptionHandlingMiddleware.cs:line 22
+2026-04-03 14:51:07.395 +05:30 [INF] Outgoing Response: 500 for POST /api/auth/register in 332ms
+2026-04-03 14:51:07.397 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/register - 500 null application/json 339.3311ms
+2026-04-03 14:51:14.193 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/index.html - null null
+2026-04-03 14:51:14.198 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/index.html - 200 null text/html;charset=utf-8 4.7094ms
+2026-04-03 14:51:14.331 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - null null
+2026-04-03 14:51:14.340 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 9.5961ms
+2026-04-03 14:51:34.855 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/login - application/json; charset=utf-8 53
+2026-04-03 14:51:34.860 +05:30 [INF] Incoming Request: POST /api/auth/login at "2026-04-03T09:21:34.8605508Z"
+2026-04-03 14:51:34.862 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 14:51:34.864 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(SmartHealthcare.Models.DTOs.LoginDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:51:34.875 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:51:34.879 +05:30 [WRN] Login attempt failed for: user@healthcare.com
+2026-04-03 14:51:34.881 +05:30 [INF] Executing UnauthorizedObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 14:51:34.883 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API) in 16.0245ms
+2026-04-03 14:51:34.885 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Login (SmartHealthcare.API)'
+2026-04-03 14:51:34.886 +05:30 [INF] Outgoing Response: 401 for POST /api/auth/login in 25ms
+2026-04-03 14:51:34.891 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/login - 401 99 application/json; charset=utf-8 35.6387ms
+2026-04-03 14:51:38.787 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/index.html - null null
+2026-04-03 14:51:38.791 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/index.html - 200 null text/html;charset=utf-8 3.5394ms
+2026-04-03 14:51:38.932 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - null null
+2026-04-03 14:51:38.995 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 63.7371ms
+2026-04-03 14:52:03.770 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/register - application/json; charset=utf-8 96
+2026-04-03 14:52:03.777 +05:30 [INF] Incoming Request: POST /api/auth/register at "2026-04-03T09:22:03.7770161Z"
+2026-04-03 14:52:03.778 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:52:03.780 +05:30 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(SmartHealthcare.Models.DTOs.RegisterDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:52:03.786 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:52:04.017 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (Size = 150), @p2='?' (Size = 100), @p3='?' (Size = 4000), @p4='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Users] ([CreatedAt], [Email], [FullName], [PasswordHash], [Role])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2026-04-03 14:52:04.034 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (Size = 300), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (Size = 4000), @p4='?' (Size = 15), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Patients] ([Address], [BloodGroup], [DateOfBirth], [Gender], [Phone], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-04-03 14:52:04.049 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'SmartHealthcare.API.Data.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated in table 'SmartHealthCareDB.dbo.Patients', column 'BloodGroup'. Truncated value: 'Not S'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:7ec38bf6-b93d-4a14-8e42-78571badddba
+Error Number:2628,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated in table 'SmartHealthCareDB.dbo.Patients', column 'BloodGroup'. Truncated value: 'Not S'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:7ec38bf6-b93d-4a14-8e42-78571badddba
+Error Number:2628,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-04-03 14:52:04.067 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API) in 284.0822ms
+2026-04-03 14:52:04.069 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:52:04.074 +05:30 [ERR] An unhandled exception occurred
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated in table 'SmartHealthCareDB.dbo.Patients', column 'BloodGroup'. Truncated value: 'Not S'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:7ec38bf6-b93d-4a14-8e42-78571badddba
+Error Number:2628,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at SmartHealthcare.API.Repositories.GenericRepository`1.SaveAsync() in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Repositories\GenericRepository.cs:line 26
+   at SmartHealthcare.API.Services.AuthService.RegisterAsync(RegisterDTO dto) in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Services\AuthService.cs:line 64
+   at SmartHealthcare.API.Controllers.AuthController.Register(RegisterDTO dto) in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Controllers\AuthController.cs:line 25
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at SmartHealthcare.API.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in E:\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Capgemini_CU_Sec3_.NetWithAzure_Shivansh\Week-13_30th_March_to_3rd_April_2026\Day_4_2nd_April_2026\SmartHealthCare\src\SmartHealthcare.API\Middleware\ExceptionHandlingMiddleware.cs:line 22
+2026-04-03 14:52:04.092 +05:30 [INF] Outgoing Response: 500 for POST /api/auth/register in 315ms
+2026-04-03 14:52:04.095 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/register - 500 null application/json 325.1484ms
+2026-04-03 14:52:32.313 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/register - application/json; charset=utf-8 96
+2026-04-03 14:52:32.318 +05:30 [INF] Incoming Request: POST /api/auth/register at "2026-04-03T09:22:32.3184882Z"
+2026-04-03 14:52:32.327 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:52:32.328 +05:30 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(SmartHealthcare.Models.DTOs.RegisterDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:52:32.333 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:52:32.342 +05:30 [WRN] Registration failed - email already exists: Shivansh12@gmail.com
+2026-04-03 14:52:32.345 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 14:52:32.347 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API) in 17.0566ms
+2026-04-03 14:52:32.349 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:52:32.350 +05:30 [INF] Outgoing Response: 400 for POST /api/auth/register in 32ms
+2026-04-03 14:52:32.352 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/register - 400 94 application/json; charset=utf-8 38.7026ms
+2026-04-03 14:52:34.574 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/index.html - null null
+2026-04-03 14:52:34.578 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/index.html - 200 null text/html;charset=utf-8 4.0361ms
+2026-04-03 14:52:34.733 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - null null
+2026-04-03 14:52:34.759 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5293/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 10.4241ms
+2026-04-03 14:52:47.592 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5293/api/auth/register - application/json; charset=utf-8 91
+2026-04-03 14:52:47.595 +05:30 [INF] Incoming Request: POST /api/auth/register at "2026-04-03T09:22:47.5951921Z"
+2026-04-03 14:52:47.597 +05:30 [INF] Executing endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:52:47.598 +05:30 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(SmartHealthcare.Models.DTOs.RegisterDTO) on controller SmartHealthcare.API.Controllers.AuthController (SmartHealthcare.API).
+2026-04-03 14:52:47.607 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__email_0='?' (Size = 150)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedAt], [t].[Email], [t].[FullName], [t].[PasswordHash], [t].[Role], [r].[Id], [r].[CreatedAt], [r].[ExpiresAt], [r].[IsRevoked], [r].[Token], [r].[UserId]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedAt], [u].[Email], [u].[FullName], [u].[PasswordHash], [u].[Role]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN [RefreshTokens] AS [r] ON [t].[Id] = [r].[UserId]
+ORDER BY [t].[Id]
+2026-04-03 14:52:47.613 +05:30 [WRN] Registration failed - email already exists: Shivansh12@gmail.com
+2026-04-03 14:52:47.616 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'SmartHealthcare.Models.DTOs.ErrorResponseDTO'.
+2026-04-03 14:52:47.619 +05:30 [INF] Executed action SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API) in 18.4688ms
+2026-04-03 14:52:47.629 +05:30 [INF] Executed endpoint 'SmartHealthcare.API.Controllers.AuthController.Register (SmartHealthcare.API)'
+2026-04-03 14:52:47.631 +05:30 [INF] Outgoing Response: 400 for POST /api/auth/register in 36ms
+2026-04-03 14:52:47.635 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5293/api/auth/register - 400 94 application/json; charset=utf-8 43.2908ms

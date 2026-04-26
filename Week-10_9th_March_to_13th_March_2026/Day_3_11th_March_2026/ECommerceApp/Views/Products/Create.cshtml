@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Add Product";
+}
+
+<h1>Add New Product</h1>
+<hr />
+
+<div class="card" style="max-width:500px;">
+    <div class="card-body">
+        <form method="post" action="/Products/Create">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="Name" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price (₹)</label>
+                <input type="number" name="Price" class="form-control" step="0.01" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Stock Quantity</label>
+                <input type="number" name="StockQuantity" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select name="CategoryId" class="form-select" required>
+                    <option value="">-- Select Category --</option>
+                    @foreach (var cat in ViewBag.Categories)
+                    {
+                        <option value="@cat.CategoryId">@cat.Name</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Save Product</button>
+            <a href="/Products/Index" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>

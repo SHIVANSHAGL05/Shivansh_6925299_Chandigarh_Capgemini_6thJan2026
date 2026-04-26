@@ -1,0 +1,117 @@
+@model List<PatientDto>
+@{
+    ViewData["Title"] = "Manage Patients";
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages  = ViewBag.TotalPages  ?? 1;
+    int totalCount  = ViewBag.TotalCount  ?? 0;
+    string? search  = ViewBag.Search;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-0"><i class="bi bi-people text-primary me-2"></i>Patients</h2>
+        <small class="text-muted">@totalCount total registered patients</small>
+    </div>
+</div>
+
+<!-- Search -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body py-3">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" name="search" class="form-control"
+                           placeholder="Search by name or email..." value="@search" />
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    @if (!string.IsNullOrEmpty(search))
+                    {
+                        <a asp-action="Patients" class="btn btn-outline-secondary">Clear</a>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        @if (!Model.Any())
+        {
+            <div class="text-center text-muted py-5">
+                <i class="bi bi-people display-3 d-block mb-3 opacity-50"></i>
+                <h5>No patients found.</h5>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Blood Group</th>
+                            <th>Registered</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model)
+                        {
+                            <tr>
+                                <td class="text-muted small">#@p.Id</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="avatar-circle bg-primary text-white" style="width:32px;height:32px;font-size:.85rem">
+                                            @p.FullName[0]
+                                        </div>
+                                        <span class="fw-semibold">@p.FullName</span>
+                                    </div>
+                                </td>
+                                <td class="text-muted small">@p.Email</td>
+                                <td class="text-muted small">@(p.PhoneNumber ?? "—")</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(p.BloodGroup))
+                                    {
+                                        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25">
+                                            @p.BloodGroup
+                                        </span>
+                                    }
+                                    else { <span class="text-muted">—</span> }
+                                </td>
+                                <td class="text-muted small">@p.CreatedAt.ToString("dd MMM yyyy")</td>
+                                <td class="text-end">
+                                    <a asp-action="PatientDetails" asp-route-id="@p.Id"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (totalPages > 1)
+            {
+                <div class="d-flex justify-content-between align-items-center p-3 border-top">
+                    <small class="text-muted">Page @currentPage of @totalPages</small>
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            @for (int i = 1; i <= totalPages; i++)
+                            {
+                                <li class="page-item @(i == currentPage ? "active" : "")">
+                                    <a class="page-link" asp-action="Patients"
+                                       asp-route-page="@i" asp-route-search="@search">@i</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            }
+        }
+    </div>
+</div>

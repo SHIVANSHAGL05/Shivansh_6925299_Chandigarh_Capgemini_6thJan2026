@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ECommerceApp.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1>Products</h1>
+<a href="/Products/Create" class="btn btn-success mb-3">+ Add Product</a>
+<hr />
+
+<table class="table table-bordered table-hover">
+    <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price (₹)</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.ProductId</td>
+                <td>@product.Name</td>
+                <td>₹@product.Price.ToString("N0")</td>
+                <td>
+                    @if (product.StockQuantity > 0)
+                    {
+                        <span class="badge bg-success">@product.StockQuantity in stock</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Out of stock</span>
+                    }
+                </td>
+                <td>@product.Category?.Name</td>
+                <td>
+                    <a href="/Products/Details/@product.ProductId" class="btn btn-info btn-sm">Details</a>
+                    <a href="/Products/Edit/@product.ProductId" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="/Products/Delete/@product.ProductId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

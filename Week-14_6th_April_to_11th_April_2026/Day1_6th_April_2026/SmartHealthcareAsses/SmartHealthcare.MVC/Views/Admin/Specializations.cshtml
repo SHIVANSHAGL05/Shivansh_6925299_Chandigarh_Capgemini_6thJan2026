@@ -1,0 +1,82 @@
+@model List<SpecializationDto>
+@{
+    ViewData["Title"] = "Manage Specializations";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold"><i class="bi bi-award text-warning me-2"></i>Specializations</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSpecModal">
+        <i class="bi bi-plus-circle me-2"></i>Add Specialization
+    </button>
+</div>
+
+<div class="row g-3">
+    @if (!Model.Any())
+    {
+        <div class="col-12 text-center text-muted py-5">
+            <i class="bi bi-award display-3 d-block mb-3 opacity-50"></i>
+            <h5>No specializations yet.</h5>
+        </div>
+    }
+    @foreach (var s in Model)
+    {
+        <div class="col-md-4 col-lg-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="rounded-circle bg-warning bg-opacity-10 p-2 me-3">
+                            <i class="bi bi-heart-pulse text-warning fs-5"></i>
+                        </div>
+                        <h6 class="fw-bold mb-0">@s.Name</h6>
+                    </div>
+                    @if (!string.IsNullOrEmpty(s.Description))
+                    {
+                        <p class="text-muted small mb-3 flex-grow-1">@s.Description</p>
+                    }
+                    <form asp-action="DeleteSpecialization" asp-route-id="@s.Id" method="post"
+                          onsubmit="return confirm('Remove @s.Name?')" class="mt-auto">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-outline-danger w-100">
+                            <i class="bi bi-trash me-1"></i>Remove
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Add Modal -->
+<div class="modal fade" id="addSpecModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header border-0 bg-warning text-dark rounded-top">
+                <h5 class="modal-title fw-bold">
+                    <i class="bi bi-plus-circle me-2"></i>Add Specialization
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form asp-action="AddSpecialization" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
+                        <input type="text" name="name" class="form-control" required maxlength="100"
+                               placeholder="e.g. Cardiology" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Description</label>
+                        <textarea name="description" class="form-control" rows="2" maxlength="500"
+                                  placeholder="Brief description..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-warning fw-semibold">
+                        <i class="bi bi-check-circle me-2"></i>Add
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

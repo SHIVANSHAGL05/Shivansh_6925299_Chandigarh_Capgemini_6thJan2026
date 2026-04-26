@@ -1,0 +1,87 @@
+@model ShopCart.Models.Order
+@{
+    ViewData["Title"] = "Payment";
+    decimal total     = ViewBag.Total;
+}
+
+<h2 class="mb-4"><i class="bi bi-credit-card me-2"></i>Payment</h2>
+
+<!-- Bootstrap Progress Bar — Step 3 active -->
+<div class="mb-4">
+    <div class="d-flex justify-content-between small text-muted mb-1">
+        <span><a href="/Cart" class="text-muted">1. Cart</a></span>
+        <span><a href="/Checkout/Address" class="text-muted">2. Address</a></span>
+        <span class="fw-bold text-dark">3. Payment</span>
+        <span>4. Done</span>
+    </div>
+    <div class="progress" style="height: 8px;">
+        <div class="progress-bar bg-dark" style="width: 75%;"></div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card shadow-sm p-4">
+            <h5 class="mb-1">Card Details</h5>
+            <p class="text-muted small mb-4">This is a demo — no real payment is processed.</p>
+
+            <form method="post" action="/Checkout/Payment" novalidate>
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Card Number *</label>
+                    <input asp-for="CardNumber" class="form-control" placeholder="1234 5678 9012 3456"
+                           maxlength="16" inputmode="numeric" />
+                    <span asp-validation-for="CardNumber" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Cardholder Name *</label>
+                    <input asp-for="CardName" class="form-control" placeholder="Name on card" />
+                    <span asp-validation-for="CardName" class="text-danger small"></span>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Expiry Date *</label>
+                        <input asp-for="CardExpiry" class="form-control" placeholder="MM/YY" maxlength="5" />
+                        <span asp-validation-for="CardExpiry" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">CVV *</label>
+                        <input asp-for="CardCvv" class="form-control" placeholder="123"
+                               maxlength="3" inputmode="numeric" />
+                        <span asp-validation-for="CardCvv" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <!-- Accepted cards visual -->
+                <div class="d-flex gap-2 mb-4">
+                    <span class="badge bg-primary px-3 py-2">VISA</span>
+                    <span class="badge bg-danger px-3 py-2">Mastercard</span>
+                    <span class="badge bg-success px-3 py-2">RuPay</span>
+                </div>
+
+                <div class="d-flex gap-3">
+                    <a href="/Checkout/Address" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i>Back
+                    </a>
+                    <button type="submit" class="btn btn-success flex-grow-1">
+                        <i class="bi bi-lock me-1"></i>Pay ₹@total.ToString("N0")
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card shadow-sm p-4 bg-light">
+            <h6 class="text-muted mb-3">ORDER TOTAL</h6>
+            <div class="fs-3 fw-bold text-success">₹@total.ToString("N0")</div>
+            <small class="text-muted">Free shipping included</small>
+            <div class="alert alert-warning mt-3 small mb-0">
+                <i class="bi bi-shield-lock me-2"></i>Demo only — no real payment.
+            </div>
+        </div>
+    </div>
+</div>

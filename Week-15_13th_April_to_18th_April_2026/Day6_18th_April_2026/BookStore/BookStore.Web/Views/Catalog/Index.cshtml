@@ -1,0 +1,83 @@
+@model BookListPageViewModel
+@{
+    ViewData["Title"] = "Book Catalog";
+}
+
+<section class="catalog-header reveal">
+    <h1>Book Discovery and Purchase</h1>
+    <p>Browse, filter, and sort books with inventory visibility prepared for API-driven updates.</p>
+
+    <form method="get" asp-action="Index" class="toolbar">
+        <input name="searchTerm" value="@Model.SearchTerm" placeholder="Search by title or author" />
+        <input name="author" value="@Context.Request.Query["author"]" placeholder="Filter by author" />
+        <input name="publisher" value="@Context.Request.Query["publisher"]" placeholder="Filter by publisher" />
+
+        <select name="category">
+            @foreach (var category in Model.Categories)
+            {
+                var selected = string.Equals(category, Model.CategoryFilter, StringComparison.OrdinalIgnoreCase);
+                <option selected="@selected" value="@category">@category</option>
+            }
+        </select>
+
+        <select name="sortBy">
+            <option value="featured" selected="@(Model.SortBy == "featured")">Featured</option>
+            <option value="rating" selected="@(Model.SortBy == "rating")">Top Rated</option>
+            <option value="price_asc" selected="@(Model.SortBy == "price_asc")">Price: Low to High</option>
+            <option value="price_desc" selected="@(Model.SortBy == "price_desc")">Price: High to Low</option>
+        </select>
+
+        <button class="btn btn-brand" type="submit">Apply</button>
+    </form>
+</section>
+
+<section class="catalog-grid reveal">
+    @if (!Model.Books.Any())
+    {
+        <article class="page-card">
+            <h3>No books found</h3>
+            <p>No records matched your filters. Clear search/filter or add books from the admin inventory page.</p>
+        </article>
+    }
+
+    @foreach (var book in Model.Books)
+    {
+        <article class="book-card">
+            <div class="book-cover cover-@book.CoverAccent">
+                @if (!string.IsNullOrWhiteSpace(book.ImageUrl))
+                {
+                    <img class="book-cover-image" src="@book.ImageUrl" alt="@book.Title cover"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" />
+                    <span class="book-cover-fallback" style="display:none;">@book.Category</span>
+                }
+                else
+                {
+                    <span class="book-cover-fallback">@book.Category</span>
+                }
+            </div>
+
+            <h3>@book.Title</h3>
+            <p>@book.Author</p>
+
+            <div class="meta-row">
+                <span>$@book.Price.ToString("0.00")</span>
+                <span>@book.Rating.ToString("0.0")/5 (@book.Reviews)</span>
+            </div>
+
+            @if (book.IsLowStock)
+            {
+                <span class="tag low-stock">Low stock: @book.Stock left</span>
+            }
+            else
+            {
+                <span class="tag">In stock: @book.Stock</span>
+            }
+
+            <div class="book-actions">
+                <a class="btn btn-ghost" asp-action="Details" asp-route-id="@book.BookId">Details</a>
+                <a class="btn btn-brand" asp-controller="Cart" asp-action="Add" asp-route-bookId="@book.BookId">Add to Cart</a>
+                <a class="btn btn-ghost" asp-action="AddWishlist" asp-route-bookId="@book.BookId">Wishlist</a>
+            </div>
+        </article>
+    }
+</section>

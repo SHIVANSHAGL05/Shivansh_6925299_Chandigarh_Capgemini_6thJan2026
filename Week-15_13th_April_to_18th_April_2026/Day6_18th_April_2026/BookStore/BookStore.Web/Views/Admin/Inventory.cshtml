@@ -1,0 +1,157 @@
+@model InventoryPageViewModel
+@{
+    ViewData["Title"] = "Inventory";
+}
+
+<section class="checkout-layout reveal">
+    <article class="page-card">
+        <h1>Add Book to Inventory</h1>
+        <p>Admin can create books here. New books are stored in database through API, and images are uploaded directly.</p>
+
+        <form method="post" asp-action="AddBook" enctype="multipart/form-data" class="form-grid mt-3">
+            <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
+
+            <label asp-for="CreateBook.Title"></label>
+            <input asp-for="CreateBook.Title" />
+            <span asp-validation-for="CreateBook.Title"></span>
+
+            <label asp-for="CreateBook.Isbn"></label>
+            <input asp-for="CreateBook.Isbn" />
+            <span asp-validation-for="CreateBook.Isbn"></span>
+
+            <label asp-for="CreateBook.Author"></label>
+            <input asp-for="CreateBook.Author" />
+            <span asp-validation-for="CreateBook.Author"></span>
+
+            <label asp-for="CreateBook.Category"></label>
+            <input asp-for="CreateBook.Category" />
+            <span asp-validation-for="CreateBook.Category"></span>
+
+            <label asp-for="CreateBook.Publisher"></label>
+            <input asp-for="CreateBook.Publisher" />
+            <span asp-validation-for="CreateBook.Publisher"></span>
+
+            <label asp-for="CreateBook.ImageUrl"></label>
+            <input asp-for="CreateBook.ImageUrl" type="url" placeholder="https://.../book-cover.jpg" />
+            <span asp-validation-for="CreateBook.ImageUrl"></span>
+
+            <p class="field-hint">Preferred: upload an image file below so the cover displays consistently everywhere.</p>
+
+            <label asp-for="CreateBook.ImageFile"></label>
+            <input asp-for="CreateBook.ImageFile" type="file" accept="image/*" />
+            <span asp-validation-for="CreateBook.ImageFile"></span>
+
+            <label asp-for="CreateBook.Price"></label>
+            <input asp-for="CreateBook.Price" />
+            <span asp-validation-for="CreateBook.Price"></span>
+
+            <label asp-for="CreateBook.Stock"></label>
+            <input asp-for="CreateBook.Stock" />
+            <span asp-validation-for="CreateBook.Stock"></span>
+
+            <button type="submit" class="btn btn-brand">Add Book</button>
+        </form>
+    </article>
+
+    <aside class="summary-box">
+        <h3>Admin Notes</h3>
+        <ul>
+            <li>Use unique ISBN for each book.</li>
+            <li>Only admins can create new books.</li>
+            <li>Added books will appear to users in catalog.</li>
+        </ul>
+    </aside>
+</section>
+
+<section class="page-card reveal">
+    <h2>Current Inventory</h2>
+
+    @if (!Model.Items.Any())
+    {
+        <p>No books available yet. Add the first book using the form above.</p>
+    }
+    else
+    {
+        <div class="table-wrap mt-3">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                        <th>Category</th>
+                        <th>Publisher</th>
+                        <th>Stock</th>
+                        <th>Price</th>
+                        <th>Image URL</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.BookId</td>
+                            <td>
+                                <input form="update-book-@item.BookId" name="Title" value="@item.Title" />
+                            </td>
+                            <td>
+                                <input form="update-book-@item.BookId" name="Author" value="@item.Author" />
+                            </td>
+                            <td>
+                                <input form="update-book-@item.BookId" name="Isbn" value="@item.Isbn" />
+                            </td>
+                            <td>
+                                <input form="update-book-@item.BookId" name="Category" value="@item.Category" />
+                            </td>
+                            <td>
+                                <input form="update-book-@item.BookId" name="Publisher" value="@item.Publisher" />
+                            </td>
+                            <td>
+                                <input form="update-book-@item.BookId" name="Stock" type="number" min="0" value="@item.Stock" />
+                                @if (item.Stock <= 5)
+                                {
+                                    <span class="status-pill status-danger">@item.Stock</span>
+                                }
+                                else
+                                {
+                                    <span class="status-pill status-ok">@item.Stock</span>
+                                }
+                            </td>
+                            <td>
+                                <input form="update-book-@item.BookId" name="Price" type="number" step="0.01" min="0.01" value="@item.Price.ToString("0.00")" />
+                            </td>
+                            <td>
+                                <input form="update-book-@item.BookId" name="ImageUrl" type="url" value="@item.ImageUrl" />
+                                @if (!string.IsNullOrWhiteSpace(item.ImageUrl))
+                                {
+                                    <div class="inventory-preview">
+                                        <img src="@item.ImageUrl" alt="@item.Title cover preview" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" />
+                                        <span>Preview</span>
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <form id="update-book-@item.BookId" method="post" enctype="multipart/form-data" asp-action="UpdateBook" class="mt-2">
+                                    <input type="hidden" name="bookId" value="@item.BookId" />
+                                    <input type="file" name="ImageFile" accept="image/*" />
+                                    <button type="submit" class="btn btn-brand">Update</button>
+                                </form>
+
+                                <form method="post" asp-action="DeleteBook" class="mt-2" onsubmit="return confirm('Delete this book?');">
+                                    <input type="hidden" name="bookId" value="@item.BookId" />
+                                    <button type="submit" class="btn btn-ghost">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

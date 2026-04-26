@@ -1,0 +1,139 @@
+@model List<StudentManagementSystem.Models.Product>
+@{ ViewData["Title"] = "Products"; }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products — Student Management System</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 24px; color: #222; }
+
+        /* ── Navbar ── */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: #fff; border: 1px solid #ddd; border-radius: 6px;
+            padding: 12px 20px; margin-bottom: 22px;
+        }
+        .navbar .brand { font-size: 16px; font-weight: bold; color: #3366cc; }
+        .nav-links { display: flex; gap: 6px; align-items: center; }
+        .nav-link {
+            padding: 5px 12px; font-size: 13px; color: #555;
+            text-decoration: none; border-radius: 4px;
+        }
+        .nav-link:hover { background: #eef3ff; color: #3366cc; }
+        .nav-link.active { background: #3366cc; color: #fff; font-weight: bold; }
+        .nav-right { display: flex; align-items: center; gap: 12px; font-size: 13px; color: #555; }
+
+        /* ── Buttons ── */
+        .btn { padding: 7px 14px; font-size: 13px; font-weight: bold; border: none;
+               border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-danger   { background: #cc3333; color: #fff; }
+        .btn-warning  { background: #dd6600; color: #fff; }
+        .btn-danger:hover  { background: #aa2222; }
+        .btn-warning:hover { background: #bb5500; }
+
+        /* ── Page header ── */
+        .page-header { margin-bottom: 16px; }
+        .page-header h2 { font-size: 20px; color: #222; margin-bottom: 3px; }
+        .page-header p  { font-size: 13px; color: #888; }
+
+        /* ── Info box ── */
+        .info-box {
+            background: #fffbe6; border: 1px solid #ffe58f; border-radius: 4px;
+            padding: 10px 14px; font-size: 13px; color: #7a5700; margin-bottom: 16px;
+        }
+
+        /* ── Toolbar ── */
+        .toolbar { display: flex; gap: 10px; margin-bottom: 14px; }
+
+        /* ── Table ── */
+        .table-wrap { background: #fff; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        thead { background: #3366cc; color: #fff; }
+        thead th { padding: 10px 14px; text-align: left; font-size: 12px;
+                   text-transform: uppercase; letter-spacing: .04em; }
+        tbody tr:nth-child(even) { background: #f9f9f9; }
+        tbody tr:hover { background: #eef3ff; }
+        tbody td { padding: 10px 14px; border-bottom: 1px solid #eee; color: #333; }
+        tbody tr:last-child td { border-bottom: none; }
+
+        /* ── Stock badges ── */
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 10px;
+                 font-size: 12px; font-weight: bold; }
+        .badge-ok  { background: #e6f4ea; color: #2a6a2a; }
+        .badge-low { background: #fff4e5; color: #a05000; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <span class="brand">🎓 Student Management System</span>
+    <div class="nav-links">
+        <a href="@Url.Action("Index","Student")"  class="nav-link">Students</a>
+        <a href="@Url.Action("Index","Product")"  class="nav-link active">Products</a>
+    </div>
+    <div class="nav-right">
+        <span>👤 @ViewBag.Username</span>
+        <a href="@Url.Action("Logout","Account")" class="btn btn-danger">Logout</a>
+    </div>
+</div>
+
+<!-- Header -->
+<div class="page-header">
+    <h2>📦 Product Management</h2>
+    <p>@Model.Count products available. LogActionFilter is active — check console for logs.</p>
+</div>
+
+<!-- Filter info -->
+<div class="info-box">
+    ℹ️ <strong>LogActionFilter</strong> logged this action in the console.
+    Click the button below to trigger <strong>CustomExceptionFilter</strong>.
+</div>
+
+<!-- Toolbar -->
+<div class="toolbar">
+    <a href="@Url.Action("SimulateError","Product")" class="btn btn-warning">💥 Simulate Exception</a>
+</div>
+
+<!-- Product table -->
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price (₹)</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Id</td>
+                    <td>@p.Name</td>
+                    <td>@p.Category</td>
+                    <td>₹@p.Price.ToString("N2")</td>
+                    <td>
+                        @if (p.Stock > 20)
+                        {
+                            <span class="badge badge-ok">@p.Stock units</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-low">@p.Stock units (Low)</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

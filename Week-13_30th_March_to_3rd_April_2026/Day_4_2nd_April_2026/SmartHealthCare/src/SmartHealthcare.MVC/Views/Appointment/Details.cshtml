@@ -1,0 +1,216 @@
+@model SmartHealthcare.Models.DTOs.AppointmentDTO
+@{
+    ViewData["Title"] = "Appointment Details";
+    var prescription = ViewBag.Prescription as SmartHealthcare.Models.DTOs.PrescriptionDTO;
+    var bill = ViewBag.Bill as SmartHealthcare.Models.DTOs.BillDTO;
+}
+
+<div class="container mt-4">
+    <a href="@Url.Action("Index")" class="btn btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Back to Appointments</a>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <!-- Main Appointment Card -->
+            <div class="card mb-4" data-reveal>
+                <div class="card-header text-white p-4 border-0" style="background: linear-gradient(140deg, #0b2a43, #0e7a78);">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0"><i class="bi bi-calendar-check"></i> Appointment #@Model.Id</h3>
+                        <span class="status-pill @GetStatusClass(Model.Status)">@Model.Status</span>
+                    </div>
+                </div>
+
+                <div class="card-body p-4">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="mb-3"><i class="bi bi-person-circle"></i> Patient Information</h5>
+                            <div class="info-panel">
+                                <p class="mb-2">
+                                    <strong>Name:</strong><br />
+                                    <span class="ms-3">@Model.PatientName</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="mb-3"><i class="bi bi-hospital"></i> Doctor Information</h5>
+                            <div class="info-panel">
+                                <p class="mb-2">
+                                    <strong>Name:</strong><br />
+                                    <span class="ms-3">Dr. @Model.DoctorName</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="mb-3"><i class="bi bi-clock"></i> Appointment Details</h5>
+                            <div class="info-panel">
+                                <p class="mb-3">
+                                    <strong>Date &amp; Time:</strong><br />
+                                    <span class="ms-3">@Model.AppointmentDate.ToString("dddd, dd-MMMM-yyyy HH:mm")</span>
+                                </p>
+                                <p class="mb-0">
+                                    <strong>Created:</strong><br />
+                                    <span class="ms-3">@Model.CreatedAt.ToString("dd-MMM-yyyy HH:mm")</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="mb-3"><i class="bi bi-sticky"></i> Notes</h5>
+                            <div class="info-panel">
+                                @if (!string.IsNullOrEmpty(Model.Notes))
+                                {
+                                    <p class="mb-0">@Model.Notes</p>
+                                }
+                                else
+                                {
+                                    <p class="mb-0 text-muted">No additional notes</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Model.Status == "Booked" && ((ViewBag.Role as string) == "Doctor" || (ViewBag.Role as string) == "Admin"))
+                    {
+                        <div class="mt-4">
+                            <form asp-action="MarkCompleted" method="post" class="d-inline">
+                                <input type="hidden" name="appointmentId" value="@Model.Id" />
+                                <button type="submit" class="btn btn-success">
+                                    <i class="bi bi-check2-circle"></i> Mark Appointment Completed
+                                </button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Prescription Card (if available) -->
+            @if (prescription != null)
+            {
+                <div class="card" data-reveal>
+                    <div class="card-header text-white p-4 border-0" style="background: linear-gradient(140deg, #0e7a78, #0b2a43);">
+                        <h3 class="mb-0"><i class="bi bi-prescription"></i> Prescription</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="mb-4">
+                            <h5 class="mb-2"><strong>Diagnosis:</strong></h5>
+                            <p class="ms-3">@prescription.Diagnosis</p>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(prescription.Notes))
+                        {
+                            <div class="mb-4">
+                                <h5 class="mb-2"><strong>Medical Notes:</strong></h5>
+                                <p class="ms-3">@prescription.Notes</p>
+                            </div>
+                        }
+
+                        @if (prescription.Medicines?.Count > 0)
+                        {
+                            <div class="mb-0">
+                                <h5 class="mb-3"><strong><i class="bi bi-capsule"></i> Medicines</strong></h5>
+                                <div class="row g-3">
+                                    @foreach (var medicine in prescription.Medicines)
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="info-panel">
+                                                <h6 class="mb-2">@medicine.Name</h6>
+                                                <p class="mb-1"><strong>Dosage:</strong> @medicine.Dosage</p>
+                                                <p class="mb-1"><strong>Duration:</strong> @medicine.Duration</p>
+                                                @if (!string.IsNullOrEmpty(medicine.Instructions))
+                                                {
+                                                    <p class="mb-0"><strong>Instructions:</strong> @medicine.Instructions</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="section-shell text-center py-4" data-reveal>
+                    <p class="mb-0"><i class="bi bi-info-circle"></i> No prescription available for this appointment yet.</p>
+                </div>
+            }
+
+            @if (bill != null)
+            {
+                <div class="card mt-4" data-reveal>
+                    <div class="card-header text-white p-4 border-0" style="background: linear-gradient(140deg, #275f38, #3f8c55);">
+                        <h3 class="mb-0"><i class="bi bi-receipt"></i> Billing Summary</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p class="mb-1 text-muted">Consultation Fee</p>
+                                <h5>Rs. @bill.ConsultationFee</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="mb-1 text-muted">Medicine Charges</p>
+                                <h5>Rs. @bill.MedicineCharges</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="mb-1 text-muted">Total Amount</p>
+                                <h5 class="text-success">Rs. @bill.TotalAmount</h5>
+                            </div>
+                        </div>
+                        <hr />
+                        <p class="mb-2"><strong>Payment Status:</strong> @bill.PaymentStatus</p>
+                        @if (bill.PaidAt != null)
+                        {
+                            <p class="mb-2"><strong>Paid At:</strong> @bill.PaidAt.Value.ToLocalTime().ToString("dd-MMM-yyyy HH:mm")</p>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(bill.TransactionReference))
+                        {
+                            <p class="mb-2"><strong>Transaction Ref:</strong> @bill.TransactionReference</p>
+                        }
+
+                        @if (bill.PaymentStatus == "Unpaid" && (ViewBag.Role as string == "Patient" || ViewBag.Role as string == "Admin"))
+                        {
+                            <hr />
+                            <form asp-action="PayBill" method="post" class="row g-2 align-items-end">
+                                <input type="hidden" name="appointmentId" value="@Model.Id" />
+                                <input type="hidden" name="billId" value="@bill.Id" />
+                                <div class="col-md-8">
+                                    <label class="form-label">Transaction Reference (Optional)</label>
+                                    <input type="text" name="transactionReference" class="form-control" placeholder="UPI/Card/Bank reference" />
+                                </div>
+                                <div class="col-md-4 d-grid">
+                                    <button type="submit" class="btn btn-success"><i class="bi bi-credit-card"></i> Pay Now</button>
+                                </div>
+                            </form>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetStatusClass(string status)
+    {
+        return status?.ToLower() switch
+        {
+            "booked" => "status-pending",
+            "completed" => "status-completed",
+            "cancelled" => "status-cancelled",
+            _ => "status-default"
+        };
+    }
+}

@@ -1,0 +1,208 @@
+[
+  {
+    "name": "DailyReport",
+    "scriptFile": "BookStoreFunctions.dll",
+    "entryPoint": "BookStoreFunctions.DailyReport.Run",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "timer",
+        "direction": "In",
+        "type": "timerTrigger",
+        "schedule": "0 0 22 * * *",
+        "properties": {}
+      }
+    ]
+  },
+  {
+    "name": "GetBookStock",
+    "scriptFile": "BookStoreFunctions.dll",
+    "entryPoint": "BookStoreFunctions.GetBookStock.Run",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "req",
+        "direction": "In",
+        "type": "httpTrigger",
+        "authLevel": "Function",
+        "methods": [
+          "get"
+        ],
+        "properties": {}
+      },
+      {
+        "name": "$return",
+        "type": "http",
+        "direction": "Out"
+      }
+    ]
+  },
+  {
+    "name": "OrderOrchestrator",
+    "scriptFile": "BookStoreFunctions.dll",
+    "entryPoint": "BookStoreFunctions.OrderOrchestrator.RunOrchestrator",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "context",
+        "direction": "In",
+        "type": "orchestrationTrigger",
+        "properties": {}
+      }
+    ]
+  },
+  {
+    "name": "CheckStock",
+    "scriptFile": "BookStoreFunctions.dll",
+    "entryPoint": "BookStoreFunctions.OrderOrchestrator.CheckStock",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "orderId",
+        "direction": "In",
+        "type": "activityTrigger",
+        "dataType": "String",
+        "properties": {}
+      }
+    ]
+  },
+  {
+    "name": "ReserveInventory",
+    "scriptFile": "BookStoreFunctions.dll",
+    "entryPoint": "BookStoreFunctions.OrderOrchestrator.ReserveInventory",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "orderId",
+        "direction": "In",
+        "type": "activityTrigger",
+        "dataType": "String",
+        "properties": {}
+      }
+    ]
+  },
+  {
+    "name": "GenerateInvoice",
+    "scriptFile": "BookStoreFunctions.dll",
+    "entryPoint": "BookStoreFunctions.OrderOrchestrator.GenerateInvoice",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "orderId",
+        "direction": "In",
+        "type": "activityTrigger",
+        "dataType": "String",
+        "properties": {}
+      }
+    ]
+  },
+  {
+    "name": "SendEmail",
+    "scriptFile": "BookStoreFunctions.dll",
+    "entryPoint": "BookStoreFunctions.OrderOrchestrator.SendEmail",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "orderId",
+        "direction": "In",
+        "type": "activityTrigger",
+        "dataType": "String",
+        "properties": {}
+      }
+    ]
+  },
+  {
+    "name": "StartOrderWorkflow",
+    "scriptFile": "BookStoreFunctions.dll",
+    "entryPoint": "BookStoreFunctions.OrderOrchestrator.StartWorkflow",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "req",
+        "direction": "In",
+        "type": "httpTrigger",
+        "authLevel": "Function",
+        "methods": [
+          "post"
+        ],
+        "properties": {}
+      },
+      {
+        "name": "client",
+        "direction": "In",
+        "type": "durableClient",
+        "properties": {}
+      },
+      {
+        "name": "$return",
+        "type": "http",
+        "direction": "Out"
+      }
+    ]
+  },
+  {
+    "name": "ProcessInvoice",
+    "scriptFile": "BookStoreFunctions.dll",
+    "entryPoint": "BookStoreFunctions.ProcessInvoice.Run",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "file",
+        "direction": "In",
+        "type": "blobTrigger",
+        "path": "invoices/{name}",
+        "connection": "AzureWebJobsStorage",
+        "properties": {
+          "supportsDeferredBinding": "True"
+        }
+      }
+    ]
+  },
+  {
+    "name": "ProcessOrder",
+    "scriptFile": "BookStoreFunctions.dll",
+    "entryPoint": "BookStoreFunctions.ProcessOrder.Run",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "order",
+        "direction": "In",
+        "type": "queueTrigger",
+        "dataType": "String",
+        "queueName": "orders-queue",
+        "connection": "AzureWebJobsStorage",
+        "properties": {}
+      }
+    ]
+  }
+]

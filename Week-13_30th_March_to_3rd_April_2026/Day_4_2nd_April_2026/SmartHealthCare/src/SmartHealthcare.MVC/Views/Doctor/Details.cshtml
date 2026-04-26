@@ -1,0 +1,108 @@
+@model SmartHealthcare.Models.DTOs.DoctorDTO
+@{
+    ViewData["Title"] = "Doctor Profile";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <a href="@Url.Action("Index")" class="btn btn-outline-secondary mb-3"><i class="bi bi-arrow-left"></i> Back to Doctors</a>
+            
+            <div class="card" data-reveal>
+                <div class="card-header text-white p-4 border-0" style="background: linear-gradient(140deg, #0b2a43, #0e7a78);">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <h1 class="mb-1"><i class="bi bi-person-circle"></i> Dr. @Model.FullName</h1>
+                            <p class="mb-0 text-light">@string.Join(" | ", Model.Specializations ?? new List<string>())</p>
+                        </div>
+                        <span class="status-pill @(Model.IsAvailable ? "status-completed" : "status-cancelled")">
+                            @(Model.IsAvailable ? "Available" : "Unavailable")
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-body p-4">
+                    <!-- Contact Information -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="card-title mb-3"><i class="bi bi-info-circle-fill text-primary"></i> Contact Information</h5>
+                            <div class="info-panel">
+                                <p class="mb-3">
+                                    <strong><i class="bi bi-envelope"></i> Email:</strong><br />
+                                    <a href="mailto:@Model.Email">@Model.Email</a>
+                                </p>
+                                <p class="mb-3">
+                                    <strong><i class="bi bi-telephone"></i> Phone:</strong><br />
+                                    <a href="tel:@Model.Phone">@Model.Phone</a>
+                                </p>
+                                <p class="mb-3">
+                                    <strong><i class="bi bi-credit-card"></i> License Number:</strong><br />
+                                    <span class="badge bg-light text-dark">@Model.LicenseNumber</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5 class="card-title mb-3"><i class="bi bi-briefcase-fill text-success"></i> Professional Details</h5>
+                            <div class="info-panel">
+                                <p class="mb-3">
+                                    <strong><i class="bi bi-building"></i> Department:</strong><br />
+                                    <span class="badge bg-secondary">@Model.DepartmentName</span>
+                                </p>
+                                <p class="mb-3">
+                                    <strong><i class="bi bi-clock-history"></i> Years of Experience:</strong><br />
+                                    <span class="fs-5 text-success">@Model.YearsOfExperience years</span>
+                                </p>
+                                <p class="mb-3">
+                                    <strong><i class="bi bi-cash-coin"></i> Consultation Fee:</strong><br />
+                                    <span class="fs-5 text-danger">Rs. @Model.ConsultationFee</span>
+                                </p>
+                                <p class="mb-0">
+                                    <strong><i class="bi bi-calendar-week"></i> Availability:</strong><br />
+                                    <span class="ms-1">@Model.AvailabilitySchedule</span>
+                                </p>
+                                <p class="mb-0 mt-3">
+                                    <strong><i class="bi bi-hospital"></i> Specializations:</strong><br />
+                                    <div class="mt-2">
+                                        @foreach (var spec in (Model.Specializations ?? new List<string>()))
+                                        {
+                                            <span class="badge bg-info me-2 mb-2">@spec</span>
+                                        }
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <!-- About Section -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="card-title mb-3"><i class="bi bi-file-text-fill text-info"></i> About Dr. @Model.FullName</h5>
+                            <p class="text-muted">
+                                Dr. @Model.FullName is a highly qualified medical professional with @Model.YearsOfExperience years of experience 
+                                in @(Model.Specializations?.Count > 0 ? string.Join(", ", Model.Specializations) : "various medical fields"). 
+                                The doctor is dedicated to providing excellent patient care and maintaining the highest standards of medical practice.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-light p-4">
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        @if (Model.IsAvailable)
+                        {
+                            <a asp-controller="Appointment" asp-action="Create" class="btn btn-primary btn-lg">
+                                <i class="bi bi-calendar-check"></i> Book Appointment
+                            </a>
+                        }
+                        <a href="@Url.Action("Index")" class="btn btn-outline-secondary btn-lg">
+                            <i class="bi bi-arrow-left"></i> Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

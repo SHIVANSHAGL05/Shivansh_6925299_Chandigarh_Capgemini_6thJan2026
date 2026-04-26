@@ -1,0 +1,39 @@
+﻿@model IEnumerable<UniversityManagement.Models.Course>
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Courses</h2>
+    <a asp-action="Create" class="btn btn-primary">+ Add Course</a>
+</div>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Credits</th>
+            <th>Instructor</th>
+            <th>Department</th>
+            <th>Enrolled Students</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.Title</td>
+                <td>@course.Credits</td>
+                <td>@(course.Instructor?.Name ?? "Not Assigned")</td>
+                <td>@(course.Instructor?.Department?.Name ?? "-")</td>
+                <td>@course.Enrollments.Count()</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@course.CourseId" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@course.CourseId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@course.CourseId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

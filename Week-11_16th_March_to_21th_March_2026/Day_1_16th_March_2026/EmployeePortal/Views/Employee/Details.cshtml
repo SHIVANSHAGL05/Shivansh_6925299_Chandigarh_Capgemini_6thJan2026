@@ -1,0 +1,52 @@
+@model EmployeePortal.Models.Employee
+@{ ViewData["Title"] = "Employee Details"; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Employee Details — Portal</title>
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Arial,sans-serif;background:#f0f2f5;padding:24px;color:#222}
+        .card{background:#fff;border:1px solid #ddd;border-radius:6px;padding:28px;max-width:480px;margin:0 auto}
+        .card h2{font-size:18px;color:#222;margin-bottom:18px}
+        hr{border:none;border-top:1px solid #eee;margin-bottom:18px}
+        .alert-success{background:#f0fff4;border:1px solid #9ae6b4;color:#276749;padding:10px 12px;border-radius:4px;font-size:13px;margin-bottom:18px;font-weight:bold}
+        .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:14px}
+        .row:last-of-type{border-bottom:none}
+        .lbl{font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:.04em;color:#888}
+        .val{color:#222;font-weight:bold}
+        .id-badge{background:#1e3a5f;color:#fff;padding:2px 10px;border-radius:10px;font-size:13px}
+        .dept-badge{background:#e8f4fd;color:#1e3a5f;padding:2px 10px;border-radius:10px;font-size:13px;font-weight:bold}
+        .actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+        .btn{padding:8px 16px;font-size:13px;font-weight:bold;border-radius:4px;text-decoration:none;display:inline-block}
+        .btn-primary{background:#1e3a5f;color:#fff}
+        .btn-outline{background:#fff;color:#1e3a5f;border:1px solid #1e3a5f}
+        .btn-primary:hover{background:#16304f}
+        .btn-outline:hover{background:#e8f0fb}
+    </style>
+</head>
+<body>
+@Html.Partial("_Navbar")
+
+<div class="card">
+    <h2>👤 Employee Details</h2>
+
+    @if (TempData["SuccessMessage"] != null) {
+        <div class="alert-success">✅ @TempData["SuccessMessage"]</div>
+    }
+    <hr />
+
+    <div class="row"><span class="lbl">Employee ID</span><span class="id-badge">#@Model.Id</span></div>
+    <div class="row"><span class="lbl">Full Name</span><span class="val">@Model.Name</span></div>
+    <div class="row"><span class="lbl">Age</span><span class="val">@Model.Age years</span></div>
+    <div class="row"><span class="lbl">Email</span><span class="val">@Model.Email</span></div>
+    <div class="row"><span class="lbl">Department</span><span class="dept-badge">@Model.Department</span></div>
+    <div class="row"><span class="lbl">Joined On</span><span class="val">@Model.JoinedOn.ToString("dd MMM yyyy, HH:mm")</span></div>
+
+    <div class="actions">
+        <a href="@Url.Action("Register","Employee")" class="btn btn-primary">+ Register Another</a>
+        <a href="@Url.Action("Index","Employee")"    class="btn btn-outline">← All Employees</a>
+    </div>
+</div>
+</body></html>
